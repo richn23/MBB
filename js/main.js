@@ -11,7 +11,7 @@
     var vh = window.innerHeight || document.documentElement.clientHeight;
     items = items.filter(function (el) {
       var r = el.getBoundingClientRect();
-      if (r.top < vh * 0.9 && r.bottom > 0) {
+      if (r.top < vh * 1.0 && r.bottom > 0) {
         el.classList.add('in');
         return false;
       }
