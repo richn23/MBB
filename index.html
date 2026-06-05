@@ -103,9 +103,7 @@
         <!-- Left: text -->
         <div class="hero-text">
           <h1 class="display reveal">
-            Meaning<br/>
-            <em>gives</em><br/>
-            <em>direction.</em>
+            Meaning<br class="desktop-br"/><em>gives</em><br class="desktop-br"/><em>direction.</em>
           </h1>
           <p class="hero-sub reveal">
             Helping luxury and premium brands create meaningful growth through trust, connection, distinction, and customer experience.
@@ -163,7 +161,7 @@
         <p class="reveal">
           Meaning Beyond Brands was founded on a simple belief: sustainable growth is built through trust, relationships, and meaningful experiences.
         </p>
-        <p class="reveal">
+        <p class="reveal about-secondary">
           What began as a series of reflections on branding, luxury, and human connection has evolved into a boutique consultancy helping luxury and premium brands strengthen their positioning, customer experience, and audience engagement.
         </p>
         <p class="pull reveal">
@@ -227,6 +225,44 @@
       </div>
 
     </div>
+
+    <!-- Mobile compass: true visual metaphor with tap-to-expand -->
+    <div class="compass-touch" aria-label="Brand framework" role="group">
+      <div class="ct-layout">
+        <button class="ct-pt ct-n" aria-expanded="false"
+          data-text="The strongest brands create value beyond what they sell.">
+          <span class="ct-name">Meaning</span>
+          <span class="ct-dir">North</span>
+        </button>
+        <div class="ct-mid">
+          <button class="ct-pt ct-w" aria-expanded="false"
+            data-text="Purpose and profitability should grow together.">
+            <span class="ct-name">Growth</span>
+            <span class="ct-dir">West</span>
+          </button>
+          <div class="ct-star" aria-hidden="true">
+            <svg viewBox="0 0 200 200" width="68" height="68">
+              <polygon fill="rgba(168,133,74,.2)"  points="142.43,57.57 110,100 142.43,142.43 100,110 57.57,142.43 90,100 57.57,57.57 100,90"/>
+              <polygon fill="rgba(168,133,74,.32)" points="100,4 108.49,91.51 196,100 108.49,108.49 100,196 91.51,108.49 4,100 91.51,91.51"/>
+            </svg>
+          </div>
+          <button class="ct-pt ct-e" aria-expanded="false"
+            data-text="Relationships are built through consistency, credibility, and experience.">
+            <span class="ct-name">Trust</span>
+            <span class="ct-dir">East</span>
+          </button>
+        </div>
+        <button class="ct-pt ct-s" aria-expanded="false"
+          data-text="The most memorable brands embrace what makes them different.">
+          <span class="ct-name">Distinction</span>
+          <span class="ct-dir">South</span>
+        </button>
+      </div>
+      <div class="ct-expand" hidden aria-live="polite">
+        <p class="ct-expand-text"></p>
+      </div>
+    </div>
+
   </section>
 
   <!-- ============================================================
@@ -243,22 +279,22 @@
     <div class="wrow reveal">
       <div class="num">01</div>
       <h3 class="cg">We Assess</h3>
-      <p>We observe the brand, customer journey, and audience perception to uncover opportunities for growth. Through strategic audits and research, we help brands understand where they stand today and where they can go tomorrow.</p>
+      <p>We observe the brand, customer journey, and audience perception to uncover opportunities for growth.<span class="wrow-detail"> Through strategic audits and research, we help brands understand where they stand today and where they can go tomorrow.</span></p>
     </div>
     <div class="wrow reveal">
       <div class="num">02</div>
       <h3 class="cg">We Align</h3>
-      <p>We identify the gaps between a brand's intention and the customer's experience. By aligning positioning, messaging, and customer touchpoints, we help create consistency, clarity, and trust.</p>
+      <p>We identify the gaps between a brand's intention and the customer's experience.<span class="wrow-detail"> By aligning positioning, messaging, and customer touchpoints, we help create consistency, clarity, and trust.</span></p>
     </div>
     <div class="wrow reveal">
       <div class="num">03</div>
       <h3 class="cg">We Connect</h3>
-      <p>We create meaningful experiences that strengthen relationships. Through events, partnerships, community initiatives, and bespoke experiences, we help brands build deeper connections with the people who matter most.</p>
+      <p>We create meaningful experiences that strengthen relationships.<span class="wrow-detail"> Through events, partnerships, community initiatives, and bespoke experiences, we help brands build deeper connections with the people who matter most.</span></p>
     </div>
     <div class="wrow reveal">
       <div class="num">04</div>
       <h3 class="cg">We Tell Stories</h3>
-      <p>We transform strategy into narratives people remember. Through storytelling, messaging, and brand positioning, we help businesses communicate their purpose in a way that creates emotional connection and lasting impact.</p>
+      <p>We transform strategy into narratives people remember.<span class="wrow-detail"> Through storytelling, messaging, and brand positioning, we help businesses communicate their purpose in a way that creates emotional connection and lasting impact.</span></p>
     </div>
   </section>
 
@@ -266,6 +302,7 @@
        FOUNDER — moved early: trust is established before sectors/insights
        ============================================================ -->
   <section class="founder wrap" id="founder" aria-labelledby="founder-heading">
+    <span class="eyebrow founder-eyebrow-mobile" aria-hidden="true">Founder</span>
     <div class="founder-grid">
       <figure class="founder-pic reveal" aria-label="Ana Abad, Founder">
         <img src="assets/founder.jpeg" alt="Ana Abad — Founder of Meaning Beyond Brands" />
@@ -275,7 +312,7 @@
         <div class="founder-name cg reveal" id="founder-heading">Ana Abad</div>
         <div class="founder-role reveal">Founder &nbsp;·&nbsp; Branding &amp; Marketing Consultant</div>
         <p class="founder-bio reveal">
-          With more than a decade of international experience across business development, customer experience, luxury services, and strategic partnerships, Ana founded Meaning Beyond Brands to help organisations create value beyond the transaction. Her work sits at the intersection of brand strategy, storytelling, customer experience, and relationship-led growth.
+          With more than a decade of international experience, Ana founded Meaning Beyond Brands to help organisations create value beyond the transaction.<span class="founder-bio-long"> Her work sits at the intersection of brand strategy, storytelling, customer experience, and relationship-led growth.</span>
         </p>
         <blockquote class="founder-quote reveal">
           Because meaningful brands are not simply seen.<br/>

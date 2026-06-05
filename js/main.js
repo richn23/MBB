@@ -49,6 +49,29 @@
   }
 
 
+  /* --- Mobile compass: tap to expand ----------------------- */
+  var ctPts   = document.querySelectorAll('.ct-pt');
+  var ctPanel = document.querySelector('.ct-expand');
+  var ctText  = document.querySelector('.ct-expand-text');
+
+  if (ctPts.length && ctPanel) {
+    ctPts.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var alreadyOpen = this.getAttribute('aria-expanded') === 'true';
+        ctPts.forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+        if (alreadyOpen) {
+          ctPanel.hidden = true;
+          ctText.textContent = '';
+        } else {
+          this.setAttribute('aria-expanded', 'true');
+          ctText.textContent = this.dataset.text;
+          ctPanel.hidden = false;
+        }
+      });
+    });
+  }
+
+
   /* --- Contact form (basic client-side handler) ------------- */
   var form = document.getElementById('contact-form');
   if (form) {

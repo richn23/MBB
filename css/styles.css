@@ -1004,171 +1004,244 @@ header.nav-open .nav-mobile {
 }
 
 /* ============================================================
-   RESPONSIVE — TABLET  ≤ 960px
+   MOBILE COMPASS — hidden on desktop
+   ============================================================ */
+.compass-touch { display: none; }
+.founder-eyebrow-mobile { display: none; }
+
+/* ============================================================
+   RESPONSIVE — TABLET / MOBILE  ≤ 960px
    ============================================================ */
 @media (max-width: 960px) {
-  .wrap { padding: 0 28px; }
+  .wrap { padding: 0 24px; }
 
-  /* Nav */
-  .navrow { grid-template-columns: 1fr auto; padding: 18px 24px; gap: 16px; }
-  .nav-primary { display: none; }
-  .nav-cta { display: none; }
+  /* ── Nav ── */
+  .navrow { grid-template-columns: 1fr auto; padding: 16px 20px; gap: 12px; }
+  .nav-primary, .nav-cta { display: none; }
   .nav-toggle { display: flex; }
   .nav-mobile { display: flex; }
 
-  /* Hero — keep atmosphere, strip complexity */
+  /* ── Hero: one block, one message ── */
   .hero-sec { min-height: auto; }
-  .hero { padding: 52px 0 56px; }
+  .hero { padding: 48px 0 56px; }
   .hero-grid { grid-template-columns: 1fr; min-height: auto; }
   .hero-compass { display: none; }
   .hero-arc-r, .hero-arc-br { display: none; }
-  .hero-text { max-width: 100%; }
+  .hero-text { padding-left: 0; max-width: 100%; }
+  /* Collapse dramatic line-breaks into a single flowing sentence */
+  .desktop-br { display: none; }
+  h1.display {
+    font-size: clamp(30px, 7.5vw, 44px);
+    line-height: 1.2;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -.005em;
+  }
+  h1.display em { font-style: italic; }
+  .hero-sub { font-size: 17px; margin-top: 20px; max-width: none; line-height: 1.6; }
   .hero-pillars { display: none; }
-  /* CTA — retain text-link, hide scroll hint */
-  .hero-cta-wrap { margin-top: 36px; gap: 20px; }
+  .hero-cta-wrap { margin-top: 32px; gap: 0; }
   .hero-scroll-hint { display: none; }
-  /* Remove left offset on tablet so text is flush to content edge */
-  .hero-text { padding-left: 0; }
+  .hero-cta-btn { font-size: 11px; }
 
-  /* About */
-  .about { padding: 64px 0 56px; }
-  .about-grid { grid-template-columns: 1fr; gap: 28px; }
+  /* ── About: one paragraph + pull quote ── */
+  .about { padding: 56px 0 48px; }
+  .about-grid { grid-template-columns: 1fr; gap: 20px; }
   .about-echo { display: none; }
+  .about-secondary { display: none; } /* hide second paragraph on mobile */
 
-  /* Compass — 2×2 card grid, no stacking */
-  .values { padding: 16px 0 64px; }
-  .values-intro { margin-bottom: 48px; }
-  .compass-rose {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
+  /* ── Compass: true metaphor, tap to expand ── */
+  .values { padding: 12px 0 56px; }
+  .values-intro { margin-bottom: 40px; }
+  .values-intro p { font-size: 16px; }
+  .compass-rose { display: none; }   /* hide desktop compass */
+  .compass-touch { display: block; } /* show mobile compass */
+
+  /* Mobile compass layout */
+  .ct-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .ct-mid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+    margin: 6px 0;
+  }
+  .ct-star { flex-shrink: 0; padding: 12px; }
+  .ct-pt {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 16px 20px;
+    flex: 1;
+    transition: opacity .25s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ct-pt:active { opacity: .55; }
+  .ct-n, .ct-s { width: 100%; }
+  .ct-w { align-items: flex-end; text-align: right; }
+  .ct-e { align-items: flex-start; text-align: left; }
+  .ct-name {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    font-size: 24px;
+    letter-spacing: .01em;
+    color: var(--ink);
+    transition: color .3s;
+    line-height: 1;
+  }
+  .ct-dir {
+    font-family: "Jost", sans-serif;
+    font-size: 9px;
+    letter-spacing: .32em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    opacity: .55;
+    margin-top: 3px;
+  }
+  .ct-pt[aria-expanded="true"] .ct-name { color: var(--gold); }
+  /* Horizontal lines through the compass centre */
+  .ct-mid::before, .ct-mid::after {
+    content: "";
+    flex: 1;
+    height: 1px;
     background: var(--line);
-    border: 1px solid var(--line);
-    max-width: 100%;
+    opacity: .7;
   }
-  .compass-rose .cr-center { display: none; }
-  .compass-rose .pt {
-    background: var(--paper);
-    padding: 32px 24px;
-    text-align: left;
-    align-items: flex-start;
-    max-width: none;
+  .ct-expand {
+    margin-top: 20px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    width: 100%;
   }
-  /* Order: Meaning (N), Trust (E), Growth (W), Distinction (S) */
-  .compass-rose .n { order: 1; grid-column: auto; grid-row: auto; justify-self: auto; }
-  .compass-rose .e { order: 2; grid-column: auto; grid-row: auto; justify-self: auto; }
-  .compass-rose .w { order: 3; grid-column: auto; grid-row: auto; justify-self: auto; text-align: left; align-items: flex-start; }
-  .compass-rose .s { order: 4; grid-column: auto; grid-row: auto; justify-self: auto; text-align: left; align-items: flex-start; }
-  .compass-rose .pt .dir  { font-size: 9.5px; letter-spacing: .32em; opacity: .6; margin-bottom: 8px; }
-  .compass-rose .pt h3    { font-size: 26px; margin-bottom: 10px; line-height: 1.1; }
-  .compass-rose .pt p     { font-size: 15px; line-height: 1.6; }
-
-  /* How we work */
-  .work { padding: 60px 0; }
-  .wrow { grid-template-columns: 1fr; gap: 4px; padding: 28px 0; }
-  .wrow .num { font-size: 20px; }
-  .wrow p { font-size: 17px; }
-
-  /* Founder */
-  .founder { padding: 16px 0 72px; }
-  .founder-grid { grid-template-columns: 1fr; gap: 32px; }
-  .founder-pic { max-width: 340px; }
-  .founder-pic img { height: 420px; }
-  .founder-pic::after { right: 0; bottom: -12px; }
-  .founder-bio { max-width: none; }
-
-  /* Sectors */
-  .sectors { padding: 60px 0; }
-  .sectors-grid { grid-template-columns: 1fr; gap: 32px; }
-  .slist { grid-template-columns: 1fr 1fr; }
-
-  /* Insights */
-  .insights { padding: 60px 0; }
-  .ins-grid { grid-template-columns: 1fr; gap: 36px; }
-
-  /* Contact — channels first on mobile, form second */
-  .contact { padding: 64px 0 56px; }
-  .contact-provocation { padding-bottom: 36px; }
-  .contact-body {
-    grid-template-columns: 1fr;
-    gap: 44px;
+  .ct-expand-text {
+    font-family: "EB Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--taupe);
+    line-height: 1.65;
   }
+
+  /* ── How We Work: editorial, no process template ── */
+  .work { padding: 52px 0; }
+  .sec-head { flex-direction: column; gap: 8px; margin-bottom: 0; }
+  .sec-head h2 { font-size: clamp(26px, 6vw, 36px); }
+  .wrow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: none;
+  }
+  .wrow:last-child { border-bottom: 1px solid var(--line); }
+  .wrow .num { display: none; }  /* no process numbers */
+  .wrow h3 { font-size: 28px; }
+  .wrow p { font-size: 16px; line-height: 1.6; color: var(--taupe); }
+  .wrow-detail { display: none; } /* hide second sentence */
+
+  /* ── Founder: lead with the human ── */
+  .founder { padding: 12px 0 60px; }
+  .founder-eyebrow-mobile {
+    display: block;
+    margin-bottom: 20px;
+  }
+  .founder-grid { grid-template-columns: 1fr; gap: 0; }
+  .founder-pic { max-width: 100%; margin-bottom: 28px; }
+  .founder-pic img { height: 380px; object-position: center 15%; }
+  .founder-pic::after { display: none; } /* remove decorative border on mobile */
+  .founder-info .eyebrow { display: none; } /* shown via mobile eyebrow above */
+  .founder-name { font-size: clamp(32px, 8vw, 46px); }
+  .founder-role { margin-top: 10px; }
+  .founder-bio { margin-top: 18px; font-size: 17px; }
+  .founder-bio-long { display: none; }  /* shortened bio on mobile */
+  .founder-quote { margin-top: 24px; font-size: clamp(18px, 4.5vw, 24px); }
+
+  /* ── Sectors: heading + list only, no intro text ── */
+  .sectors { padding: 52px 0; }
+  .sectors-grid { grid-template-columns: 1fr; gap: 24px; }
+  .sectors-grid .intro p { display: none; } /* remove intro para */
+  .slist { grid-template-columns: 1fr 1fr; gap: 0 32px; }
+  .slist .s { font-size: 22px; padding: 10px 2px; border-bottom: 1px solid var(--line); }
+
+  /* ── Insights: heading + top 3 articles only ── */
+  .insights { padding: 52px 0; }
+  .ins-grid { grid-template-columns: 1fr; gap: 28px; }
+  .ins-intro p { display: none; }
+  .articles a.art:nth-child(n+4) { display: none; } /* hide articles 4 & 5 */
+
+  /* ── Contact ── */
+  .contact { padding: 56px 0 48px; }
+  .contact-provocation { padding-bottom: 28px; }
+  .contact-head p { font-size: 17px; }
+  .contact-body { grid-template-columns: 1fr; gap: 36px; }
   .contact-details {
     order: -1;
     border-left: none;
     padding-left: 0;
     border-top: 1px solid var(--line);
-    padding-top: 40px;
+    padding-top: 36px;
   }
   .contact-form { order: 1; }
 
-  /* Misc */
-  .sec-head { flex-direction: column; gap: 10px; }
-  .foot { flex-direction: column; text-align: center; gap: 16px; }
-  .foot .links { justify-content: center; flex-wrap: wrap; gap: 14px 22px; }
+  /* ── Remove decorative lines — use space ── */
+  hr.rule { display: none; } /* nav rule */
+
+  /* ── Footer ── */
+  .foot { flex-direction: column; text-align: center; gap: 14px; }
+  .foot .links { justify-content: center; flex-wrap: wrap; gap: 12px 20px; }
 }
 
 /* ============================================================
-   RESPONSIVE — MOBILE  ≤ 540px
+   RESPONSIVE — SMALL PHONE  ≤ 430px
    ============================================================ */
-@media (max-width: 540px) {
+@media (max-width: 430px) {
   .wrap { padding: 0 20px; }
 
   /* Nav */
-  .bm-name { font-size: 13px; letter-spacing: .2em; }
+  .bm-name { font-size: 12.5px; letter-spacing: .18em; }
   .bm-sub  { display: none; }
-  .bm-icon svg { width: 28px; height: 28px; }
+  .bm-icon svg { width: 26px; height: 26px; }
 
-  /* Hero — bare essentials only */
-  .hero { padding: 36px 0 52px; }
-  h1.display { font-size: clamp(42px, 11.5vw, 68px); }
-  .hero-sub { font-size: 17px; margin-top: 20px; max-width: none; }
-  .hero-palm { width: 320px; top: -30px; left: -30px; opacity: .22; }
-  /* CTA full-width on small screens */
-  .hero-cta-btn { width: 100%; justify-content: center; font-size: 11px; }
+  /* Hero */
+  .hero { padding: 36px 0 48px; }
+  h1.display { font-size: clamp(28px, 8vw, 38px); }
 
-  /* Compass — compact 2×2, tighter padding */
-  .values { padding: 8px 0 52px; }
-  .values-intro p { font-size: 17px; }
-  .compass-rose .pt { padding: 22px 16px; }
-  .compass-rose .pt h3 { font-size: 21px; }
-  .compass-rose .pt p  { font-size: 13.5px; }
+  /* Compass */
+  .ct-name { font-size: 20px; }
+  .ct-pt { padding: 13px 12px; }
 
   /* How we work */
-  .work { padding: 48px 0; }
-  .wrow { padding: 24px 0; }
+  .work { padding: 44px 0; }
+  .wrow h3 { font-size: 24px; }
 
   /* Founder */
-  .founder { padding: 8px 0 60px; }
-  .founder-pic { max-width: 100%; }
-  .founder-pic img { height: 360px; }
-  .founder-name { font-size: clamp(34px, 9vw, 48px); }
+  .founder-pic img { height: 300px; }
 
   /* Sectors */
-  .sectors { padding: 48px 0; }
   .slist { grid-template-columns: 1fr; }
-  .slist .s { font-size: 24px; padding: 12px 2px; }
-
-  /* Insights */
-  .insights { padding: 48px 0; }
+  .slist .s { font-size: 20px; }
 
   /* Contact */
-  .contact { padding: 52px 0 48px; }
-  .contact-head h2 { font-size: clamp(26px, 9vw, 44px); }
-  .contact-head p { font-size: 17px; }
-  .contact-body { gap: 36px; }
-
-  /* Form — 16px prevents iOS zoom */
+  .contact { padding: 44px 0 40px; }
+  .contact-head h2 { font-size: clamp(24px, 8.5vw, 36px); }
   .form-field input,
   .form-field textarea { font-size: 16px; padding: 12px 0 13px; }
   .form-submit { min-height: 44px; }
-
-  /* Social channels — generous tap targets */
-  .contact-channels { gap: 4px; }
   .contact-channels a { min-height: 44px; font-size: 13px; }
 
   /* Footer */
-  footer { padding: 36px 0 32px; }
-  .foot .bm { font-size: 14px; letter-spacing: .28em; }
-  .foot .tag { font-size: 17px; }
+  footer { padding: 32px 0 28px; }
+  .foot .bm { font-size: 13px; letter-spacing: .22em; }
+  .foot .tag { font-size: 16px; }
 }
