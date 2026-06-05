@@ -178,6 +178,53 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 }
 .nb-drawer a:hover { color: var(--ink); }
 
+/* Drawer brand — wordmark revealed when menu opens */
+.nb-drawer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--line);
+  width: 100%;
+  max-width: 380px;
+}
+.nb-drawer-emblem {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(168,133,74,.28);
+}
+.nb-drawer-name {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(15px, 3.5vw, 20px);
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.3;
+}
+.nb-drawer-sub-label {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .55;
+}
+
+/* Compass star layer — animated on scroll */
+.compass-star-layer {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform;
+  transition: transform 0.12s linear;
+}
+
 /* ============================================================
    SCREEN — base for all six screens
    ============================================================ */
@@ -785,9 +832,11 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 @media (max-width: 960px) {
   :root { --side: 24px; }
 
-  /* Nav */
+  /* Nav — emblem only, no text on mobile */
   .nav-bar { padding: 18px 20px; }
   .nb-invite { display: none; }
+  .nb-text { display: none; }          /* full name hidden in header bar */
+  .nb-emblem { width: 34px; height: 34px; }
   .nb-toggle { display: flex; }
   .nb-drawer { display: flex; }
 

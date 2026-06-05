@@ -52,6 +52,36 @@
   }
 
 
+  /* ── Compass: subtle rotation on scroll ─────────────── */
+  var starLayer      = document.querySelector('.compass-star-layer');
+  var compassSection = document.getElementById('compass');
+  var ticking        = false;
+
+  function updateCompassRotation () {
+    if (!starLayer || !compassSection) return;
+    var scrollY    = window.pageYOffset;
+    var secTop     = compassSection.offsetTop;
+    var secH       = compassSection.offsetHeight;
+    var viewH      = window.innerHeight;
+    // 0 → 1 as section scrolls through viewport
+    var progress   = (scrollY - secTop + viewH) / (secH + viewH);
+    progress       = Math.max(0, Math.min(1, progress));
+    // Max ±2.5° drift — almost imperceptible
+    var deg        = (progress - 0.5) * 5;
+    starLayer.style.transform = 'rotate(' + deg.toFixed(2) + 'deg)';
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      requestAnimationFrame(updateCompassRotation);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateCompassRotation();
+
+
   /* ── Interactive compass ──────────────────────────────── */
   var csPts    = document.querySelectorAll('.cs-pt');
   var csPanel  = document.querySelector('.cs-desc-panel');
