@@ -263,6 +263,29 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
   z-index: 0;
 }
 
+/* ── Compass mark: per-section watermark ─────────────────── */
+/* Placed in a different corner per section, very faint, different size */
+.screen-mark {
+  position: absolute;
+  pointer-events: none;
+  opacity: .042;
+  z-index: 0;
+}
+.screen-mark svg { display: block; }
+.sm-tr { top: -60px;  right: -60px;  width: 340px; height: 340px; }
+.sm-bl { bottom: -60px; left: -60px; width: 280px; height: 280px; }
+.sm-br { bottom: -40px; right: -40px; width: 260px; height: 260px; }
+
+/* ── Section separators — compass mark as visual divider ─── */
+.sep {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+  opacity: .35;
+}
+.sep svg { display: block; }
+
 /* ── Scroll cue ──────────────────────────────────────────── */
 .scroll-cue {
   position: absolute;
@@ -406,6 +429,55 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
   width: clamp(180px, 26vw, 340px);
   height: auto;
 }
+/* Compass directions are interactive buttons */
+.cs-pt {
+  background: none;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity .25s;
+  padding: 8px 12px;
+}
+.cs-pt:hover .cs-val,
+.cs-pt:focus-visible .cs-val { color: var(--gold); }
+.cs-pt[aria-expanded="true"] .cs-val { color: var(--gold); }
+.cs-pt[aria-expanded="true"] .cs-dir { opacity: .8; }
+
+/* Animated description panel */
+.cs-desc-panel {
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  text-align: center;
+  animation: descIn .45s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes descIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.cs-desc-text {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(17px, 1.7vw, 22px);
+  color: var(--taupe);
+  line-height: 1.65;
+  max-width: 46ch;
+  margin: 0 auto;
+}
+.compass-hint {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 9.5px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .4;
+  margin-top: 20px;
+  text-align: center;
+  transition: opacity .6s;
+}
+.compass-hint.faded { opacity: 0; }
+
 .compass-note {
   font-family: "Cormorant Garamond", serif;
   font-style: italic;
@@ -533,42 +605,47 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
   text-transform: uppercase;
   color: var(--taupe);
   opacity: .55;
-  margin-bottom: 52px;
-}
-
-/* Channels */
-.inv-channels {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
   margin-bottom: 48px;
 }
-.inv-ch {
+
+/* Primary: single WhatsApp CTA */
+.inv-primary { margin-bottom: 40px; }
+.inv-whatsapp-btn {
   display: inline-flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(17px, 1.7vw, 22px);
+  font-size: clamp(20px, 2.2vw, 28px);
+  color: var(--ink);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gold);
+  transition: color .3s, gap .35s;
+}
+.inv-whatsapp-btn:hover { color: var(--gold); gap: 20px; }
+.inv-whatsapp-btn svg { flex-shrink: 0; color: var(--gold); }
+
+/* Secondary: email */
+.inv-secondary { margin-bottom: 36px; }
+.inv-secondary-label {
+  font-family: "Jost", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
   color: var(--taupe);
-  padding: 10px 0;
+  opacity: .55;
+  margin-bottom: 10px;
+}
+.inv-email {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--taupe);
   border-bottom: 1px solid transparent;
+  padding-bottom: 3px;
   transition: color .3s, border-color .3s;
 }
-.inv-ch:hover { color: var(--ink); border-color: var(--line); }
-.inv-ch-icon {
-  width: 18px; height: 18px;
-  color: var(--gold);
-  flex-shrink: 0;
-}
-.inv-ch-primary {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(18px, 1.8vw, 24px);
-  color: var(--ink);
-  margin-bottom: 4px;
-}
-.inv-social { font-size: clamp(15px, 1.5vw, 18px); }
+.inv-email:hover { color: var(--ink); border-color: var(--line); }
 
-/* Form — secondary, revealed on request */
+/* Form — tertiary, revealed on request */
 .inv-form-toggle {
   background: none;
   border: none;
@@ -668,6 +745,19 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
   font-size: 18px;
   color: var(--taupe);
 }
+.sf-social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .55;
+}
+.sf-social a { transition: opacity .3s; }
+.sf-social a:hover { opacity: 1; color: var(--gold); }
 .sf-copy {
   font-family: "Jost", sans-serif;
   font-size: 9.5px;

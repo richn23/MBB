@@ -52,6 +52,37 @@
   }
 
 
+  /* ── Interactive compass ──────────────────────────────── */
+  var csPts    = document.querySelectorAll('.cs-pt');
+  var csPanel  = document.querySelector('.cs-desc-panel');
+  var csText   = document.querySelector('.cs-desc-text');
+  var csHint   = document.querySelector('.compass-hint');
+
+  if (csPts.length && csPanel) {
+    csPts.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var alreadyOpen = this.getAttribute('aria-expanded') === 'true';
+        // Reset all
+        csPts.forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+        if (alreadyOpen) {
+          csPanel.hidden = true;
+          csText.textContent = '';
+        } else {
+          this.setAttribute('aria-expanded', 'true');
+          csText.textContent = this.dataset.description;
+          // Re-trigger animation
+          csPanel.hidden = false;
+          csPanel.style.animation = 'none';
+          csPanel.offsetHeight; // reflow
+          csPanel.style.animation = '';
+        }
+        // Fade out the hint after first interaction
+        if (csHint) csHint.classList.add('faded');
+      });
+    });
+  }
+
+
   /* ── Invitation: form reveal toggle ───────────────────── */
   var formToggle = document.querySelector('.inv-form-toggle');
   var invForm    = document.getElementById('contact-form');

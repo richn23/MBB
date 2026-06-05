@@ -68,6 +68,8 @@
 ═══════════════════════════════════ -->
 <section class="screen s-identity" id="identity" aria-label="Identity">
 
+  <div class="screen-mark sm-tr" aria-hidden="true"><svg viewBox="0 0 200 200"><use href="#mark"/></svg></div>
+
   <!-- Atmospheric layers -->
   <img class="atm-palm" src="assets/atmos-palm.png" alt="" aria-hidden="true" />
   <span class="atm-arc atm-arc-r"  aria-hidden="true"></span>
@@ -93,8 +95,11 @@
      What we believe. Simply stated.
      Information begins here — not before.
 ═══════════════════════════════════ -->
+<div class="sep" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 200 200"><use href="#mark"/></svg></div>
+
 <section class="screen s-belief" id="belief" aria-labelledby="belief-stmt">
 
+  <div class="screen-mark sm-bl" aria-hidden="true"><svg viewBox="0 0 200 200"><use href="#mark"/></svg></div>
   <img class="atm-arc-img atm-arc-img-l" src="assets/atmos-arc-left.png" alt="" aria-hidden="true" />
 
   <div class="s-body">
@@ -121,6 +126,8 @@
      The organising metaphor. The centrepiece.
      Navigation. Direction. Discovery.
 ═══════════════════════════════════ -->
+<div class="sep" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 200 200"><use href="#mark"/></svg></div>
+
 <section class="screen s-compass" id="compass" aria-labelledby="compass-lbl">
 
   <div class="s-body">
@@ -128,52 +135,56 @@
 
     <div class="compass-stage">
 
-      <div class="cs-north reveal">
+      <!-- Tap / click any direction to reveal its meaning -->
+      <button class="cs-pt cs-north reveal" aria-expanded="false"
+        data-description="The strongest brands create value beyond what they sell. Meaning is the foundation — the purpose that outlasts any campaign.">
         <span class="cs-val">Meaning</span>
         <span class="cs-dir">North</span>
-      </div>
+      </button>
 
       <div class="cs-row">
-        <div class="cs-west reveal">
+        <button class="cs-pt cs-west reveal" aria-expanded="false"
+          data-description="Purpose and profitability should grow together. Growth that is sustainable comes from relationships, not reach.">
           <span class="cs-val">Growth</span>
           <span class="cs-dir">West</span>
-        </div>
+        </button>
 
         <div class="cs-instrument reveal" aria-hidden="true">
           <svg class="compass-svg" viewBox="0 0 360 360">
-            <!-- Navigation instrument rings -->
             <circle cx="180" cy="180" r="172" fill="none" stroke="#A8854A" stroke-width="0.5" opacity=".18"/>
             <circle cx="180" cy="180" r="156" fill="none" stroke="#A8854A" stroke-width="1"   opacity=".22"/>
-            <circle cx="180" cy="180" r="140" fill="none" stroke="#A8854A" stroke-width="0.5" stroke-dasharray="2 9"  opacity=".18"/>
+            <circle cx="180" cy="180" r="140" fill="none" stroke="#A8854A" stroke-width="0.5" stroke-dasharray="2 9" opacity=".18"/>
             <circle cx="180" cy="180" r="108" fill="none" stroke="#A8854A" stroke-width="0.5" opacity=".14"/>
             <circle cx="180" cy="180" r="68"  fill="none" stroke="#A8854A" stroke-width="0.5" opacity=".12"/>
-            <!-- Cardinal cross -->
             <line x1="180" y1="8"   x2="180" y2="352" stroke="#A8854A" stroke-width="0.4" opacity=".14"/>
             <line x1="8"   y1="180" x2="352" y2="180" stroke="#A8854A" stroke-width="0.4" opacity=".14"/>
-            <!-- Diagonal lines -->
             <line x1="53"  y1="53"  x2="307" y2="307" stroke="#A8854A" stroke-width="0.3" opacity=".08"/>
             <line x1="307" y1="53"  x2="53"  y2="307" stroke="#A8854A" stroke-width="0.3" opacity=".08"/>
-            <!-- Compass rose star -->
             <use href="#mark" x="36" y="36" width="288" height="288" opacity=".65"/>
           </svg>
         </div>
 
-        <div class="cs-east reveal">
+        <button class="cs-pt cs-east reveal" aria-expanded="false"
+          data-description="Relationships are built through consistency, credibility, and experience. Trust is earned in every interaction.">
           <span class="cs-val">Trust</span>
           <span class="cs-dir">East</span>
-        </div>
+        </button>
       </div>
 
-      <div class="cs-south reveal">
+      <button class="cs-pt cs-south reveal" aria-expanded="false"
+        data-description="The most memorable brands embrace what makes them different. Distinction is not a style — it is a position.">
         <span class="cs-val">Distinction</span>
         <span class="cs-dir">South</span>
-      </div>
+      </button>
 
     </div>
 
-    <p class="compass-note reveal">
-      <em>Like a compass guiding a journey, our values provide direction while our work creates momentum.</em>
-    </p>
+    <!-- Description panel: animates in on tap / click -->
+    <div class="cs-desc-panel" hidden aria-live="polite">
+      <p class="cs-desc-text"></p>
+    </div>
+
+    <p class="compass-hint reveal" aria-hidden="true">Tap a direction to explore</p>
 
   </div>
 </section>
@@ -183,7 +194,10 @@
      SCREEN 4 — METHOD
      Four movements. Editorial, not process.
 ═══════════════════════════════════ -->
+<div class="sep" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 200 200"><use href="#mark"/></svg></div>
+
 <section class="screen s-method" id="method" aria-labelledby="method-lbl">
+  <div class="screen-mark sm-tr" aria-hidden="true"><svg viewBox="0 0 200 200"><use href="#mark"/></svg></div>
 
   <div class="s-body">
     <p class="s-overline reveal" id="method-lbl">How We Work</p>
@@ -220,7 +234,10 @@
      Ana as the author of the experience.
      Not an employee profile.
 ═══════════════════════════════════ -->
+<div class="sep" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 200 200"><use href="#mark"/></svg></div>
+
 <section class="screen s-founder" id="founder" aria-labelledby="founder-name">
+  <div class="screen-mark sm-br" aria-hidden="true"><svg viewBox="0 0 200 200"><use href="#mark"/></svg></div>
 
   <div class="s-body s-founder-body">
 
@@ -253,6 +270,8 @@
      An invitation. Not a form.
      The ending of the experience.
 ═══════════════════════════════════ -->
+<div class="sep" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 200 200"><use href="#mark"/></svg></div>
+
 <section class="screen s-invitation" id="invitation" aria-labelledby="inv-heading">
 
   <div class="atm-compass-wm" aria-hidden="true">
@@ -264,41 +283,33 @@
     <div class="inv-head">
       <p class="s-overline reveal">Connect</p>
       <h2 class="inv-title reveal" id="inv-heading">
-        Let's begin<br /><em> a conversation.</em>
+        Where would you<br /><em> like to go next?</em>
       </h2>
       <p class="inv-location reveal">Dubai, UAE</p>
     </div>
 
-    <!-- Primary channels: action first, form last -->
-    <div class="inv-channels reveal">
-      <a class="inv-ch inv-ch-primary inv-whatsapp" href="#"
-         aria-label="Reach out on WhatsApp">
-        <svg class="inv-ch-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <!-- Primary: one clear action -->
+    <div class="inv-primary reveal">
+      <a class="inv-whatsapp-btn" href="#" aria-label="Reach out on WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.42A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 01-4.076-1.117l-.292-.174-3.016.86.875-2.94-.19-.302A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.406-5.844c-.242-.121-1.432-.707-1.654-.788-.222-.08-.384-.12-.545.121-.162.242-.626.788-.768.95-.141.162-.283.182-.525.06-.242-.12-1.022-.377-1.946-1.2-.72-.641-1.206-1.433-1.347-1.675-.141-.242-.015-.373.106-.493.109-.108.242-.283.363-.424.121-.141.161-.242.242-.404.08-.161.04-.303-.02-.424-.061-.12-.546-1.315-.748-1.8-.197-.473-.397-.409-.546-.416l-.465-.008c-.161 0-.424.06-.646.303-.222.242-.848.829-.848 2.022s.868 2.346.989 2.508c.12.161 1.708 2.608 4.138 3.657.579.25 1.03.399 1.381.511.58.185 1.108.159 1.525.097.465-.07 1.432-.585 1.634-1.15.201-.566.201-1.05.14-1.15-.06-.1-.222-.161-.464-.283z"/>
         </svg>
         Reach out on WhatsApp
       </a>
-      <a class="inv-ch" href="mailto:hello@meaningbeyondbrands.com">
+    </div>
+
+    <!-- Secondary: email -->
+    <div class="inv-secondary reveal">
+      <p class="inv-secondary-label">Prefer email?</p>
+      <a class="inv-email" href="mailto:hello@meaningbeyondbrands.com">
         hello@meaningbeyondbrands.com
-      </a>
-      <a class="inv-ch inv-social" href="https://www.linkedin.com/company/meaning-beyond-brands/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)">
-        <svg class="inv-ch-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zM9 17H6.5v-7H9v7zm-1.25-8.15a1.45 1.45 0 110-2.9 1.45 1.45 0 010 2.9zM18 17h-2.5v-3.5c0-1-.375-1.5-1.125-1.5-.875 0-1.375.625-1.375 1.5V17H10.5v-7H13v.938C13.5 10.25 14.25 10 15.25 10c1.625 0 2.75 1 2.75 3.25V17z"/>
-        </svg>
-        LinkedIn
-      </a>
-      <a class="inv-ch inv-social" href="https://www.instagram.com/meaningbeyondbrands?igsh=MWs0cXdvdGk5dm9yaQ==" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in new tab)">
-        <svg class="inv-ch-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-        </svg>
-        Instagram
       </a>
     </div>
 
-    <!-- Form: secondary, revealed on request — invitation, not funnel -->
+    <!-- Tertiary: written message -->
     <div class="inv-form-section reveal">
       <button class="inv-form-toggle" aria-expanded="false">
-        Or send a message →
+        Prefer to write? Send a message →
       </button>
       <form class="inv-form" id="contact-form" hidden novalidate>
         <div class="ff">
@@ -328,6 +339,11 @@
   <div class="sf-inner wrap">
     <span class="sf-brand">Meaning Beyond Brands</span>
     <span class="sf-tag"><em>Meaning gives direction.</em></span>
+    <div class="sf-social">
+      <a href="https://www.linkedin.com/company/meaning-beyond-brands/posts/?feedView=all" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">LinkedIn</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://www.instagram.com/meaningbeyondbrands?igsh=MWs0cXdvdGk5dm9yaQ==" target="_blank" rel="noopener noreferrer" aria-label="Instagram">Instagram</a>
+    </div>
     <span class="sf-copy">&copy; 2026</span>
   </div>
 </footer>
