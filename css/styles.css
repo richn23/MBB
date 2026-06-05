@@ -34,18 +34,22 @@ a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; height: auto; }
 ::selection { background: var(--gold); color: var(--paper); }
 
-/* ── Paper grain + soft top light (fixed, behind all content) ── */
+/* ── Paper grain — tactile, like premium letterpress paper ──── */
+/* Layer 1: fine fibrous grain (high frequency) */
 body::before {
   content: "";
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  opacity: .038; mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px 160px;
+  opacity: .07; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
 }
+/* Layer 2: very soft natural light from top — like paper on a desk */
 body::after {
   content: "";
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background: radial-gradient(130% 70% at 50% -8%, rgba(255,255,250,.52), transparent 54%);
+  background:
+    radial-gradient(160% 60% at 50% -5%, rgba(255,252,244,.48), transparent 52%),
+    radial-gradient(80% 40% at 100% 0%, rgba(240,225,195,.12), transparent 55%);
 }
 header, main, footer { position: relative; z-index: 1; }
 
@@ -249,6 +253,7 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
   color: var(--gold);
   display: block;
   margin-bottom: 30px;
+  padding-top: 22px; /* room for the engraved rule above */
 }
 /* Eyebrow for identity screen (location) */
 .s-eyebrow {
@@ -266,72 +271,103 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 /* ============================================================
    ATMOSPHERICS — shared atmospheric elements
    ============================================================ */
-.atm-palm {
+/* ============================================================
+   STATIONERY DESIGN SYSTEM
+   Every element derives from the brand identity itself.
+   Letterhead · Engraved rules · Compass seals · Fine borders
+   ============================================================ */
+
+/* ── Letterhead seal: compass mark as company crest ───────── */
+/* Identity screen — top-right corner, like a letterhead mark */
+.lh-seal {
   position: absolute;
-  top: -60px; left: -70px;
-  width: 580px; height: auto;
-  opacity: .34;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-  z-index: 0;
-  -webkit-mask-image: radial-gradient(ellipse 62% 62% at 20% 24%, black 25%, transparent 76%);
-  mask-image:         radial-gradient(ellipse 62% 62% at 20% 24%, black 25%, transparent 76%);
-}
-.atm-arc {
-  position: absolute;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  opacity: .2;
+  top: 108px;
+  right: var(--side);
+  width: 72px; height: 72px;
+  opacity: .16;
   pointer-events: none;
   z-index: 0;
 }
-.atm-arc-r  { width: 500px; height: 500px; top: -90px; right: -250px; }
-.atm-arc-br { width: 320px; height: 320px; bottom: -120px; right: 80px; }
-.atm-arc-img {
+.lh-seal svg { display: block; width: 100%; height: 100%; }
+
+/* ── Letterhead corner rules — fine L-shaped detail ───────── */
+/* Like the embossed corners of premium stationery */
+.lh-corner {
   position: absolute;
-  opacity: .2;
-  mix-blend-mode: multiply;
+  width: 28px; height: 28px;
   pointer-events: none;
   z-index: 0;
-  height: auto;
 }
-.atm-arc-img-l {
-  left: -100px; bottom: -40px;
-  width: 340px;
-  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 30% 72%, black 25%, transparent 78%);
-  mask-image:         radial-gradient(ellipse 70% 70% at 30% 72%, black 25%, transparent 78%);
+.lh-corner-tl {
+  top: 108px;  left: var(--side);
+  border-top:  1px solid rgba(168,133,74,.28);
+  border-left: 1px solid rgba(168,133,74,.28);
 }
-.atm-compass-wm {
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  opacity: .04;
-  pointer-events: none;
-  z-index: 0;
+.lh-corner-tr {
+  top: 108px;  right: var(--side);
+  border-top:   1px solid rgba(168,133,74,.28);
+  border-right: 1px solid rgba(168,133,74,.28);
 }
 
-/* ── Compass mark: per-section watermark ─────────────────── */
-/* Placed in a different corner per section, very faint, different size */
-.screen-mark {
-  position: absolute;
-  pointer-events: none;
-  opacity: .042;
-  z-index: 0;
-}
-.screen-mark svg { display: block; }
-.sm-tr { top: -60px;  right: -60px;  width: 340px; height: 340px; }
-.sm-bl { bottom: -60px; left: -60px; width: 280px; height: 280px; }
-.sm-br { bottom: -40px; right: -40px; width: 260px; height: 260px; }
-
-/* ── Section separators — compass mark as visual divider ─── */
+/* ── Section ornament divider ─────────────────────────────── */
+/* Fine ruled line with compass mark — letterpress ornament rule */
 .sep {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 16px 0;
+  gap: 18px;
+  padding: 26px var(--side);
+}
+.sep::before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(168,133,74,.22));
+}
+.sep::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, rgba(168,133,74,.22));
+}
+.sep svg { display: block; opacity: .38; flex-shrink: 0; }
+
+/* ── Section overline rule — engraved letterhead detail ────── */
+/* Short rule above eyebrow label, like letterhead section marks */
+.s-overline {
+  position: relative;
+}
+.s-overline::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 40px; height: 1px;
+  background: var(--gold);
   opacity: .35;
 }
-.sep svg { display: block; }
+
+/* ── Invitation: fine ruled card border ───────────────────── */
+/* Like a premium invitation card with a single inset border */
+.inv-frame {
+  position: absolute;
+  inset: 88px 48px 48px 48px;
+  border: 1px solid rgba(168,133,74,.13);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Invitation: compass closing seal ─────────────────────── */
+/* Like a wax seal or embossed mark at the close of a letter */
+.inv-seal {
+  position: absolute;
+  bottom: 56px;
+  right: 64px;
+  width: 60px; height: 60px;
+  opacity: .15;
+  pointer-events: none;
+  z-index: 0;
+}
+.inv-seal svg { display: block; width: 100%; height: 100%; }
 
 /* ── Scroll cue ──────────────────────────────────────────── */
 .scroll-cue {
@@ -842,6 +878,13 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 
   /* All screens */
   .screen { padding: 100px 24px 72px; min-height: 100svh; }
+
+  /* Stationery elements: simplify on small screens */
+  .lh-seal { width: 48px; height: 48px; top: 80px; opacity: .12; }
+  .lh-corner { width: 18px; height: 18px; top: 80px; }
+  .inv-frame { inset: 80px 24px 40px 24px; }
+  .inv-seal { width: 44px; height: 44px; bottom: 44px; right: 32px; }
+  .sep { padding: 20px 24px; }
 
   /* Identity */
   .identity-headline br { display: none; }
