@@ -1,17 +1,17 @@
 (function () {
 
-  /* --- Scroll reveal ---------------------------------------- */
+  /* ── Scroll reveal ─────────────────────────────────────── */
   var items = [].slice.call(document.querySelectorAll('.reveal'));
 
   items.forEach(function (el, i) {
-    el.style.transitionDelay = (Math.min(i % 4, 3) * 70) + 'ms';
+    el.style.transitionDelay = (Math.min(i % 4, 3) * 90) + 'ms';
   });
 
-  function reveal() {
+  function reveal () {
     var vh = window.innerHeight || document.documentElement.clientHeight;
     items = items.filter(function (el) {
       var r = el.getBoundingClientRect();
-      if (r.top < vh * 1.0 && r.bottom > 0) {
+      if (r.top < vh && r.bottom > 0) {
         el.classList.add('in');
         return false;
       }
@@ -22,69 +22,62 @@
   reveal();
   window.addEventListener('scroll', reveal, { passive: true });
   window.addEventListener('resize', reveal);
-  window.addEventListener('load', reveal);
+  window.addEventListener('load',   reveal);
   setTimeout(reveal, 200);
 
 
-  /* --- Mobile menu toggle ----------------------------------- */
-  var toggle  = document.querySelector('.nav-toggle');
-  var header  = document.querySelector('header');
-  var mobileLinks = document.querySelectorAll('.nav-mobile a');
+  /* ── Mobile menu ───────────────────────────────────────── */
+  var toggle = document.querySelector('.nb-toggle');
+  var header = document.querySelector('header.nav-bar');
+  var drawer = document.querySelector('.nb-drawer');
 
-  if (toggle) {
+  if (toggle && header && drawer) {
     toggle.addEventListener('click', function () {
-      var open = header.classList.toggle('nav-open');
+      var open = header.classList.toggle('open');
       toggle.setAttribute('aria-expanded', open);
-      document.querySelector('.nav-mobile').setAttribute('aria-hidden', !open);
+      drawer.setAttribute('aria-hidden', !open);
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = open ? 'hidden' : '';
     });
 
-    // Close menu when any mobile link is tapped
-    mobileLinks.forEach(function (link) {
-      link.addEventListener('click', function () {
-        header.classList.remove('nav-open');
+    // Close on any drawer link tap
+    [].slice.call(drawer.querySelectorAll('a')).forEach(function (a) {
+      a.addEventListener('click', function () {
+        header.classList.remove('open');
         toggle.setAttribute('aria-expanded', 'false');
-        document.querySelector('.nav-mobile').setAttribute('aria-hidden', 'true');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
       });
     });
   }
 
 
-  /* --- Mobile compass: tap to expand ----------------------- */
-  var ctPts   = document.querySelectorAll('.ct-pt');
-  var ctPanel = document.querySelector('.ct-expand');
-  var ctText  = document.querySelector('.ct-expand-text');
+  /* ── Invitation: form reveal toggle ───────────────────── */
+  var formToggle = document.querySelector('.inv-form-toggle');
+  var invForm    = document.getElementById('contact-form');
 
-  if (ctPts.length && ctPanel) {
-    ctPts.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var alreadyOpen = this.getAttribute('aria-expanded') === 'true';
-        ctPts.forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
-        if (alreadyOpen) {
-          ctPanel.hidden = true;
-          ctText.textContent = '';
-        } else {
-          this.setAttribute('aria-expanded', 'true');
-          ctText.textContent = this.dataset.text;
-          ctPanel.hidden = false;
-        }
-      });
+  if (formToggle && invForm) {
+    formToggle.addEventListener('click', function () {
+      var opening = invForm.hidden;
+      invForm.hidden = !opening;
+      formToggle.setAttribute('aria-expanded', opening);
+      formToggle.textContent = opening ? 'Close ×' : 'Or send a message →';
     });
   }
 
 
-  /* --- Contact form (basic client-side handler) ------------- */
-  var form = document.getElementById('contact-form');
-  if (form) {
-    form.addEventListener('submit', function (e) {
+  /* ── Contact form submit ───────────────────────────────── */
+  if (invForm) {
+    invForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      var btn = form.querySelector('.form-submit');
-      var original = btn.textContent;
-      btn.textContent = 'Message sent →';
-      btn.disabled = true;
+      var btn  = invForm.querySelector('.inv-submit');
+      var orig = btn.textContent;
+      btn.textContent = 'Sent ✓';
+      btn.disabled    = true;
       setTimeout(function () {
-        btn.textContent = original;
-        btn.disabled = false;
-        form.reset();
+        btn.textContent = orig;
+        btn.disabled    = false;
+        invForm.reset();
       }, 3500);
     });
   }
