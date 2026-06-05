@@ -26,6 +26,29 @@
   setTimeout(reveal, 200);
 
 
+  /* --- Mobile menu toggle ----------------------------------- */
+  var toggle  = document.querySelector('.nav-toggle');
+  var header  = document.querySelector('header');
+  var mobileLinks = document.querySelectorAll('.nav-mobile a');
+
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var open = header.classList.toggle('nav-open');
+      toggle.setAttribute('aria-expanded', open);
+      document.querySelector('.nav-mobile').setAttribute('aria-hidden', !open);
+    });
+
+    // Close menu when any mobile link is tapped
+    mobileLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        header.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.querySelector('.nav-mobile').setAttribute('aria-hidden', 'true');
+      });
+    });
+  }
+
+
   /* --- Contact form (basic client-side handler) ------------- */
   var form = document.getElementById('contact-form');
   if (form) {

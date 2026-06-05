@@ -46,7 +46,7 @@
       </span>
     </a>
 
-    <!-- Centre: primary nav -->
+    <!-- Centre: primary nav (desktop) -->
     <nav class="nav-primary" aria-label="Primary">
       <a href="#about">About</a>
       <a href="#values">Framework</a>
@@ -57,13 +57,30 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <!-- Right: CTA -->
-    <nav class="nav-cta" aria-label="Contact">
-      <a class="connect" href="#contact">Let's Connect →</a>
-    </nav>
+    <!-- Right: CTA (desktop) + hamburger (mobile) -->
+    <div class="nav-right">
+      <nav class="nav-cta" aria-label="Contact">
+        <a class="connect" href="#contact">Let's Connect →</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
 
   </div>
   <hr class="rule" />
+
+  <!-- Mobile menu drawer -->
+  <nav class="nav-mobile" aria-label="Mobile navigation" aria-hidden="true">
+    <a href="#about">About</a>
+    <a href="#values">Framework</a>
+    <a href="#work">How We Work</a>
+    <a href="#sectors">Who We Work With</a>
+    <a href="#insights">Insights</a>
+    <a href="#founder">Founder</a>
+    <a href="#contact">Contact</a>
+    <a class="nav-mobile-cta" href="#contact">Let's Connect →</a>
+  </nav>
 </header>
 
 <main id="top">
