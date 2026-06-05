@@ -69,18 +69,44 @@ header, main, footer { position: relative; z-index: 1; }
 .nb-brand {
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 13px;
   z-index: 201;
   position: relative;
 }
+/* Circular emblem logo mark */
+.nb-emblem {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(168,133,74,.22);
+}
+.nb-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
 .nb-name {
-  font-family: "Jost", sans-serif;
-  font-weight: 300;
-  font-size: 10.5px;
-  letter-spacing: .28em;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: .42em;
   text-transform: uppercase;
   color: var(--ink);
   white-space: nowrap;
+  line-height: 1;
+}
+.nb-sub {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 8.5px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .65;
+  white-space: nowrap;
+  line-height: 1;
 }
 .nb-right {
   display: flex;
@@ -274,6 +300,17 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
   font-style: italic;
   font-weight: 300;
   color: var(--gold);
+}
+/* Brand tagline beneath the headline — matches asset copy */
+.identity-tagline {
+  margin-top: 32px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(16px, 1.6vw, 22px);
+  color: var(--taupe);
+  line-height: 1.65;
+  opacity: .85;
 }
 
 /* ============================================================
@@ -713,6 +750,8 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 @media (max-width: 430px) {
   :root { --side: 20px; }
   .screen { padding: 88px 20px 60px; }
+  .nb-sub { display: none; }
+  .nb-emblem { width: 32px; height: 32px; }
 
   .identity-headline { font-size: clamp(36px, 10.5vw, 54px); }
   .belief-statement { font-size: clamp(22px, 7vw, 34px); }
