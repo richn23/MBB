@@ -206,14 +206,17 @@ hr.rule { height: 1px; background: var(--line); border: 0; }
   min-height: 58vh;
 }
 
-/* Left: text */
-.hero-text { max-width: 560px; }
+/* Left: text — column constraint + compositional left offset */
+.hero-text {
+  max-width: 560px;
+  padding-left: 48px;
+}
 
 h1.display {
   font-family: "Cormorant Garamond", serif;
   font-weight: 500;
   font-size: clamp(52px, 6.5vw, 108px);
-  line-height: 1;
+  line-height: 1.08;
   letter-spacing: -.015em;
 }
 h1.display em {
@@ -242,42 +245,40 @@ h1.display em {
 }
 .hero-pillars span[aria-hidden] { color: var(--gold); opacity: .7; }
 
-/* Hero CTA */
+/* Hero CTA — discreet invitation, not a demand */
 .hero-cta-wrap {
-  margin-top: 44px;
+  margin-top: 48px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 32px;
   align-items: flex-start;
 }
 .hero-cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   font-family: "Jost", sans-serif;
   font-weight: 400;
-  font-size: 12px;
-  letter-spacing: .26em;
+  font-size: 11.5px;
+  letter-spacing: .28em;
   text-transform: uppercase;
-  color: var(--paper);
-  background: var(--ink);
+  color: var(--gold);
+  background: none;
   text-decoration: none;
-  padding: 16px 28px 15px;
-  position: relative;
-  transition: background .4s, gap .35s;
+  padding: 0 0 6px;
+  border-bottom: 1px solid var(--gold-lt);
+  transition: gap .4s, color .3s, border-color .3s;
 }
-.hero-cta-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 1px solid var(--gold);
-  transform: translate(5px, 5px);
-  transition: transform .35s cubic-bezier(.2,.7,.2,1);
-  pointer-events: none;
+.hero-cta-btn:hover {
+  gap: 18px;
+  color: var(--ink);
+  border-color: var(--ink);
 }
-.hero-cta-btn:hover { background: var(--gold); gap: 20px; }
-.hero-cta-btn:hover::after { transform: translate(8px, 8px); }
-.hero-cta-btn svg { flex-shrink: 0; }
+.hero-cta-btn svg {
+  flex-shrink: 0;
+  transition: transform .4s;
+}
+.hero-cta-btn:hover svg { transform: translateX(4px); }
 .hero-scroll-hint {
   display: flex;
   flex-direction: column;
@@ -625,11 +626,16 @@ h1.display em {
   gap: 72px;
   align-items: center;
 }
-.founder-pic { position: relative; }
+.founder-pic {
+  position: relative;
+}
 .founder-pic img {
   width: 100%;
   display: block;
-  filter: grayscale(.1) contrast(1.02);
+  height: 580px;
+  object-fit: cover;
+  object-position: center 18%;
+  filter: grayscale(.08) contrast(1.03);
 }
 .founder-pic::after {
   content: "";
@@ -1018,10 +1024,11 @@ header.nav-open .nav-mobile {
   .hero-arc-r, .hero-arc-br { display: none; }
   .hero-text { max-width: 100%; }
   .hero-pillars { display: none; }
-  /* CTA adjustments */
+  /* CTA — retain text-link, hide scroll hint */
   .hero-cta-wrap { margin-top: 36px; gap: 20px; }
   .hero-scroll-hint { display: none; }
-  .hero-cta-btn { padding: 17px 26px 16px; font-size: 11px; min-height: 52px; }
+  /* Remove left offset on tablet so text is flush to content edge */
+  .hero-text { padding-left: 0; }
 
   /* About */
   .about { padding: 64px 0 56px; }
@@ -1066,6 +1073,7 @@ header.nav-open .nav-mobile {
   .founder { padding: 16px 0 72px; }
   .founder-grid { grid-template-columns: 1fr; gap: 32px; }
   .founder-pic { max-width: 340px; }
+  .founder-pic img { height: 420px; }
   .founder-pic::after { right: 0; bottom: -12px; }
   .founder-bio { max-width: none; }
 
@@ -1116,8 +1124,8 @@ header.nav-open .nav-mobile {
   h1.display { font-size: clamp(42px, 11.5vw, 68px); }
   .hero-sub { font-size: 17px; margin-top: 20px; max-width: none; }
   .hero-palm { width: 320px; top: -30px; left: -30px; opacity: .22; }
-  .hero-cta-btn { width: 100%; justify-content: center; }
-  .hero-cta-btn::after { display: none; }
+  /* CTA full-width on small screens */
+  .hero-cta-btn { width: 100%; justify-content: center; font-size: 11px; }
 
   /* Compass — compact 2×2, tighter padding */
   .values { padding: 8px 0 52px; }
@@ -1133,6 +1141,7 @@ header.nav-open .nav-mobile {
   /* Founder */
   .founder { padding: 8px 0 60px; }
   .founder-pic { max-width: 100%; }
+  .founder-pic img { height: 360px; }
   .founder-name { font-size: clamp(34px, 9vw, 48px); }
 
   /* Sectors */
