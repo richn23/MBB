@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meaning Beyond Brands</title>
+  <meta name="description" content="Helping luxury and premium brands create meaningful growth through trust, connection, distinction, and customer experience." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital@0;1&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- SVG symbol defs — compass rose + gold gradients -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="goldA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0"   stop-color="#E7CD8E"/>
+      <stop offset=".5"  stop-color="#C39A4E"/>
+      <stop offset="1"   stop-color="#9A7331"/>
+    </linearGradient>
+    <linearGradient id="goldB" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#C9A45C"/>
+      <stop offset="1" stop-color="#8C6A2E"/>
+    </linearGradient>
+    <symbol id="compass" viewBox="0 0 200 200">
+      <polygon fill="url(#goldB)" points="142.43,57.57 110,100 142.43,142.43 100,110 57.57,142.43 90,100 57.57,57.57 100,90"/>
+      <polygon fill="url(#goldA)" points="100,4 108.49,91.51 196,100 108.49,108.49 100,196 91.51,108.49 4,100 91.51,91.51"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     HEADER / NAVIGATION
+     ============================================================ -->
+<header>
+  <div class="navrow">
+
+    <!-- Left: brandmark -->
+    <a class="brandmark" href="#top" aria-label="Meaning Beyond Brands — home">
+      <span class="bm-icon" aria-hidden="true"><svg width="36" height="36"><use href="#compass"/></svg></span>
+      <span class="bm-text">
+        <span class="bm-name">Meaning Beyond Brands</span>
+        <span class="bm-sub">Boutique Brand Consultancy</span>
+      </span>
+    </a>
+
+    <!-- Centre: primary nav -->
+    <nav class="nav-primary" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#values">Framework</a>
+      <a href="#work">How We Work</a>
+      <a href="#sectors">Who We Work With</a>
+      <a href="#insights">Insights</a>
+      <a href="#founder">Founder</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Right: CTA -->
+    <nav class="nav-cta" aria-label="Contact">
+      <a class="connect" href="#contact">Let's Connect →</a>
+    </nav>
+
+  </div>
+  <hr class="rule" />
+</header>
+
+<main id="top">
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero-sec" aria-label="Hero">
+
+    <!-- Atmospheric palm shadow — top left -->
+    <img class="hero-palm" src="assets/atmos-palm.png" alt="" aria-hidden="true" />
+
+    <!-- Partial arc — right edge -->
+    <span class="hero-arc-r" aria-hidden="true"></span>
+    <span class="hero-arc-br" aria-hidden="true"></span>
+
+    <div class="hero wrap">
+      <div class="hero-grid">
+
+        <!-- Left: text -->
+        <div class="hero-text">
+          <h1 class="display reveal">
+            Meaning<br/>
+            <em>gives</em><br/>
+            <em>direction.</em>
+          </h1>
+          <p class="hero-sub reveal">
+            Helping luxury and premium brands create meaningful growth through trust, connection, distinction, and customer experience.
+          </p>
+          <p class="hero-pillars reveal">
+            <span>Strategy</span>
+            <span aria-hidden="true">|</span>
+            <span>Storytelling</span>
+            <span aria-hidden="true">|</span>
+            <span>Significance</span>
+          </p>
+        </div>
+
+        <!-- Right: atmospheric compass with directional labels -->
+        <div class="hero-compass" aria-hidden="true">
+          <div class="hc-label hc-n"><span class="hc-value">Meaning</span><span class="hc-dir">North</span></div>
+          <div class="hc-label hc-w"><span class="hc-value">Growth</span><span class="hc-dir">West</span></div>
+          <div class="hc-label hc-e"><span class="hc-value">Trust</span><span class="hc-dir">East</span></div>
+          <div class="hc-label hc-s"><span class="hc-value">Distinction</span><span class="hc-dir">South</span></div>
+          <div class="hc-rose">
+            <svg viewBox="0 0 200 200" width="260" height="260">
+              <polygon fill="rgba(168,133,74,.18)" points="142.43,57.57 110,100 142.43,142.43 100,110 57.57,142.43 90,100 57.57,57.57 100,90"/>
+              <polygon fill="rgba(168,133,74,.22)" points="100,4 108.49,91.51 196,100 108.49,108.49 100,196 91.51,108.49 4,100 91.51,91.51"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT
+       ============================================================ -->
+  <section class="about wrap" id="about" aria-labelledby="about-heading">
+    <img class="about-echo" src="assets/atmos-palm.png" alt="" aria-hidden="true" />
+    <div class="about-grid">
+      <div class="about-lead reveal" id="about-heading">
+        We believe the strongest brands create value <em>beyond</em> what they sell.
+      </div>
+      <div class="about-body">
+        <span class="eyebrow reveal">About</span>
+        <p class="reveal">
+          Meaning Beyond Brands was founded on a simple belief: sustainable growth is built through trust, relationships, and meaningful experiences.
+        </p>
+        <p class="reveal">
+          What began as a series of reflections on branding, luxury, and human connection has evolved into a boutique consultancy helping luxury and premium brands strengthen their positioning, customer experience, and audience engagement.
+        </p>
+        <p class="pull reveal">
+          Because the brands people remember are rarely those that seek attention. They are the ones that create meaning.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FRAMEWORK / COMPASS
+       ============================================================ -->
+  <section class="values wrap" id="values" aria-labelledby="values-heading">
+    <img class="values-echo" src="assets/atmos-arc-right.png" alt="" aria-hidden="true" />
+    <div class="values-intro">
+      <span class="star reveal" aria-hidden="true">
+        <svg width="48" height="48"><use href="#compass"/></svg>
+      </span>
+      <h2 class="reveal" id="values-heading">Meaning gives <em>direction.</em></h2>
+      <p class="reveal">Like a compass guiding a journey, our values provide direction while our services create momentum.</p>
+    </div>
+
+    <div class="compass-rose" role="list" aria-label="Brand framework">
+
+      <!-- North: Meaning -->
+      <div class="pt n reveal" role="listitem">
+        <div class="dir">North</div>
+        <h3 class="cg">Meaning</h3>
+        <p>The strongest brands create value beyond what they sell.</p>
+      </div>
+
+      <!-- West: Growth -->
+      <div class="pt w reveal" role="listitem">
+        <div class="dir">West</div>
+        <h3 class="cg">Growth</h3>
+        <p>Purpose and profitability should grow together.</p>
+      </div>
+
+      <!-- Centre: compass SVG -->
+      <span class="cr-center reveal" aria-hidden="true">
+        <svg width="252" height="252" viewBox="0 0 240 240">
+          <circle cx="120" cy="120" r="113" fill="none" stroke="url(#goldA)" stroke-width="1" opacity=".55"/>
+          <circle cx="120" cy="120" r="104" fill="none" stroke="url(#goldA)" stroke-width="5" stroke-dasharray="1 7.6" opacity=".5"/>
+          <circle cx="120" cy="120" r="67"  fill="none" stroke="url(#goldA)" stroke-width="1" opacity=".4"/>
+          <use href="#compass" x="42" y="42" width="156" height="156"/>
+        </svg>
+      </span>
+
+      <!-- East: Trust -->
+      <div class="pt e reveal" role="listitem">
+        <div class="dir">East</div>
+        <h3 class="cg">Trust</h3>
+        <p>Relationships are built through consistency, credibility, and experience.</p>
+      </div>
+
+      <!-- South: Distinction -->
+      <div class="pt s reveal" role="listitem">
+        <div class="dir">South</div>
+        <h3 class="cg">Distinction</h3>
+        <p>The most memorable brands embrace what makes them different.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW WE WORK
+       ============================================================ -->
+  <section class="work wrap" id="work" aria-labelledby="work-heading">
+    <div class="sec-head">
+      <h2 class="reveal" id="work-heading">
+        Our values give direction.<br/>Our work creates <em>momentum.</em>
+      </h2>
+      <span class="eyebrow reveal" style="padding-bottom:10px">How We Work</span>
+    </div>
+
+    <div class="wrow reveal">
+      <div class="num">01</div>
+      <h3 class="cg">We Assess</h3>
+      <p>We observe the brand, customer journey, and audience perception to uncover opportunities for growth. Through strategic audits and research, we help brands understand where they stand today and where they can go tomorrow.</p>
+    </div>
+    <div class="wrow reveal">
+      <div class="num">02</div>
+      <h3 class="cg">We Align</h3>
+      <p>We identify the gaps between a brand's intention and the customer's experience. By aligning positioning, messaging, and customer touchpoints, we help create consistency, clarity, and trust.</p>
+    </div>
+    <div class="wrow reveal">
+      <div class="num">03</div>
+      <h3 class="cg">We Connect</h3>
+      <p>We create meaningful experiences that strengthen relationships. Through events, partnerships, community initiatives, and bespoke experiences, we help brands build deeper connections with the people who matter most.</p>
+    </div>
+    <div class="wrow reveal">
+      <div class="num">04</div>
+      <h3 class="cg">We Tell Stories</h3>
+      <p>We transform strategy into narratives people remember. Through storytelling, messaging, and brand positioning, we help businesses communicate their purpose in a way that creates emotional connection and lasting impact.</p>
+    </div>
+  </section>
+
+  <!-- INTERLUDE -->
+  <section class="interlude" aria-hidden="true">
+    <img class="interlude-palm" src="assets/atmos-palm.png" alt="" />
+    <div class="wrap">
+      <p class="reveal">The brands people remember create meaning.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHO WE WORK WITH
+       ============================================================ -->
+  <section class="sectors wrap" id="sectors" aria-labelledby="sectors-heading">
+    <div class="sectors-grid">
+      <div class="intro">
+        <span class="eyebrow reveal">Who We Work With</span>
+        <h2 class="reveal" id="sectors-heading">
+          Luxury and premium brands seeking <em>meaningful</em> growth.
+        </h2>
+        <p class="reveal">
+          Businesses seeking meaningful growth through stronger relationships, experiences, and brand distinction.
+        </p>
+      </div>
+      <div class="slist" role="list">
+        <div class="s reveal" role="listitem">Hospitality</div>
+        <div class="s reveal" role="listitem">Lifestyle</div>
+        <div class="s reveal" role="listitem">Fashion</div>
+        <div class="s reveal" role="listitem">Beauty</div>
+        <div class="s reveal" role="listitem">Wellness</div>
+        <div class="s reveal" role="listitem">Real Estate</div>
+        <div class="s reveal" role="listitem">Education</div>
+        <div class="s reveal" role="listitem">Boutique Services</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       INSIGHTS
+       ============================================================ -->
+  <section class="insights wrap" id="insights" aria-labelledby="insights-heading">
+    <div class="ins-grid">
+      <div class="ins-intro">
+        <span class="eyebrow reveal">Insights</span>
+        <h2 class="reveal" id="insights-heading">Things I Used <em>To Believe</em></h2>
+        <p class="reveal">
+          Born from questions, experiences, and lessons learned along the way — reflections on branding, luxury, growth, customer experience, and the human side of business.
+        </p>
+        <a class="cta reveal" href="#">Read More →</a>
+      </div>
+      <div class="articles">
+        <a class="art reveal" href="#"><span class="ttl">Meaning Isn't Profitable</span><span class="go">Read →</span></a>
+        <a class="art reveal" href="#"><span class="ttl">Luxury Is Superficial</span><span class="go">Read →</span></a>
+        <a class="art reveal" href="#"><span class="ttl">Losing My Biggest Client Was the Best Thing That Happened to Me</span><span class="go">Read →</span></a>
+        <a class="art reveal" href="#"><span class="ttl">Relationships Don't Scale</span><span class="go">Read →</span></a>
+        <a class="art reveal" href="#"><span class="ttl">Confidence Comes Before Action</span><span class="go">Read →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOUNDER
+       ============================================================ -->
+  <section class="founder wrap" id="founder" aria-labelledby="founder-heading">
+    <div class="founder-grid">
+      <figure class="founder-pic reveal" aria-label="Ana Abad, Founder">
+        <img src="assets/founder.jpeg" alt="Ana Abad — Founder of Meaning Beyond Brands" />
+      </figure>
+      <div class="founder-info">
+        <span class="eyebrow reveal">Founder</span>
+        <div class="founder-name cg reveal" id="founder-heading">Ana Abad</div>
+        <div class="founder-role reveal">Founder &nbsp;·&nbsp; Branding &amp; Marketing Consultant</div>
+        <p class="founder-bio reveal">
+          With more than a decade of international experience across business development, customer experience, luxury services, and strategic partnerships, Ana founded Meaning Beyond Brands to help organisations create value beyond the transaction. Her work sits at the intersection of brand strategy, storytelling, customer experience, and relationship-led growth.
+        </p>
+        <blockquote class="founder-quote reveal">
+          Because meaningful brands are not simply seen.<br/>
+          They are <em>remembered.</em>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+       ============================================================ -->
+  <section class="contact" id="contact" aria-labelledby="contact-heading">
+
+    <!-- watermark compass -->
+    <span class="contact-watermark" aria-hidden="true">
+      <svg width="400" height="400"><use href="#compass"/></svg>
+    </span>
+
+    <div class="wrap contact-inner">
+
+      <div class="contact-head">
+        <span class="star reveal" aria-hidden="true">
+          <svg width="48" height="48"><use href="#compass"/></svg>
+        </span>
+        <h2 class="reveal" id="contact-heading">
+          Let's create something <em>meaningful.</em>
+        </h2>
+        <p class="reveal">
+          Whether you're looking to strengthen your positioning, create meaningful experiences, or build stronger connections with your audience, we'd love to hear from you.
+        </p>
+      </div>
+
+      <div class="contact-body">
+
+        <!-- Form -->
+        <form class="contact-form reveal" id="contact-form" novalidate>
+          <div class="form-field">
+            <label for="cf-name">Name</label>
+            <input type="text" id="cf-name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="form-field">
+            <label for="cf-email">Email</label>
+            <input type="email" id="cf-email" name="email" placeholder="your@email.com" required />
+          </div>
+          <div class="form-field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" placeholder="How can we help?" required></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message →</button>
+        </form>
+
+        <!-- Contact details + channels -->
+        <div class="contact-details reveal">
+          <span class="eyebrow">Get in touch</span>
+
+          <div class="detail-group">
+            <div class="detail-label">Location</div>
+            <div class="detail-value">Dubai, UAE</div>
+          </div>
+
+          <div class="detail-group">
+            <div class="detail-label">Email</div>
+            <div class="detail-value">
+              <a href="mailto:hello@meaningbeyondbrands.com">hello@meaningbeyondbrands.com</a>
+            </div>
+          </div>
+
+          <div class="contact-channels">
+
+            <!-- WhatsApp — number to be confirmed -->
+            <a class="whatsapp-cta" href="#" aria-label="Reach out on WhatsApp">
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.42A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 01-4.076-1.117l-.292-.174-3.016.86.875-2.94-.19-.302A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.406-5.844c-.242-.121-1.432-.707-1.654-.788-.222-.08-.384-.12-.545.121-.162.242-.626.788-.768.95-.141.162-.283.182-.525.06-.242-.12-1.022-.377-1.946-1.2-.72-.641-1.206-1.433-1.347-1.675-.141-.242-.015-.373.106-.493.109-.108.242-.283.363-.424.121-.141.161-.242.242-.404.08-.161.04-.303-.02-.424-.061-.12-.546-1.315-.748-1.8-.197-.473-.397-.409-.546-.416l-.465-.008c-.161 0-.424.06-.646.303-.222.242-.848.829-.848 2.022s.868 2.346.989 2.508c.12.161 1.708 2.608 4.138 3.657.579.25 1.03.399 1.381.511.58.185 1.108.159 1.525.097.465-.07 1.432-.585 1.634-1.15.201-.566.201-1.05.14-1.15-.06-.1-.222-.161-.464-.283z"/>
+              </svg>
+              Reach out on WhatsApp
+            </a>
+
+            <!-- LinkedIn — URL to be confirmed -->
+            <a href="#" aria-label="LinkedIn (coming soon)">
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zM9 17H6.5v-7H9v7zm-1.25-8.15a1.45 1.45 0 110-2.9 1.45 1.45 0 010 2.9zM18 17h-2.5v-3.5c0-1-.375-1.5-1.125-1.5-.875 0-1.375.625-1.375 1.5V17H10.5v-7H13v.938C13.5 10.25 14.25 10 15.25 10c1.625 0 2.75 1 2.75 3.25V17z"/>
+              </svg>
+              LinkedIn
+            </a>
+
+            <!-- Instagram — URL to be confirmed -->
+            <a href="#" aria-label="Instagram (coming soon)">
+              <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+              Instagram
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="wrap foot">
+    <div class="bm">Meaning Beyond Brands</div>
+    <div class="tag">Meaning gives direction.</div>
+    <nav class="links" aria-label="Footer">
+      <a href="#about">About</a>
+      <a href="#values">Framework</a>
+      <a href="#work">How We Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
