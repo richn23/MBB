@@ -10,46 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    /* silk shimmer — dialled back so it enhances without bleaching type */
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      background:
-        radial-gradient(ellipse 80% 60% at 25% 30%, rgba(255,255,255,.18), transparent 70%),
-        radial-gradient(ellipse 60% 75% at 78% 72%, rgba(255,255,255,.14), transparent 65%);
-      animation: silkA 22s ease-in-out infinite;
-    }
-    #silk-b {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      background:
-        radial-gradient(ellipse 65% 55% at 60% 15%, rgba(255,255,255,.12), transparent 62%),
-        radial-gradient(ellipse 50% 70% at 15% 80%, rgba(255,255,255,.10), transparent 58%);
-      animation: silkB 30s ease-in-out infinite;
-      animation-delay: -11s;
-    }
-    @keyframes silkA {
-      0%   { transform: translate(0%,    0%);  }
-      25%  { transform: translate(8%,   10%);  }
-      50%  { transform: translate(-6%,   6%);  }
-      75%  { transform: translate(5%,   -9%);  }
-      100% { transform: translate(0%,    0%);  }
-    }
-    @keyframes silkB {
-      0%   { transform: translate(0%,    0%);  }
-      30%  { transform: translate(-9%,  -7%);  }
-      60%  { transform: translate(8%,    9%);  }
-      85%  { transform: translate(-4%,   5%);  }
-      100% { transform: translate(0%,    0%);  }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      body::after, #silk-b { animation: none; }
-    }
     /* remove all letterhead decorative marks and lines */
     .lh-seal, .lh-corner { display: none !important; }
     .sep::before, .sep::after { display: none !important; }
@@ -261,36 +221,6 @@
         line-height: 1.80;
       }
     }
-    /* bg-layer circles, palms, crosses */
-    .bg-c {
-      position: absolute;
-      width: clamp(300px, 40vw, 540px);
-      height: clamp(300px, 40vw, 540px);
-      border: 1px solid #B89558;
-      border-radius: 50%;
-      opacity: .28;
-      transform: translateY(-50%);
-    }
-    .bg-c.l { left: -162px; }
-    .bg-c.r { right: -162px; }
-    .bg-palm {
-      position: absolute;
-      width: clamp(260px, 36vw, 500px);
-      height: auto;
-    }
-    .bg-palm.tl { top: -20px; left: -50px; opacity: .16; }
-    .bg-palm.mr { top: 29%; right: -50px; transform: scaleX(-1); opacity: .13; }
-    .bg-palm.bl { bottom: 5%; left: -40px; opacity: .10; }
-    .bg-palm.br { bottom: 1%; right: -40px; transform: scaleX(-1); opacity: .09; }
-    .bg-cross {
-      position: absolute; left: 50%; transform: translateX(-50%);
-      width: 12px; height: 12px; opacity: .18;
-    }
-    .bg-cross::before, .bg-cross::after {
-      content: ""; position: absolute; background: #A8854A;
-    }
-    .bg-cross::before { width: 1px; height: 100%; left: 50%; top: 0; }
-    .bg-cross::after  { width: 100%; height: 1px; top: 50%; left: 0; }
     /* hero two-column layout */
     .s-identity-body {
       display: grid !important;
@@ -327,18 +257,6 @@
 </head>
 <body>
 
-<!-- second silk shimmer layer -->
-<div id="silk-b" aria-hidden="true"></div>
-
-<!-- full-page decorative background -->
-<div id="bg-layer" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden">
-  <div class="bg-c l"></div>
-  <div class="bg-c r"></div>
-  <div class="bg-cross" style="top:22%"></div>
-  <div class="bg-cross" style="top:44%"></div>
-  <div class="bg-cross" style="top:66%"></div>
-  <div class="bg-cross" style="top:88%"></div>
-</div>
 
 <!-- SVG defs — compass mark + gold gradients -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
