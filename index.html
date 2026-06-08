@@ -320,16 +320,11 @@
             <line x1="335" y1="244" x2="25"  y2="116" stroke="#A8854A" stroke-width="0.18" opacity=".07"/>
             <line x1="244" y1="335" x2="116" y2="25"  stroke="#A8854A" stroke-width="0.18" opacity=".07"/>
 
-            <!-- Compass rose star — metallic gradient, with shadow -->
-            <g class="compass-star-layer" filter="url(#cShadow)">
-              <!-- 8-point secondary star -->
-              <polygon fill="url(#cMetal2)" opacity=".72"
-                transform="translate(36,36) scale(1.44)"
-                points="142.43,57.57 110,100 142.43,142.43 100,110 57.57,142.43 90,100 57.57,57.57 100,90"/>
-              <!-- 4-point primary compass rose -->
-              <polygon fill="url(#cMetal1)" opacity=".96"
-                transform="translate(36,36) scale(1.44)"
-                points="100,4 108.49,91.51 196,100 108.49,108.49 100,196 91.51,108.49 4,100 91.51,91.51"/>
+            <!-- Compass rose star — 3D gold star image, rotates on scroll + direction -->
+            <g class="compass-star-layer" style="transform-box:fill-box;transform-origin:180px 180px">
+              <image href="assets/compass-star.png" x="30" y="30" width="300" height="300"
+                     preserveAspectRatio="xMidYMid meet"
+                     style="mix-blend-mode:multiply" filter="url(#cShadow)"/>
             </g>
 
             <!-- Centre pivot -->

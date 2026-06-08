@@ -52,36 +52,60 @@
   }
 
 
-  /* ── Compass: continuous rotation tied to page scroll ── */
-  // All SVG compass star layers + nav/letterhead marks rotate slowly as user scrolls
-  var compassTargets = [].slice.call(document.querySelectorAll('.compass-star-layer'));
-  // Also grab any standalone SVG use elements that reference #mark (nav, sep, letterhead)
-  var markUses = [].slice.call(document.querySelectorAll('use[href="#mark"]'));
-  markUses.forEach(function (u) {
-    // Walk up to find the nearest SVG and wrap it for rotation
+  /* ── Compass rotation ────────────────────────────────── */
+  var compassStar   = document.querySelector('.compass-star-layer');
+  var dirOverride   = null; // null = follow scroll; number = locked to direction
+  var compassTick   = false;
+
+  // Direction → rotation angle (degrees): which point faces UP
+  var dirAngles = { north: 0, east: -90, south: 180, west: 90 };
+
+  function scrollDeg () {
+    var max = document.body.scrollHeight - window.innerHeight;
+    return max > 0 ? (window.pageYOffset / max) * 180 : 0;
+  }
+
+  function setStarRotation (deg, animate) {
+    if (!compassStar) return;
+    compassStar.style.transition = animate
+      ? 'transform 0.85s cubic-bezier(.4,0,.2,1)'
+      : 'none';
+    compassStar.style.transform  = 'rotate(' + deg.toFixed(2) + 'deg)';
+  }
+
+  // Small marks (nav, separators) — continuous slow spin, independent
+  var smallMarks = [].slice.call(document.querySelectorAll('use[href="#mark"]'));
+  smallMarks.forEach(function (u) {
     var svg = u.closest('svg');
-    if (svg && !svg.closest('[data-no-spin]')) {
-      svg.style.transformBox   = 'fill-box';
-      svg.style.transformOrigin = 'center';
-      svg.style.willChange     = 'transform';
-      compassTargets.push(svg);
+    if (svg) {
+      svg.style.cssText += ';transform-box:fill-box;transform-origin:center;will-change:transform';
     }
   });
 
-  var compassTicking = false;
+  function updateSmallMarks () {
+    var deg = window.pageYOffset * 0.018;
+    smallMarks.forEach(function (u) {
+      var svg = u.closest('svg');
+      if (svg) svg.style.transform = 'rotate(' + deg.toFixed(2) + 'deg)';
+    });
+  }
 
   function updateCompassRotation () {
-    var deg = window.pageYOffset * 0.018; // ~18° per 1000px — slow, elegant
-    compassTargets.forEach(function (el) {
-      el.style.transform = 'rotate(' + deg.toFixed(2) + 'deg)';
-    });
-    compassTicking = false;
+    if (dirOverride === null) setStarRotation(scrollDeg(), false);
+    updateSmallMarks();
+    compassTick = false;
   }
 
   window.addEventListener('scroll', function () {
-    if (!compassTicking) {
+    // Any scroll cancels direction lock
+    if (dirOverride !== null) {
+      dirOverride = null;
+      csPts.forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+      if (csPanel) csPanel.hidden = true;
+    }
+    if (!compassTick) {
       requestAnimationFrame(updateCompassRotation);
-      compassTicking = true;
+      compassTick = true;
     }
   }, { passive: true });
 
@@ -98,21 +122,35 @@
     csPts.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var alreadyOpen = this.getAttribute('aria-expanded') === 'true';
-        // Reset all
         csPts.forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+
+        // Rotate star to selected direction
+        var dir = null;
+        if (!alreadyOpen) {
+          if (this.classList.contains('cs-north')) dir = 'north';
+          else if (this.classList.contains('cs-east'))  dir = 'east';
+          else if (this.classList.contains('cs-south')) dir = 'south';
+          else if (this.classList.contains('cs-west'))  dir = 'west';
+        }
+        if (dir) {
+          dirOverride = dirAngles[dir];
+          setStarRotation(dirOverride, true);
+        } else {
+          dirOverride = null;
+          setStarRotation(scrollDeg(), true);
+        }
+
         if (alreadyOpen) {
           csPanel.hidden = true;
           csText.textContent = '';
         } else {
           this.setAttribute('aria-expanded', 'true');
           csText.textContent = this.dataset.description;
-          // Re-trigger animation
           csPanel.hidden = false;
           csPanel.style.animation = 'none';
-          csPanel.offsetHeight; // reflow
+          csPanel.offsetHeight;
           csPanel.style.animation = '';
         }
-        // Fade out the hint after first interaction
         if (csHint) csHint.classList.add('faded');
       });
     });
