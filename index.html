@@ -17,34 +17,45 @@
         #EFE4D1 50%, #F2E9D8 68%, #F5EED9 82%,
         #F7F4EE 100%);
     }
-    /* shimmer — continuous slow sweep, always alive */
+    /* silk shimmer — two drifting radial light pools, organic + non-linear */
     body::after {
       content: "";
       position: fixed;
-      inset: -40%;
+      inset: -30%;
       pointer-events: none;
       z-index: 2;
-      background: linear-gradient(
-        115deg,
-        transparent 0%,
-        transparent 35%,
-        rgba(255,250,235,.12) 42%,
-        rgba(255,253,240,.38) 48%,
-        rgba(255,255,248,.52) 50%,
-        rgba(255,253,240,.38) 52%,
-        rgba(255,250,235,.12) 58%,
-        transparent 65%,
-        transparent 100%
-      );
-      animation: paperShimmer 16s ease-in-out infinite;
+      background:
+        radial-gradient(ellipse 70% 55% at 30% 35%, rgba(255,248,228,.26), transparent 65%),
+        radial-gradient(ellipse 55% 70% at 72% 68%, rgba(255,244,218,.20), transparent 60%);
+      animation: silkA 26s ease-in-out infinite;
     }
-    @keyframes paperShimmer {
-      0%   { transform: translateX(-18%) translateY(-8%); }
-      50%  { transform: translateX(12%)  translateY(8%);  }
-      100% { transform: translateX(-18%) translateY(-8%); }
+    #silk-b {
+      position: fixed;
+      inset: -30%;
+      pointer-events: none;
+      z-index: 2;
+      background:
+        radial-gradient(ellipse 65% 50% at 55% 20%, rgba(255,252,235,.18), transparent 58%),
+        radial-gradient(ellipse 45% 65% at 18% 78%, rgba(255,240,210,.14), transparent 55%);
+      animation: silkB 34s ease-in-out infinite;
+      animation-delay: -14s;
+    }
+    @keyframes silkA {
+      0%   { transform: translate(0%,   0%);   }
+      20%  { transform: translate(6%,   9%);   }
+      45%  { transform: translate(-7%,  5%);   }
+      70%  { transform: translate(4%,  -8%);   }
+      100% { transform: translate(0%,   0%);   }
+    }
+    @keyframes silkB {
+      0%   { transform: translate(0%,   0%);   }
+      30%  { transform: translate(-8%,  -6%);  }
+      55%  { transform: translate(7%,   8%);   }
+      80%  { transform: translate(-3%,  5%);   }
+      100% { transform: translate(0%,   0%);   }
     }
     @media (prefers-reduced-motion: reduce) {
-      body::after { animation: none; }
+      body::after, #silk-b { animation: none; }
     }
     /* bg-layer circles, palms, crosses */
     .bg-c {
@@ -111,6 +122,9 @@
   </style>
 </head>
 <body>
+
+<!-- second silk shimmer layer -->
+<div id="silk-b" aria-hidden="true"></div>
 
 <!-- full-page decorative background -->
 <div id="bg-layer" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden">
