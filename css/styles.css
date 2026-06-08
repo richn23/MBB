@@ -11,8 +11,8 @@
   --paper-2: #ECE3D4;
   --ink:     #241F17;
   --taupe:   #6E6555;
-  --gold:    #A8854A;
-  --gold-lt: #C6A35C;
+  --gold:    #7C4A2B;
+  --gold-lt: #9B6040;
   --line:    rgba(36,31,23,.11);
   --side:    clamp(28px, 5.5vw, 80px);
 }
