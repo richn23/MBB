@@ -21,7 +21,13 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--paper);
+  background: linear-gradient(180deg,
+    #E2CAA6 0%,
+    #EDD9BB 20%,
+    #F1E2CC 46%,
+    #F7ECD9 70%,
+    #FBF4EA 86%,
+    #FDF8F3 100%);
   color: var(--ink);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 18px;
@@ -43,15 +49,51 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px 200px;
 }
-/* Layer 2: very soft natural light from top — like paper on a desk */
-body::after {
-  content: "";
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background:
-    radial-gradient(160% 60% at 50% -5%, rgba(255,252,244,.48), transparent 52%),
-    radial-gradient(80% 40% at 100% 0%, rgba(240,225,195,.12), transparent 55%);
-}
 header, main, footer { position: relative; z-index: 1; }
+
+/* ── Full-page decorative background layer ────────────────── */
+#bg-layer {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none; overflow: hidden;
+}
+/* Large gold circle outlines at edges */
+.bg-c {
+  position: absolute;
+  width: clamp(300px, 40vw, 540px);
+  height: clamp(300px, 40vw, 540px);
+  border: 1px solid #B89558;
+  border-radius: 50%;
+  opacity: .28;
+  transform: translateY(-50%);
+}
+.bg-c.l { left: calc(clamp(300px, 40vw, 540px) * -.30); }
+.bg-c.r { right: calc(clamp(300px, 40vw, 540px) * -.30); }
+/* Palm leaf shadows */
+.bg-palm {
+  position: absolute;
+  width: clamp(260px, 36vw, 500px);
+  height: auto;
+}
+.bg-palm.tl { top: -20px; left: -50px; opacity: .16; }
+.bg-palm.mr { top: 28%; right: -50px; transform: scaleX(-1); opacity: .13; }
+.bg-palm.bl { bottom: 5%; left: -40px; opacity: .10; }
+.bg-palm.br { bottom: 1%; right: -40px; transform: scaleX(-1); opacity: .09; }
+/* Small cross markers along the vertical centre */
+.bg-cross {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 12px;
+  opacity: .18;
+}
+.bg-cross::before, .bg-cross::after {
+  content: "";
+  position: absolute;
+  background: #A8854A;
+}
+.bg-cross::before { width: 1px; height: 100%; left: 50%; top: 0; }
+.bg-cross::after  { width: 100%; height: 1px; top: 50%; left: 0; }
 
 /* ── Shared utility ──────────────────────────────────────── */
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--side); }
@@ -393,7 +435,27 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 /* ============================================================
    SCREEN 1 — IDENTITY
    ============================================================ */
-.s-identity .s-body { max-width: 700px; }
+.s-identity-body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 64px;
+  align-items: center;
+  width: 100%;
+}
+.identity-text { max-width: 700px; }
+.identity-emblem {
+  flex-shrink: 0;
+  margin: 0;
+}
+.identity-emblem img {
+  width: clamp(180px, 20vw, 300px);
+  height: clamp(180px, 20vw, 300px);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  mix-blend-mode: multiply;
+}
 .identity-headline {
   font-family: "Cormorant Garamond", serif;
   font-weight: 300;
@@ -887,6 +949,15 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
   .sep { padding: 20px 24px; }
 
   /* Identity */
+  .s-identity-body {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .identity-emblem { order: 2; }
+  .identity-emblem img {
+    width: clamp(120px, 40vw, 200px);
+    height: clamp(120px, 40vw, 200px);
+  }
   .identity-headline br { display: none; }
   .identity-headline {
     font-size: clamp(42px, 11vw, 72px);

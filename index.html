@@ -9,8 +9,99 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* background gradient */
+    body {
+      background: linear-gradient(180deg,
+        #E2CAA6 0%, #EDD9BB 20%, #F1E2CC 46%,
+        #F7ECD9 70%, #FBF4EA 86%, #FDF8F3 100%);
+    }
+    /* bg-layer circles, palms, crosses */
+    .bg-c {
+      position: absolute;
+      width: clamp(300px, 40vw, 540px);
+      height: clamp(300px, 40vw, 540px);
+      border: 1px solid #B89558;
+      border-radius: 50%;
+      opacity: .28;
+      transform: translateY(-50%);
+    }
+    .bg-c.l { left: -162px; }
+    .bg-c.r { right: -162px; }
+    .bg-palm {
+      position: absolute;
+      width: clamp(260px, 36vw, 500px);
+      height: auto;
+    }
+    .bg-palm.tl { top: -20px; left: -50px; opacity: .16; }
+    .bg-palm.mr { top: 29%; right: -50px; transform: scaleX(-1); opacity: .13; }
+    .bg-palm.bl { bottom: 5%; left: -40px; opacity: .10; }
+    .bg-palm.br { bottom: 1%; right: -40px; transform: scaleX(-1); opacity: .09; }
+    .bg-cross {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      width: 12px; height: 12px; opacity: .18;
+    }
+    .bg-cross::before, .bg-cross::after {
+      content: ""; position: absolute; background: #A8854A;
+    }
+    .bg-cross::before { width: 1px; height: 100%; left: 50%; top: 0; }
+    .bg-cross::after  { width: 100%; height: 1px; top: 50%; left: 0; }
+    /* hero two-column layout */
+    .s-identity-body {
+      display: grid !important;
+      grid-template-columns: 1fr auto !important;
+      gap: 64px;
+      align-items: center;
+      width: 100%;
+    }
+    .identity-text { max-width: 700px; }
+    .identity-emblem { flex-shrink: 0; margin: 0; }
+    .identity-emblem img {
+      width: clamp(180px, 20vw, 300px);
+      height: clamp(180px, 20vw, 300px);
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+    @media (max-width: 960px) {
+      .s-identity-body {
+        grid-template-columns: 1fr !important;
+        gap: 40px;
+      }
+      .identity-emblem { order: 2; }
+      .identity-emblem img {
+        width: clamp(120px, 40vw, 200px);
+        height: clamp(120px, 40vw, 200px);
+      }
+    }
+  </style>
 </head>
 <body>
+
+<!-- full-page decorative background -->
+<div id="bg-layer" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden">
+  <img class="bg-palm tl" src="assets/atmos-palm.png" alt="" />
+  <img class="bg-palm mr" src="assets/atmos-palm.png" alt="" />
+  <img class="bg-palm bl" src="assets/atmos-palm.png" alt="" />
+  <img class="bg-palm br" src="assets/atmos-palm.png" alt="" />
+  <div class="bg-c l" style="top:8%"></div>
+  <div class="bg-c r" style="top:8%"></div>
+  <div class="bg-c l" style="top:28%"></div>
+  <div class="bg-c r" style="top:28%"></div>
+  <div class="bg-c l" style="top:50%"></div>
+  <div class="bg-c r" style="top:50%"></div>
+  <div class="bg-c l" style="top:72%"></div>
+  <div class="bg-c r" style="top:72%"></div>
+  <div class="bg-c l" style="top:92%"></div>
+  <div class="bg-c r" style="top:92%"></div>
+  <div class="bg-cross" style="top:4%"></div>
+  <div class="bg-cross" style="top:18%"></div>
+  <div class="bg-cross" style="top:38%"></div>
+  <div class="bg-cross" style="top:61%"></div>
+  <div class="bg-cross" style="top:82%"></div>
+</div>
 
 <!-- SVG defs — compass mark + gold gradients -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -82,12 +173,17 @@
   <span class="lh-corner lh-corner-tl" aria-hidden="true"></span>
   <span class="lh-corner lh-corner-tr" aria-hidden="true"></span>
 
-  <div class="s-body">
-    <p class="s-eyebrow reveal">Strategy &nbsp;·&nbsp; Storytelling &nbsp;·&nbsp; Significance</p>
-    <h1 class="identity-headline reveal">
-      Meaning<br /><em> gives direction.</em>
-    </h1>
-    <p class="identity-tagline reveal">Building brands with meaning.<br class="desktop-br" /> Creating impact that lasts.</p>
+  <div class="s-body s-identity-body">
+    <div class="identity-text">
+      <p class="s-eyebrow reveal">Strategy &nbsp;·&nbsp; Storytelling &nbsp;·&nbsp; Significance</p>
+      <h1 class="identity-headline reveal">
+        Meaning<br /><em> gives direction.</em>
+      </h1>
+      <p class="identity-tagline reveal">Building brands with meaning.<br class="desktop-br" /> Creating impact that lasts.</p>
+    </div>
+    <figure class="identity-emblem reveal" aria-hidden="true">
+      <img src="assets/emblem.jpeg" alt="" />
+    </figure>
   </div>
 
   <div class="scroll-cue reveal" aria-hidden="true">
