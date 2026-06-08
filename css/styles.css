@@ -22,12 +22,11 @@
 html { scroll-behavior: smooth; }
 body {
   background: linear-gradient(180deg,
-    #E2CAA6 0%,
-    #EDD9BB 20%,
-    #F1E2CC 46%,
-    #F7ECD9 70%,
-    #FBF4EA 86%,
-    #FDF8F3 100%);
+    #E8DCC9 0%,
+    #EDE4D6 25%,
+    #F2EBE2 50%,
+    #F7F2EC 75%,
+    #FAF7F2 100%);
   color: var(--ink);
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: 18px;
@@ -40,7 +39,45 @@ a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; height: auto; }
 ::selection { background: var(--gold); color: var(--paper); }
 
-header, main, footer { position: relative; z-index: 1; }
+/* ── Cotton paper texture ────────────────────────────────── */
+/* Low-frequency turbulence = long organic fibers, not grain/noise */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .042;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.04 0.06' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+
+/* ── Ambient light — sunlight drifting across paper ─────── */
+/* Single soft warm pool, barely moves, 28s cycle            */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -15%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 110% 70% at 48% 38%,
+    rgba(252, 244, 224, .11),
+    transparent 68%
+  );
+  animation: ambientDrift 28s ease-in-out infinite;
+}
+@keyframes ambientDrift {
+  0%   { transform: translate(0%,   0%); }
+  50%  { transform: translate(3.5%, 2.5%); }
+  100% { transform: translate(0%,   0%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none; }
+}
+
+header, main, footer { position: relative; z-index: 2; }
 
 /* ── Shared utility ──────────────────────────────────────── */
 .wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--side); }
