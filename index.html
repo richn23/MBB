@@ -21,20 +21,22 @@
     body::after {
       content: "";
       position: fixed;
-      inset: -30%;
+      inset: -40%;
       pointer-events: none;
-      z-index: 0;
+      z-index: 2;
       background: linear-gradient(
         115deg,
         transparent 0%,
-        rgba(255,255,255,.08) 42%,
-        rgba(255,255,255,.18) 50%,
-        rgba(255,255,255,.08) 58%,
+        transparent 35%,
+        rgba(255,250,235,.12) 42%,
+        rgba(255,253,240,.38) 48%,
+        rgba(255,255,248,.52) 50%,
+        rgba(255,253,240,.38) 52%,
+        rgba(255,250,235,.12) 58%,
+        transparent 65%,
         transparent 100%
       );
-      opacity: .35;
-      mix-blend-mode: soft-light;
-      animation: paperShimmer 18s ease-in-out infinite;
+      animation: paperShimmer 16s ease-in-out infinite;
     }
     @keyframes paperShimmer {
       0%   { transform: translateX(-18%) translateY(-8%); }
