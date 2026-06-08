@@ -7,7 +7,7 @@
   <meta name="description" content="A boutique brand consultancy helping luxury and premium brands create meaningful growth through trust, connection, distinction, and customer experience." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
     /* background — warm parchment top → ivory bottom (per spec) */
@@ -60,6 +60,110 @@
     /* remove all letterhead decorative marks and lines */
     .lh-seal, .lh-corner { display: none !important; }
     .sep::before, .sep::after { display: none !important; }
+
+    /* ── Bodoni Moda display typography system ─────────────────
+       Letterpress feel: ink pressed into paper, not WordArt.
+       Layered shadows simulate emboss depth at extreme subtlety.
+    ───────────────────────────────────────────────────────────── */
+
+    /* Hero headline — largest display moment */
+    .identity-headline {
+      font-family: "Bodoni Moda", "Cormorant Garamond", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-size: clamp(58px, 9.5vw, 148px);
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: #241F17;
+      text-shadow:
+        0 1px 0   rgba(255, 255, 255, 0.50),
+        0 2px 4px rgba(36, 31, 23, 0.06),
+        0 8px 22px rgba(36, 31, 23, 0.07);
+    }
+
+    /* Gold italic accent — foil-on-paper shimmer */
+    .identity-headline em,
+    .belief-statement em,
+    .inv-title em {
+      font-family: "Bodoni Moda", "Cormorant Garamond", serif;
+      font-optical-sizing: auto;
+      font-style: italic;
+      font-weight: 400;
+      background: linear-gradient(
+        135deg,
+        #7A5420 0%,
+        #C09040 30%,
+        #E8C870 52%,
+        #B07A30 72%,
+        #8A5E20 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none; /* can't combine with -webkit-text-fill-color */
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,0.30))
+              drop-shadow(0 4px 10px rgba(140, 90, 20, 0.20));
+    }
+
+    /* Belief blockquote — editorial statement */
+    .belief-statement {
+      font-family: "Bodoni Moda", "Cormorant Garamond", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-size: clamp(26px, 3.8vw, 56px);
+      line-height: 1.22;
+      letter-spacing: -0.015em;
+      color: #241F17;
+      text-shadow:
+        0 1px 0   rgba(255, 255, 255, 0.45),
+        0 6px 16px rgba(36, 31, 23, 0.06);
+    }
+
+    /* Invitation heading */
+    .inv-title {
+      font-family: "Bodoni Moda", "Cormorant Garamond", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-size: clamp(38px, 6vw, 96px);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: #241F17;
+      text-shadow:
+        0 1px 0   rgba(255, 255, 255, 0.45),
+        0 6px 18px rgba(36, 31, 23, 0.07);
+    }
+
+    /* Founder name */
+    .founder-name {
+      font-family: "Bodoni Moda", "Cormorant Garamond", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      font-size: clamp(40px, 5vw, 70px);
+      letter-spacing: -0.01em;
+      color: #241F17;
+      text-shadow:
+        0 1px 0   rgba(255, 255, 255, 0.40),
+        0 5px 14px rgba(36, 31, 23, 0.06);
+    }
+
+    /* Method titles — lighter Bodoni touch */
+    .mi-title {
+      font-family: "Bodoni Moda", "Cormorant Garamond", serif;
+      font-optical-sizing: auto;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: #241F17;
+      text-shadow:
+        0 1px 0 rgba(255,255,255,0.35),
+        0 3px 8px rgba(36,31,23,0.05);
+    }
+
+    @media (max-width: 600px) {
+      .identity-headline {
+        font-size: clamp(42px, 11vw, 70px);
+        line-height: 1.06;
+      }
+    }
     /* bg-layer circles, palms, crosses */
     .bg-c {
       position: absolute;
