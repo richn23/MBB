@@ -10,14 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    /* background — warm parchment top → ivory bottom (per spec) */
-    body {
-      background: linear-gradient(180deg,
-        #E6D8C0 0%, #EAD9C2 15%, #EDDFCA 30%,
-        #EFE4D1 50%, #F2E9D8 68%, #F5EED9 82%,
-        #F7F4EE 100%);
-    }
-    /* silk shimmer — two breathing light pools that drift out of phase */
+    /* silk shimmer — dialled back so it enhances without bleaching type */
     body::after {
       content: "";
       position: fixed;
@@ -25,8 +18,8 @@
       pointer-events: none;
       z-index: 2;
       background:
-        radial-gradient(ellipse 80% 60% at 25% 30%, rgba(255,255,255,.38), transparent 70%),
-        radial-gradient(ellipse 60% 75% at 78% 72%, rgba(255,255,255,.28), transparent 65%);
+        radial-gradient(ellipse 80% 60% at 25% 30%, rgba(255,255,255,.18), transparent 70%),
+        radial-gradient(ellipse 60% 75% at 78% 72%, rgba(255,255,255,.14), transparent 65%);
       animation: silkA 22s ease-in-out infinite;
     }
     #silk-b {
@@ -35,8 +28,8 @@
       pointer-events: none;
       z-index: 2;
       background:
-        radial-gradient(ellipse 65% 55% at 60% 15%, rgba(255,255,255,.22), transparent 62%),
-        radial-gradient(ellipse 50% 70% at 15% 80%, rgba(255,255,255,.18), transparent 58%);
+        radial-gradient(ellipse 65% 55% at 60% 15%, rgba(255,255,255,.12), transparent 62%),
+        radial-gradient(ellipse 50% 70% at 15% 80%, rgba(255,255,255,.10), transparent 58%);
       animation: silkB 30s ease-in-out infinite;
       animation-delay: -11s;
     }
@@ -60,6 +53,14 @@
     /* remove all letterhead decorative marks and lines */
     .lh-seal, .lh-corner { display: none !important; }
     .sep::before, .sep::after { display: none !important; }
+
+    /* text contrast — darken taupe token, restore opacity reductions */
+    :root { --taupe: #4A4235; }
+    .belief-body    { opacity: 1; }
+    .belief-sectors { opacity: 0.75; }
+    .s-eyebrow      { opacity: 0.75; }
+    .nb-sub         { opacity: 0.80; }
+    .inv-location   { opacity: 0.75; }
 
     /* ── Bodoni Moda display typography system ─────────────────
        Letterpress feel: ink pressed into paper, not WordArt.
@@ -234,7 +235,14 @@
 <div id="silk-b" aria-hidden="true"></div>
 
 <!-- full-page decorative background -->
-<div id="bg-layer" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden"></div>
+<div id="bg-layer" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden">
+  <div class="bg-c l"></div>
+  <div class="bg-c r"></div>
+  <div class="bg-cross" style="top:22%"></div>
+  <div class="bg-cross" style="top:44%"></div>
+  <div class="bg-cross" style="top:66%"></div>
+  <div class="bg-cross" style="top:88%"></div>
+</div>
 
 <!-- SVG defs — compass mark + gold gradients -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -382,7 +390,56 @@
           <span class="cs-dir">West</span>
         </button>
 
-        <div class="cs-instrument" aria-hidden="true"></div>
+        <div class="cs-instrument" aria-hidden="true">
+          <svg class="compass-svg" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="spkGold" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#E8C870"/>
+                <stop offset="40%"  stop-color="#C09040"/>
+                <stop offset="100%" stop-color="#8C6828"/>
+              </linearGradient>
+              <linearGradient id="spkMuted" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#9A8A6A"/>
+                <stop offset="100%" stop-color="#6A5A3A"/>
+              </linearGradient>
+              <filter id="starGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#8C6020" flood-opacity=".22"/>
+              </filter>
+            </defs>
+
+            <!-- Outer bezel rings -->
+            <circle cx="170" cy="170" r="162" stroke="#A8854A" stroke-width="0.6" opacity=".30"/>
+            <circle cx="170" cy="170" r="150" stroke="#A8854A" stroke-width="0.3" stroke-dasharray="2 8" opacity=".18"/>
+            <circle cx="170" cy="170" r="136" stroke="#A8854A" stroke-width="0.5" opacity=".14"/>
+
+            <!-- Ordinal tick marks at 45° -->
+            <line x1="170" y1="10" x2="170" y2="32" stroke="#A8854A" stroke-width="0.7" opacity=".25" transform="rotate(45  170 170)"/>
+            <line x1="170" y1="10" x2="170" y2="32" stroke="#A8854A" stroke-width="0.7" opacity=".25" transform="rotate(135 170 170)"/>
+            <line x1="170" y1="10" x2="170" y2="32" stroke="#A8854A" stroke-width="0.7" opacity=".25" transform="rotate(225 170 170)"/>
+            <line x1="170" y1="10" x2="170" y2="32" stroke="#A8854A" stroke-width="0.7" opacity=".25" transform="rotate(315 170 170)"/>
+
+            <!-- Compass rose — cardinal spikes + intercardinal -->
+            <g class="compass-star-layer" style="transform-box:fill-box;transform-origin:170px 170px" filter="url(#starGlow)">
+              <!-- N spike — brighter gold -->
+              <polygon points="170,18 175,160 170,182 165,160" fill="url(#spkGold)"/>
+              <!-- S spike — muted -->
+              <polygon points="170,322 175,180 170,158 165,180" fill="url(#spkMuted)" opacity=".65"/>
+              <!-- E spike — muted -->
+              <polygon points="322,170 180,165 158,170 180,175" fill="url(#spkMuted)" opacity=".65"/>
+              <!-- W spike — muted -->
+              <polygon points="18,170 160,165 182,170 160,175"  fill="url(#spkMuted)" opacity=".65"/>
+              <!-- Intercardinal short spikes -->
+              <polygon points="170,18 175,160 170,182 165,160" fill="#C09A48" opacity=".30" transform="rotate(45  170 170)"/>
+              <polygon points="170,18 175,160 170,182 165,160" fill="#C09A48" opacity=".30" transform="rotate(135 170 170)"/>
+              <polygon points="170,18 175,160 170,182 165,160" fill="#C09A48" opacity=".30" transform="rotate(225 170 170)"/>
+              <polygon points="170,18 175,160 170,182 165,160" fill="#C09A48" opacity=".30" transform="rotate(315 170 170)"/>
+            </g>
+
+            <!-- Centre pivot -->
+            <circle cx="170" cy="170" r="5"   fill="#C8980A" opacity=".60"/>
+            <circle cx="170" cy="170" r="2"   fill="#F0D060" opacity=".80"/>
+          </svg>
+        </div>
 
         <button class="cs-pt cs-east reveal" aria-expanded="false"
           data-description="Relationships are built through consistency, credibility, and experience. Trust is earned in every interaction.">
