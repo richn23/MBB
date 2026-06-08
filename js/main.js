@@ -52,30 +52,36 @@
   }
 
 
-  /* ── Compass: subtle rotation on scroll ─────────────── */
-  var starLayer      = document.querySelector('.compass-star-layer');
-  var compassSection = document.getElementById('compass');
-  var ticking        = false;
+  /* ── Compass: continuous rotation tied to page scroll ── */
+  // All SVG compass star layers + nav/letterhead marks rotate slowly as user scrolls
+  var compassTargets = [].slice.call(document.querySelectorAll('.compass-star-layer'));
+  // Also grab any standalone SVG use elements that reference #mark (nav, sep, letterhead)
+  var markUses = [].slice.call(document.querySelectorAll('use[href="#mark"]'));
+  markUses.forEach(function (u) {
+    // Walk up to find the nearest SVG and wrap it for rotation
+    var svg = u.closest('svg');
+    if (svg && !svg.closest('[data-no-spin]')) {
+      svg.style.transformBox   = 'fill-box';
+      svg.style.transformOrigin = 'center';
+      svg.style.willChange     = 'transform';
+      compassTargets.push(svg);
+    }
+  });
+
+  var compassTicking = false;
 
   function updateCompassRotation () {
-    if (!starLayer || !compassSection) return;
-    var scrollY    = window.pageYOffset;
-    var secTop     = compassSection.offsetTop;
-    var secH       = compassSection.offsetHeight;
-    var viewH      = window.innerHeight;
-    // 0 → 1 as section scrolls through viewport
-    var progress   = (scrollY - secTop + viewH) / (secH + viewH);
-    progress       = Math.max(0, Math.min(1, progress));
-    // Max ±2.5° drift — almost imperceptible
-    var deg        = (progress - 0.5) * 5;
-    starLayer.style.transform = 'rotate(' + deg.toFixed(2) + 'deg)';
-    ticking = false;
+    var deg = window.pageYOffset * 0.018; // ~18° per 1000px — slow, elegant
+    compassTargets.forEach(function (el) {
+      el.style.transform = 'rotate(' + deg.toFixed(2) + 'deg)';
+    });
+    compassTicking = false;
   }
 
   window.addEventListener('scroll', function () {
-    if (!ticking) {
+    if (!compassTicking) {
       requestAnimationFrame(updateCompassRotation);
-      ticking = true;
+      compassTicking = true;
     }
   }, { passive: true });
 

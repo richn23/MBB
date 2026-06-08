@@ -10,28 +10,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    /* background gradient — diagonal amber top-left → cream bottom-right */
+    /* background — warm parchment top → ivory bottom (per spec) */
     body {
-      background: linear-gradient(135deg,
-        #C08B38 0%, #CA9A4A 12%, #D4A85C 24%,
-        #DFBA7E 38%, #EAD09E 52%, #F0DFB8 65%,
-        #F5EAD2 78%, #FAF3E6 90%, #FCF7EE 100%);
+      background: linear-gradient(180deg,
+        #E6D8C0 0%, #EAD9C2 15%, #EDDFCA 30%,
+        #EFE4D1 50%, #F2E9D8 68%, #F5EED9 82%,
+        #F7F4EE 100%);
     }
-    /* shimmer layer — diagonal light streak, moves on scroll */
+    /* shimmer — very wide, soft, 5-8% opacity diagonal sweep */
     #bg-shimmer {
       position: fixed;
-      top: -120%; left: -60%;
-      width: 220%; height: 340%;
+      top: -80%; left: -80%;
+      width: 260%; height: 260%;
       background: linear-gradient(
-        -42deg,
+        -38deg,
         transparent 0%,
-        transparent 36%,
-        rgba(255,252,240,.0)  40%,
-        rgba(255,253,243,.42) 45%,
-        rgba(255,255,252,.68) 50%,
-        rgba(255,253,243,.42) 55%,
-        rgba(255,252,240,.0)  60%,
-        transparent 64%,
+        transparent 32%,
+        rgba(255,253,245,.0)  38%,
+        rgba(255,254,248,.05) 43%,
+        rgba(255,255,252,.08) 50%,
+        rgba(255,254,248,.05) 57%,
+        rgba(255,253,245,.0)  62%,
+        transparent 68%,
         transparent 100%
       );
       pointer-events: none;
@@ -111,16 +111,6 @@
   <img class="bg-palm mr" src="assets/atmos-palm.png" alt="" />
   <img class="bg-palm bl" src="assets/atmos-palm.png" alt="" />
   <img class="bg-palm br" src="assets/atmos-palm.png" alt="" />
-  <div class="bg-c l" style="top:8%"></div>
-  <div class="bg-c r" style="top:8%"></div>
-  <div class="bg-c l" style="top:28%"></div>
-  <div class="bg-c r" style="top:28%"></div>
-  <div class="bg-c l" style="top:50%"></div>
-  <div class="bg-c r" style="top:50%"></div>
-  <div class="bg-c l" style="top:72%"></div>
-  <div class="bg-c r" style="top:72%"></div>
-  <div class="bg-c l" style="top:92%"></div>
-  <div class="bg-c r" style="top:92%"></div>
   <div class="bg-cross" style="top:4%"></div>
   <div class="bg-cross" style="top:18%"></div>
   <div class="bg-cross" style="top:38%"></div>
