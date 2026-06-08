@@ -57,6 +57,9 @@
     @media (prefers-reduced-motion: reduce) {
       body::after, #silk-b { animation: none; }
     }
+    /* remove all letterhead decorative marks and lines */
+    .lh-seal, .lh-corner { display: none !important; }
+    .sep::before, .sep::after { display: none !important; }
     /* bg-layer circles, palms, crosses */
     .bg-c {
       position: absolute;
@@ -127,17 +130,7 @@
 <div id="silk-b" aria-hidden="true"></div>
 
 <!-- full-page decorative background -->
-<div id="bg-layer" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden">
-  <img class="bg-palm tl" src="assets/atmos-palm.png" alt="" />
-  <img class="bg-palm mr" src="assets/atmos-palm.png" alt="" />
-  <img class="bg-palm bl" src="assets/atmos-palm.png" alt="" />
-  <img class="bg-palm br" src="assets/atmos-palm.png" alt="" />
-  <div class="bg-cross" style="top:4%"></div>
-  <div class="bg-cross" style="top:18%"></div>
-  <div class="bg-cross" style="top:38%"></div>
-  <div class="bg-cross" style="top:61%"></div>
-  <div class="bg-cross" style="top:82%"></div>
-</div>
+<div id="bg-layer" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:hidden"></div>
 
 <!-- SVG defs — compass mark + gold gradients -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
