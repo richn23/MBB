@@ -288,64 +288,112 @@
         <div class="cs-instrument reveal" aria-hidden="true">
           <svg class="compass-svg" viewBox="0 0 360 360">
             <defs>
-              <!-- Metallic gold gradient — light from top-left -->
-              <linearGradient id="cMetal1" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%"   stop-color="#F5E098"/>
-                <stop offset="28%"  stop-color="#D4A84B"/>
-                <stop offset="65%"  stop-color="#A07238"/>
-                <stop offset="100%" stop-color="#6B4A22"/>
+              <!-- Brushed gold disc face -->
+              <radialGradient id="discFace" cx="40%" cy="36%" r="65%">
+                <stop offset="0%"   stop-color="#F8DC80"/>
+                <stop offset="35%"  stop-color="#E8BE52"/>
+                <stop offset="70%"  stop-color="#C99838"/>
+                <stop offset="100%" stop-color="#A87828"/>
+              </radialGradient>
+              <!-- Border ring gold -->
+              <linearGradient id="ringBand" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%"   stop-color="#D9AA4A"/>
+                <stop offset="45%"  stop-color="#ECC860"/>
+                <stop offset="100%" stop-color="#B08828"/>
               </linearGradient>
-              <!-- Secondary star: slightly cooler gold -->
-              <linearGradient id="cMetal2" x1="0.1" y1="0" x2="0.9" y2="1">
-                <stop offset="0%"   stop-color="#EDD068"/>
-                <stop offset="50%"  stop-color="#B28A3A"/>
-                <stop offset="100%" stop-color="#8A6020"/>
+              <!-- Inner ring edge highlight -->
+              <linearGradient id="innerEdge" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#F0C84A" stop-opacity=".5"/>
+                <stop offset="100%" stop-color="#8A6020" stop-opacity=".3"/>
               </linearGradient>
-              <!-- Subtle drop shadow -->
-              <filter id="cShadow" x="-18%" y="-18%" width="136%" height="136%">
-                <feDropShadow dx="1" dy="3" stdDeviation="7" flood-color="#5A3A12" flood-opacity=".22"/>
+              <!-- Star shadow -->
+              <filter id="cShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#3A2008" flood-opacity=".35"/>
               </filter>
+              <!-- Gem stone -->
+              <radialGradient id="gemShine" cx="35%" cy="30%" r="65%">
+                <stop offset="0%"   stop-color="#4A3820"/>
+                <stop offset="100%" stop-color="#140E06"/>
+              </radialGradient>
             </defs>
 
-            <!-- Engraved bezel rings -->
-            <circle cx="180" cy="180" r="174" fill="none" stroke="#A8854A" stroke-width="0.3" opacity=".15"/>
-            <circle cx="180" cy="180" r="167" fill="none" stroke="#A8854A" stroke-width="1.3" opacity=".28"/>
-            <circle cx="180" cy="180" r="158" fill="none" stroke="#A8854A" stroke-width="0.5" opacity=".18"/>
-            <circle cx="180" cy="180" r="150" fill="none" stroke="#A8854A" stroke-width="0.4" stroke-dasharray="1.5 6.5" opacity=".20"/>
-            <circle cx="180" cy="180" r="140" fill="none" stroke="#A8854A" stroke-width="0.8" opacity=".20"/>
-            <circle cx="180" cy="180" r="130" fill="none" stroke="#A8854A" stroke-width="0.35" stroke-dasharray="2 9" opacity=".15"/>
-            <circle cx="180" cy="180" r="114" fill="none" stroke="#A8854A" stroke-width="0.6" opacity=".17"/>
-            <circle cx="180" cy="180" r="92"  fill="none" stroke="#A8854A" stroke-width="0.4" opacity=".13"/>
-            <circle cx="180" cy="180" r="66"  fill="none" stroke="#A8854A" stroke-width="0.4" opacity=".11"/>
-            <circle cx="180" cy="180" r="42"  fill="none" stroke="#A8854A" stroke-width="0.35" opacity=".10"/>
+            <!-- ── Border ring band ── -->
+            <circle cx="180" cy="180" r="172" fill="url(#ringBand)"/>
+            <!-- Inner edge of ring — subtle lighter stroke -->
+            <circle cx="180" cy="180" r="150" fill="none" stroke="#E8C458" stroke-width="1.2" opacity=".45"/>
+            <circle cx="180" cy="180" r="172" fill="none" stroke="#8A6020" stroke-width="0.8" opacity=".4"/>
 
-            <!-- Cardinal cross lines -->
-            <line x1="180" y1="13"  x2="180" y2="347" stroke="#A8854A" stroke-width="0.55" opacity=".18"/>
-            <line x1="13"  y1="180" x2="347" y2="180" stroke="#A8854A" stroke-width="0.55" opacity=".18"/>
-            <!-- Cardinal tick marks (outer bezel) -->
-            <line x1="180" y1="13"  x2="180" y2="26"  stroke="#A8854A" stroke-width="1.8" opacity=".38"/>
-            <line x1="180" y1="334" x2="180" y2="347" stroke="#A8854A" stroke-width="1.8" opacity=".38"/>
-            <line x1="13"  y1="180" x2="26"  y2="180" stroke="#A8854A" stroke-width="1.8" opacity=".38"/>
-            <line x1="334" y1="180" x2="347" y2="180" stroke="#A8854A" stroke-width="1.8" opacity=".38"/>
-            <!-- Ordinal lines (45°) -->
-            <line x1="60"  y1="60"  x2="300" y2="300" stroke="#A8854A" stroke-width="0.3" opacity=".10"/>
-            <line x1="300" y1="60"  x2="60"  y2="300" stroke="#A8854A" stroke-width="0.3" opacity=".10"/>
-            <!-- Inter-cardinal construction lines (22.5° / 67.5°) -->
-            <line x1="244" y1="25"  x2="116" y2="335" stroke="#A8854A" stroke-width="0.18" opacity=".07"/>
-            <line x1="335" y1="116" x2="25"  y2="244" stroke="#A8854A" stroke-width="0.18" opacity=".07"/>
-            <line x1="335" y1="244" x2="25"  y2="116" stroke="#A8854A" stroke-width="0.18" opacity=".07"/>
-            <line x1="244" y1="335" x2="116" y2="25"  stroke="#A8854A" stroke-width="0.18" opacity=".07"/>
+            <!-- ── Dark gem stones in border ring (36 × every 10°) ── -->
+            <!-- gem template at top: cx=180, cy=21 (r=159 from center) -->
+            <circle cx="180.0" cy="21.0"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="207.6" cy="23.5"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="234.3" cy="30.5"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="259.3" cy="42.2"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="281.8" cy="58.2"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="300.8" cy="78.2"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="315.5" cy="101.5" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="325.4" cy="127.2" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="330.0" cy="154.4" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="329.4" cy="181.9" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="323.7" cy="208.8" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="313.1" cy="234.1" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="298.0" cy="256.8" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="279.0" cy="276.2" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="256.8" cy="291.4" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="232.0" cy="302.0" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="205.4" cy="307.5" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="178.1" cy="307.8" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="151.0" cy="302.9" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="125.4" cy="293.0" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="102.0" cy="278.5" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="81.8"  cy="260.0" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="65.4"  cy="237.9" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="53.3"  cy="213.0" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="45.8"  cy="186.1" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="43.0"  cy="158.5" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="45.0"  cy="131.2" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="51.6"  cy="105.2" r="4.8" fill="url(#gemShine)"/>
+            <circle cx="62.6"  cy="81.3"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="77.6"  cy="59.9"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="96.1"  cy="41.7"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="117.4" cy="27.3"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="140.6" cy="17.5"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="165.0" cy="12.5"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="189.6" cy="12.3"  r="4.8" fill="url(#gemShine)"/>
+            <circle cx="213.8" cy="16.8"  r="4.8" fill="url(#gemShine)"/>
 
-            <!-- Compass rose star — 3D gold star image, rotates on scroll + direction -->
+            <!-- ── Brushed gold disc face ── -->
+            <circle cx="180" cy="180" r="148" fill="url(#discFace)"/>
+
+            <!-- Subtle radial scratch texture on disc -->
+            <circle cx="180" cy="180" r="148" fill="none" stroke="#F5D060" stroke-width="0.4" opacity=".12"/>
+            <circle cx="180" cy="180" r="120" fill="none" stroke="#F5D060" stroke-width="0.3" opacity=".08"/>
+            <circle cx="180" cy="180" r="90"  fill="none" stroke="#E0B040" stroke-width="0.3" opacity=".07"/>
+
+            <!-- ── Cardinal cross marks ── -->
+            <!-- North + -->
+            <line x1="180" y1="50"  x2="180" y2="66"  stroke="#7A5618" stroke-width="1.8" opacity=".55"/>
+            <line x1="172" y1="58"  x2="188" y2="58"  stroke="#7A5618" stroke-width="1.8" opacity=".55"/>
+            <!-- South + -->
+            <line x1="180" y1="294" x2="180" y2="310" stroke="#7A5618" stroke-width="1.8" opacity=".55"/>
+            <line x1="172" y1="302" x2="188" y2="302" stroke="#7A5618" stroke-width="1.8" opacity=".55"/>
+            <!-- West + -->
+            <line x1="50"  y1="180" x2="66"  y2="180" stroke="#7A5618" stroke-width="1.8" opacity=".55"/>
+            <line x1="58"  y1="172" x2="58"  y2="188" stroke="#7A5618" stroke-width="1.8" opacity=".55"/>
+            <!-- East + -->
+            <line x1="294" y1="180" x2="310" y2="180" stroke="#7A5618" stroke-width="1.8" opacity=".55"/>
+            <line x1="302" y1="172" x2="302" y2="188" stroke="#7A5618" stroke-width="1.8" opacity=".55"/>
+
+            <!-- ── Rotating star ── -->
             <g class="compass-star-layer" style="transform-box:fill-box;transform-origin:180px 180px">
-              <image href="assets/compass-star.png" x="30" y="30" width="300" height="300"
+              <image href="assets/compass-star.png" x="50" y="50" width="260" height="260"
                      preserveAspectRatio="xMidYMid meet"
                      style="mix-blend-mode:multiply" filter="url(#cShadow)"/>
             </g>
 
             <!-- Centre pivot -->
-            <circle cx="180" cy="180" r="5.5" fill="#C39A4E" opacity=".45"/>
-            <circle cx="180" cy="180" r="2"   fill="#E8C870" opacity=".6"/>
+            <circle cx="180" cy="180" r="5"   fill="#C8980A" opacity=".55"/>
+            <circle cx="180" cy="180" r="2.2" fill="#F8E060" opacity=".75"/>
           </svg>
         </div>
 
