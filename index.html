@@ -12,8 +12,10 @@
 </head>
 <body>
 
-  <!-- Water sparkle: CSS-only backdrop, never an <img> -->
+  <!-- Environmental layers: parchment ground + water shimmer + paper texture + ambient light -->
   <div class="site-backdrop" aria-hidden="true"></div>
+  <div class="site-texture"  aria-hidden="true"></div>
+  <div class="site-light"    aria-hidden="true"></div>
 
   <!-- ══════════════════════════════════════════════
        NAVIGATION
@@ -56,9 +58,10 @@
          Text lives on top of the water.
     ══════════════════════════════════════════════ -->
     <section class="screen s-hero" id="identity">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="hero-veil" aria-hidden="true"></div>
+      <!-- Photography fades in from the right edge — editorial, not a banner -->
+      <div class="hero-image-right" aria-hidden="true"></div>
       <div class="hero-body reveal">
+        <img class="hero-emblem" src="assets/emblem.jpeg" alt="" aria-hidden="true" />
         <p class="s-eyebrow">Strategy · Storytelling · Significance</p>
         <h1 class="identity-headline">
           Meaning<br><em>gives direction.</em>
@@ -271,10 +274,12 @@
          hero-flatlay.jpg as the final visual moment
     ══════════════════════════════════════════════ -->
     <section class="screen s-closing" id="closing">
+      <!-- pearl-water.jpg: shell, pearls, business card — the emotional climax -->
+      <!-- Photography breathes on the right. Text on parchment ground, left. -->
       <div class="closing-bg" aria-hidden="true"></div>
       <div class="closing-veil" aria-hidden="true"></div>
       <div class="closing-body reveal">
-        <p class="s-eyebrow closing-eyebrow">Meaning Beyond Brands</p>
+        <p class="s-overline">The work we do</p>
         <h2 class="closing-headline">
           Create<br>
           <em>Meaningful</em><br>
@@ -283,7 +288,7 @@
         <div class="closing-rule" aria-hidden="true">
           <span class="closing-rule-line"></span>
           <svg viewBox="0 0 10 10" fill="none" width="8" height="8">
-            <path d="M5 0L5.9 4.1L10 5L5.9 5.9L5 10L4.1 5.9L0 5L4.1 4.1Z" fill="#D4AC7A" opacity=".8"/>
+            <path d="M5 0L5.9 4.1L10 5L5.9 5.9L5 10L4.1 5.9L0 5L4.1 4.1Z" fill="#9B6040" opacity=".6"/>
           </svg>
           <span class="closing-rule-line"></span>
         </div>
@@ -292,8 +297,7 @@
           Inspire connection.<br>
           Leave a lasting impact.
         </p>
-        <p class="closing-pillars">Strategy &nbsp;|&nbsp; Storytelling &nbsp;|&nbsp; Significance</p>
-        <a href="#invitation" class="hero-cta">Begin the journey →</a>
+        <a href="#invitation" class="hero-cta closing-cta">Begin the journey →</a>
       </div>
     </section>
 

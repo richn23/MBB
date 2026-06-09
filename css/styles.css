@@ -1000,18 +1000,35 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 
 
 /* ============================================================
-   REDESIGN 2026 — complete image integration system
-   Appended below all existing rules.
+   EDITORIAL REDESIGN 2026
+   One immersive luxury brand narrative.
+   Quiet confidence. Cormorant throughout.
+   Think Aman. The Row. Loro Piana.
    ============================================================ */
 
-/* ── Token overrides ─────────────────────────────────────── */
+/* ── TOKEN OVERRIDES ────────────────────────────────────── */
 :root { --taupe: #4A4235; }
-body, button, input, textarea, select, label {
+
+/* Cormorant Garamond is the editorial voice — used throughout */
+body {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 300;
+}
+/* Jost reserved for the smallest UI labels only */
+.s-eyebrow, .s-overline, .nb-name, .nb-sub, .nb-invite,
+.founder-role, .hero-cta, .inv-submit, .inv-form-toggle,
+.inv-secondary-label, .inv-social, .insight-arrow,
+.compass-hint, .cs-dir, .cs-val, .sf-copy, .nb-drawer a {
   font-family: "Jost", sans-serif;
 }
 
-/* ── 1. SITE BACKDROP — water sparkle, CSS only ──────────── */
-/* Kill old body pseudo-elements, replace with .site-backdrop */
+/* ── 1. CONTINUOUS BACKGROUND SYSTEM ────────────────────────
+   Single warm gradient across the full page height.
+   Champagne at the top → parchment → pearl at the foot.
+   No section breaks. No abrupt colour shifts.
+   ──────────────────────────────────────────────────────────── */
+
+/* Retire old body pseudo-elements — the site-backdrop replaces them */
 body::before, body::after { display: none !important; }
 
 .site-backdrop {
@@ -1019,117 +1036,190 @@ body::before, body::after { display: none !important; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(170deg,
-    #E5D9C6 0%, #EDE4D6 25%, #F0E9DF 50%, #F5F0E8 75%, #FAF7F2 100%);
 }
-/* Water sparkle: dissolved into the parchment, no hard edge */
+/* Layer A — parchment gradient foundation */
 .site-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    170deg,
+    #DDD0B8 0%,
+    #E8DCC9 12%,
+    #EDE4D6 28%,
+    #F0E9DF 50%,
+    #F5F1EB 72%,
+    #F9F6F1 88%,
+    #FDFCFA 100%
+  );
+}
+/* Layer B — water sparkle: ambient shimmer, felt not seen */
+.site-backdrop::after {
   content: "";
   position: absolute;
   inset: 0;
   background-image: url('../images/water-sparkle.jpg');
   background-size: cover;
-  background-position: center;
-  opacity: 0.08;
+  background-position: center 30%;
+  background-attachment: fixed;
+  opacity: 0.055;
   mix-blend-mode: soft-light;
-  filter: saturate(0.22) brightness(1.2);
-  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%,
-    black 0%, rgba(0,0,0,.5) 60%, transparent 90%);
-  -webkit-mask-image: radial-gradient(ellipse 100% 100% at 50% 50%,
-    black 0%, rgba(0,0,0,.5) 60%, transparent 90%);
+  filter: saturate(0.18) brightness(1.25);
 }
-/* Paper texture */
-.site-backdrop::after {
-  content: "";
-  position: absolute;
+
+/* Paper texture — lives on a separate fixed layer above the backdrop */
+.site-texture {
+  position: fixed;
   inset: 0;
-  opacity: 0.038;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .036;
   mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.04 0.06' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
   background-size: 400px 400px;
 }
 
-/* Keep header/main/footer above backdrop */
+/* Ambient light drift — gentle warmth moving across the ground */
+.site-light {
+  position: fixed;
+  inset: -15%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 110% 70% at 48% 38%,
+    rgba(252,244,224,.07),
+    transparent 68%
+  );
+  animation: ambientDrift 32s ease-in-out infinite;
+}
+@keyframes ambientDrift {
+  0%   { transform: translate(0%, 0%); }
+  50%  { transform: translate(3.5%, 2.5%); }
+  100% { transform: translate(0%, 0%); }
+}
+@media (prefers-reduced-motion: reduce) { .site-light { animation: none; } }
+
 header, main, footer { position: relative; z-index: 2; }
 
-/* ── 2. HERO — pearl-water.jpg full bleed ─────────────────── */
+/* ── 2. HERO — editorial composition ────────────────────────
+   Text left, dark on parchment — quiet confidence.
+   pearl-water.jpg fades in from the right edge — organic, not a poster.
+   NO dark veil. NO white text. Photography is environment, not drama.
+   ──────────────────────────────────────────────────────────── */
 .s-hero {
   position: relative;
   min-height: 100svh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 0;
+  padding: 140px var(--side) 100px;
   overflow: hidden;
+  background: transparent;
 }
-.hero-bg {
+
+/* pearl-water.jpg: shows the right half (shell / pearl / marble).
+   Left-to-right mask dissolves photography into the parchment ground. */
+.hero-image-right {
   position: absolute;
-  inset: 0;
+  right: 0; top: 0; bottom: 0;
+  width: 52%;
   background-image: url('../images/pearl-water.jpg');
   background-size: cover;
-  background-position: center 40%;
+  background-position: right 35%;
+  pointer-events: none;
   z-index: 0;
-}
-/* Veil — warm dark overlay so light text reads clearly */
-.hero-veil {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(
-    160deg,
-    rgba(28,22,14,.52) 0%,
-    rgba(28,22,14,.28) 45%,
-    rgba(28,22,14,.48) 100%
+  mask-image: linear-gradient(to right,
+    transparent 0%,
+    rgba(0,0,0,.25) 18%,
+    rgba(0,0,0,.65) 48%,
+    black 100%
   );
+  -webkit-mask-image: linear-gradient(to right,
+    transparent 0%,
+    rgba(0,0,0,.25) 18%,
+    rgba(0,0,0,.65) 48%,
+    black 100%
+  );
+  filter: saturate(0.80) brightness(1.05);
 }
+
 .hero-body {
   position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 120px var(--side) 80px;
-  max-width: 860px;
+  z-index: 1;
+  max-width: min(580px, 54vw);
 }
-.s-hero .identity-headline {
-  color: #F9F5EF;
-  text-shadow: 0 2px 24px rgba(0,0,0,.22);
-}
-.s-hero .identity-headline em { color: #D4AC7A; }
-.s-hero .s-eyebrow       { color: rgba(249,245,239,.60); }
-.s-hero .identity-tagline { color: rgba(249,245,239,.72); }
 
-/* CTA — used on hero and closing */
+/* Round emblem — small, precise, like a wax seal */
+.hero-emblem {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 30px;
+  border: 1px solid rgba(168,133,74,.20);
+  mix-blend-mode: multiply;
+}
+
+/* Dark ink on parchment — the editorial register */
+.s-hero .identity-headline {
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(255,255,255,.50), 0 6px 18px rgba(36,31,23,.04);
+}
+.s-hero .identity-headline em {
+  font-style: italic;
+  background: linear-gradient(135deg, #5C3210 0%, #8B4A1E 30%, #B87040 52%, #7A3E18 72%, #5C3210 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.28)) drop-shadow(0 2px 6px rgba(130,80,20,.12));
+}
+.s-hero .s-eyebrow {
+  color: var(--taupe);
+  opacity: 0.60;
+  letter-spacing: 0.26em;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: block;
+}
+.s-hero .identity-tagline {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--taupe);
+  margin-top: 18px;
+  line-height: 1.72;
+}
+
+/* CTA — dark, understated, ink with a gold hover */
 .hero-cta {
   display: inline-block;
-  margin-top: 40px;
+  margin-top: 38px;
   font-family: "Jost", sans-serif;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 400;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: #F9F5EF;
-  border-bottom: 1px solid rgba(212,172,122,.55);
-  padding-bottom: 6px;
-  transition: color .3s, border-color .3s;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(36,31,23,.22);
+  padding-bottom: 5px;
+  transition: color .30s, border-color .30s;
 }
-.hero-cta:hover { color: #D4AC7A; border-color: #D4AC7A; }
+.hero-cta:hover { color: var(--gold); border-color: var(--gold); }
 
-/* ── 3. PURPOSE SECTION — card recreated as HTML/CSS ──────── */
+/* ── 3. PURPOSE — stationery found on the page ──────────── */
 .s-purpose { background: transparent; }
 .purpose-card {
   text-align: center;
   max-width: 560px;
   margin: 0 auto;
-  padding: 64px var(--side);
+  padding: 60px var(--side);
 }
-.purpose-star {
-  width: 22px; height: 22px;
-  display: block;
-  margin: 0 auto 28px;
-}
+.purpose-star { width: 20px; height: 20px; display: block; margin: 0 auto 26px; }
 .purpose-heading {
   font-family: "Jost", sans-serif;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 0.46em;
   text-transform: uppercase;
   color: var(--ink);
@@ -1139,38 +1229,34 @@ header, main, footer { position: relative; z-index: 2; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  margin-bottom: 30px;
+  gap: 12px;
+  margin-bottom: 26px;
 }
 .purpose-rule-line {
   display: block;
-  width: 52px; height: 1px;
-  background: linear-gradient(to right, transparent, rgba(155,96,64,.45), transparent);
+  width: 48px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(155,96,64,.40), transparent);
 }
 .purpose-body {
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(20px, 2.5vw, 28px);
+  font-size: clamp(19px, 2.2vw, 26px);
   font-weight: 300;
-  line-height: 1.65;
+  line-height: 1.72;
   color: var(--ink);
-  text-align: center;
   max-width: 36ch;
   margin: 0 auto;
 }
 
-/* ── 4. OUR APPROACH — framework image, real content ─────── */
-.s-method .s-body {
-  max-width: 860px;
-  text-align: center;
-}
+/* ── 4. APPROACH — infographic as a discovered strategy page */
+.s-method .s-body { max-width: 840px; text-align: center; }
 .method-intro {
   font-family: "Cormorant Garamond", serif;
   font-style: italic;
-  font-size: clamp(17px, 1.9vw, 23px);
+  font-size: clamp(17px, 1.9vw, 22px);
   color: var(--taupe);
-  max-width: 42ch;
+  max-width: 40ch;
   margin: 0 auto 52px;
-  line-height: 1.65;
+  line-height: 1.72;
 }
 .method-framework { width: 100%; margin: 0 auto 52px; }
 .method-framework-img {
@@ -1179,20 +1265,32 @@ header, main, footer { position: relative; z-index: 2; }
   height: auto;
   display: block;
   margin: 0 auto;
-  /* Image's warm background matches the site palette — no box needed */
 }
 .method-closing {
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(17px, 1.9vw, 23px);
+  font-size: clamp(17px, 1.8vw, 22px);
   color: var(--taupe);
-  line-height: 1.70;
+  line-height: 1.72;
   text-align: center;
   max-width: 44ch;
   margin: 0 auto;
 }
 .method-closing em { font-style: italic; color: var(--gold); }
 
-/* ── 5. CLOSING — hero-flatlay.jpg full bleed ─────────────── */
+/* ── 5. COMPASS — jewellery object ─────────────────────── */
+.cs-star-img {
+  width: clamp(80px, 12vw, 120px);
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+  opacity: 0.82;
+}
+
+/* ── 6. CLOSING — emotional climax ──────────────────────────
+   pearl-water.jpg right: shell, pearls, business card.
+   Photography breathes on the right. Text sits on parchment left.
+   Same quiet language as the hero. No dark poster.
+   ──────────────────────────────────────────────────────────── */
 .s-closing {
   position: relative;
   min-height: 100svh;
@@ -1200,73 +1298,68 @@ header, main, footer { position: relative; z-index: 2; }
   align-items: center;
   overflow: hidden;
   padding: 0;
+  background: transparent;
 }
+/* pearl-water.jpg — right half shows the photography */
 .closing-bg {
   position: absolute;
   inset: 0;
-  background-image: url('../images/hero-flatlay.jpg');
+  background-image: url('../images/pearl-water.jpg');
   background-size: cover;
-  background-position: center center;
+  background-position: right 30%;
   z-index: 0;
 }
+/* Parchment veil: opaque left, dissolves right — text reads dark on light */
 .closing-veil {
   position: absolute;
   inset: 0;
   z-index: 1;
   background: linear-gradient(
-    108deg,
-    rgba(28,22,14,.58) 0%,
-    rgba(28,22,14,.32) 42%,
-    rgba(28,22,14,.18) 65%,
-    rgba(28,22,14,.28) 100%
+    to right,
+    rgba(238,230,218,.97) 0%,
+    rgba(238,230,218,.90) 30%,
+    rgba(238,230,218,.48) 56%,
+    rgba(238,230,218,.10) 78%,
+    transparent 100%
   );
 }
 .closing-body {
   position: relative;
   z-index: 2;
   padding: 120px var(--side) 100px;
-  max-width: 640px;
+  max-width: 540px;
 }
-.closing-eyebrow { color: rgba(249,245,239,.55) !important; }
+/* Dark ink on parchment — mirrors the hero's quiet confidence */
 .closing-headline {
   font-family: "Cormorant Garamond", serif;
   font-weight: 300;
-  font-size: clamp(52px, 8.5vw, 130px);
+  font-size: clamp(50px, 8vw, 124px);
   line-height: 1.04;
   letter-spacing: -0.02em;
-  color: #F9F5EF;
+  color: var(--ink);
   margin-bottom: 28px;
-  text-shadow: 0 2px 24px rgba(0,0,0,.20);
+  text-shadow: 0 1px 0 rgba(255,255,255,.42), 0 6px 18px rgba(36,31,23,.04);
 }
-.closing-headline em { font-style: italic; color: #D4AC7A; }
-.closing-rule {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 28px;
+.closing-headline em {
+  font-style: italic;
+  background: linear-gradient(135deg, #5C3210 0%, #8B4A1E 30%, #B87040 52%, #7A3E18 72%, #5C3210 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.closing-rule-line {
-  display: block;
-  width: 44px; height: 1px;
-  background: rgba(212,172,122,.50);
-}
+.closing-rule { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+.closing-rule-line { display: block; width: 40px; height: 1px; background: rgba(155,96,64,.32); }
 .closing-sub {
   font-family: "Cormorant Garamond", serif;
-  font-size: clamp(16px, 1.8vw, 21px);
-  color: rgba(249,245,239,.78);
-  line-height: 1.75;
-  margin-bottom: 20px;
+  font-size: clamp(16px, 1.7vw, 20px);
+  color: var(--taupe);
+  line-height: 1.80;
+  margin-bottom: 8px;
 }
-.closing-pillars {
-  font-family: "Jost", sans-serif;
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(249,245,239,.45);
-  margin-bottom: 40px;
-}
+.closing-cta { color: var(--ink); border-color: rgba(36,31,23,.20); }
+.closing-cta:hover { color: var(--gold); border-color: var(--gold); }
 
-/* ── 6. INSIGHTS — list ──────────────────────────────────── */
+/* ── 7. INSIGHTS ──────────────────────────────────────────── */
 .insights-list { list-style: none; padding: 0; margin: 0; }
 .insight-item { border-top: 1px solid var(--line); }
 .insight-item:last-child { border-bottom: 1px solid var(--line); }
@@ -1278,9 +1371,9 @@ header, main, footer { position: relative; z-index: 2; }
   padding: 24px 0;
   text-decoration: none;
   color: var(--ink);
-  transition: opacity .25s;
+  transition: opacity .28s;
 }
-.insight-item a:hover { opacity: 0.55; }
+.insight-item a:hover { opacity: 0.50; }
 .insight-title {
   font-family: "Cormorant Garamond", serif;
   font-weight: 300;
@@ -1288,13 +1381,9 @@ header, main, footer { position: relative; z-index: 2; }
   letter-spacing: -0.005em;
   line-height: 1.4;
 }
-.insight-arrow {
-  font-size: 14px;
-  color: var(--gold);
-  flex-shrink: 0;
-}
+.insight-arrow { font-size: 13px; color: var(--gold); flex-shrink: 0; }
 
-/* ── 7. SOCIAL line in Connect ────────────────────────────── */
+/* ── 8. CONNECT — social line ─────────────────────────────── */
 .inv-social {
   display: block;
   font-family: "Jost", sans-serif;
@@ -1302,25 +1391,32 @@ header, main, footer { position: relative; z-index: 2; }
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--taupe);
-  opacity: 0.55;
+  opacity: 0.52;
   margin-bottom: 36px;
 }
 .inv-social a:hover { opacity: 1; color: var(--gold); }
 
-/* ── 8. COMPASS — star image ──────────────────────────────── */
-.cs-star-img {
-  width: clamp(80px, 12vw, 120px);
-  height: auto;
-  display: block;
-  mix-blend-mode: multiply;
-  opacity: 0.80;
-}
-
-/* ── RESPONSIVE ──────────────────────────────────────────── */
-@media (max-width: 768px) {
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  /* Hero: hide the right-edge photography — full parchment ground on mobile */
+  .hero-image-right { display: none; }
+  .hero-body { max-width: 100%; }
+  .s-hero { align-items: flex-start; padding: 120px var(--side) 80px; }
   .s-hero .identity-headline { font-size: clamp(44px, 12vw, 72px); }
-  .closing-headline { font-size: clamp(42px, 12vw, 68px); }
+  .hero-emblem { width: 44px; height: 44px; }
+
+  /* Closing: full-width veil since image fills the whole section */
+  .closing-veil {
+    background: linear-gradient(
+      to bottom,
+      rgba(238,230,218,.94) 0%,
+      rgba(238,230,218,.72) 50%,
+      rgba(238,230,218,.90) 100%
+    );
+  }
+  .closing-headline { font-size: clamp(42px, 11vw, 68px); }
+  .closing-body { max-width: 100%; }
+
   .purpose-body { font-size: clamp(18px, 5vw, 24px); }
   .method-framework-img { max-width: 100%; }
-  .s-closing .closing-body { max-width: 100%; }
 }
