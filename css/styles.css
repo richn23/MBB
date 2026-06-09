@@ -2202,3 +2202,14 @@ header, main, footer { position: relative; z-index: 2; }
   background-image: url('../images/Background-base.png') !important;
   background-position: center top !important;
 }
+
+/* ── HERO BOTTOM FADE ────────────────────────────────────── */
+.s-hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, transparent, #EDE8DF);
+  z-index: 3;
+  pointer-events: none;
+}
