@@ -2221,3 +2221,51 @@ header, main, footer { position: relative; z-index: 2; }
   -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
   mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
 }
+
+/* ── PURPOSE CARD — restore 3D depth ────────────────────── */
+
+/* Bring back shadow and edge layers */
+.pn-shadow,
+.pn-edge { display: block !important; }
+
+/* Deeper, more dramatic shadow */
+.pn-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: transparent;
+  box-shadow:
+    0  6px  16px rgba(60,45,20,.14),
+    0 18px  42px rgba(60,45,20,.12),
+    0 40px  80px rgba(60,45,20,.10),
+    0 70px 120px rgba(60,45,20,.07);
+  transform: translate(6px, 10px);
+  z-index: 0;
+}
+
+/* Thicker, more visible edge */
+.pn-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: #C8BDA8;
+  transform: translate(7px, 8px);
+  z-index: 1;
+}
+
+/* Clean crisp sheet — no mask dissolve */
+.pn-sheet {
+  position: relative;
+  z-index: 2;
+  background: #F7F3EC;
+  border-radius: 2px;
+  padding: clamp(56px, 7vw, 80px) clamp(56px, 7vw, 80px);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(0,0,0,.03);
+}
