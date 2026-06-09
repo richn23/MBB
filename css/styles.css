@@ -1023,6 +1023,7 @@ body {
   background-size: cover;
   background-position: center top;
   pointer-events: none;
+  opacity: 0.72;
 }
 
 /* Water sparkle animation — three layers of soft light caustics
@@ -1101,13 +1102,15 @@ header, main, footer { position: relative; z-index: 2; }
   position: relative;
 }
 
-/* LEFT — parchment panel */
+/* LEFT — parchment panel, fades into the photo on the right edge */
 .hero-left {
-  background-color: #EDE5D8;
-  /* Soft dappled shadow overlay — mimics the leaf-shadow light in the image */
-  background-image:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(36,28,14,.07) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 40% at 10% 40%, rgba(36,28,14,.05) 0%, transparent 55%);
+  background: linear-gradient(
+    to right,
+    rgba(237,229,216,.96) 0%,
+    rgba(237,229,216,.92) 55%,
+    rgba(237,229,216,.60) 78%,
+    rgba(237,229,216,.0) 100%
+  );
   display: flex;
   align-items: center;
   padding: 100px clamp(40px, 6vw, 96px) 80px;
