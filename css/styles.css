@@ -2196,3 +2196,9 @@ header, main, footer { position: relative; z-index: 2; }
 .hero-right {
   background-position: right center !important;
 }
+
+/* ── USE Background-base.png FOR HERO — no baked text ───── */
+.hero-right {
+  background-image: url('../images/Background-base.png') !important;
+  background-position: center top !important;
+}
