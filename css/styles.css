@@ -1200,6 +1200,325 @@ header, main, footer { position: relative; z-index: 2; }
   opacity: 0.65;
 }
 
+/* ── INFOGRAPHIC ─────────────────────────────────────────────
+   Built fresh in HTML/CSS. Three parts: Inspiration → Foundation → Approach
+   Hover: .ig-hoverable scales 1.03 — subtle, precise.
+   ──────────────────────────────────────────────────────────── */
+.s-ig {
+  padding: 80px clamp(24px, 6vw, 80px) 100px;
+}
+
+.ig-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Universal hover — felt, not obvious */
+.ig-hoverable {
+  transition: transform 0.38s cubic-bezier(.22,.68,0,1.2);
+  cursor: default;
+}
+.ig-hoverable:hover { transform: scale(1.03); }
+
+/* Block wrapper — each of the three parts */
+.ig-block {
+  width: 100%;
+  text-align: center;
+}
+
+/* Star at top of inspiration */
+.ig-star-top { margin-bottom: 10px; }
+
+/* Section labels */
+.ig-section-label {
+  font-family: "Jost", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #4A3E2C;
+  margin-bottom: 32px;
+}
+.ig-section-label--gold { color: #A8854A; margin-bottom: 20px; }
+
+/* ── INSPIRATION: 3-column grid ── */
+.ig-tri-grid {
+  display: grid;
+  grid-template-columns: 1fr 28px 1fr 28px 1fr;
+  align-items: start;
+  gap: 12px;
+}
+.ig-tri-col {
+  background: rgba(245,240,232,.70);
+  border: 1px solid rgba(168,133,74,.14);
+  border-radius: 4px;
+  padding: 28px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.ig-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 48px;
+}
+
+/* Story circle */
+.ig-story-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(168,133,74,.30);
+  background: rgba(168,133,74,.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 12px;
+}
+.ig-story-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13px;
+  line-height: 1.70;
+  color: #3A3025;
+  text-align: left;
+}
+.ig-story-text em { color: #A8854A; font-style: normal; }
+
+/* Icon rings */
+.ig-icon-ring {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(168,133,74,.35);
+  background: rgba(245,240,232,.60);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ig-icon-ring--lg {
+  width: 56px; height: 56px;
+  margin: 0 auto 14px;
+}
+
+.ig-col-label {
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color: #4A3E2C;
+}
+.ig-col-body {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 14px;
+  line-height: 1.70;
+  color: #3A3025;
+  text-align: center;
+}
+.ig-col-body em { color: #A8854A; font-style: normal; }
+.ig-italic { font-style: italic; }
+
+/* ── FOUNDATION BOX ── */
+.ig-foundation-box {
+  border: 1px solid rgba(168,133,74,.20);
+  border-radius: 8px;
+  background: rgba(245,240,232,.55);
+  padding: 32px 28px;
+  margin-top: 8px;
+}
+.ig-foundation-intro {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: #3A3025;
+  line-height: 1.70;
+  margin-bottom: 28px;
+}
+.ig-foundation-intro em { font-style: italic; color: #A8854A; }
+
+.ig-four-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ig-four-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 10px;
+}
+.ig-four-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(168,133,74,.28);
+  background: rgba(245,240,232,.70);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ig-four-label {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #3A3025;
+  text-align: center;
+}
+
+/* ── CONNECTORS between blocks ── */
+.ig-connector {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+}
+.ig-conn-line {
+  display: block;
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(168,133,74,.40), rgba(168,133,74,.10));
+}
+
+/* ── APPROACH BADGE ── */
+.ig-approach-badge {
+  display: inline-block;
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #F5F0E8;
+  background: #7A5C32;
+  border-radius: 20px;
+  padding: 7px 20px;
+  margin-bottom: 12px;
+}
+.ig-approach-sub {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: #4A3E2C;
+  margin-bottom: 40px;
+}
+
+/* ── PILLARS ROW ── */
+.ig-pillars {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+}
+.ig-pillar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+}
+.ig-pillar-num {
+  font-family: "Jost", sans-serif;
+  font-size: 11px;
+  color: #A8854A;
+  opacity: .70;
+  letter-spacing: 0.08em;
+}
+.ig-pillar-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(245,240,232,.80);
+  border: 1px solid rgba(168,133,74,.25);
+  box-shadow: 0 4px 16px rgba(60,45,20,.08), 0 1px 0 rgba(255,255,255,.70) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ig-pillar-name {
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #2C2416;
+}
+.ig-pillar-rule {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ig-pillar-rule span {
+  display: block;
+  width: 18px; height: 1px;
+  background: rgba(168,133,74,.40);
+}
+.ig-pillar-desc {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #4A3E2C;
+  text-align: center;
+}
+
+/* Connector between pillars */
+.ig-pillar-connector {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 44px;
+  flex-shrink: 0;
+}
+.ig-pc-line {
+  display: block;
+  width: 12px; height: 1px;
+  background: rgba(168,133,74,.35);
+}
+
+/* ── CLOSING QUOTE ── */
+.ig-closing {
+  background: rgba(245,240,232,.65);
+  border: 1px solid rgba(168,133,74,.18);
+  border-radius: 6px;
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  margin-top: 8px;
+}
+.ig-closing-star { flex-shrink: 0; }
+.ig-closing-text { text-align: left; }
+.ig-closing-main {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 400;
+  color: #2C2416;
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.ig-closing-em {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: #A8854A;
+  line-height: 1.55;
+}
+
+/* ── INFOGRAPHIC MOBILE ── */
+@media (max-width: 768px) {
+  .ig-tri-grid { grid-template-columns: 1fr; }
+  .ig-arrow { display: none; }
+  .ig-four-grid { grid-template-columns: repeat(2, 1fr); }
+  .ig-pillars { flex-wrap: wrap; justify-content: center; }
+  .ig-pillar { width: 45%; flex: none; }
+  .ig-pillar-connector { display: none; }
+  .ig-closing { flex-direction: column; text-align: center; }
+  .ig-closing-text { text-align: center; }
+}
+
 /* ── OUR PURPOSE — floating paper note ──────────────────────
    Three layers create the 3D paper illusion:
    pn-shadow  → diffuse ambient shadow beneath the card
