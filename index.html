@@ -4,53 +4,333 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meaning Beyond Brands</title>
-  <meta name="description" content="A boutique brand consultancy helping luxury and premium brands create meaningful growth through trust, connection, distinction, and customer experience." />
+  <meta name="description" content="A boutique brand consultancy helping luxury and premium brands create meaningful growth through strategy, storytelling, and memorable experiences." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <style>
-    /* remove all letterhead decorative marks and lines */
-    .lh-seal, .lh-corner { display: none !important; }
-    .sep::before, .sep::after { display: none !important; }
 
-    /* text contrast — darken taupe token, restore opacity reductions */
-    :root { --taupe: #4A4235; }
-    .belief-body    { opacity: 1; }
-    .belief-sectors { opacity: 0.75; }
-    .s-eyebrow      { opacity: 0.75; }
-    .nb-sub         { opacity: 0.80; }
-    .inv-location   { opacity: 0.75; }
-
-    /* ── TYPE SYSTEM: Cormorant Garamond + Inter ──────────────
-       Cormorant → all display headings and editorial statements
-       Inter     → body copy, navigation, UI, labels, forms
-       Letterpress depth: ink-on-paper, not styled text
-    ─────────────────────────────────────────────────────────── */
-
-    /* Inter as the global UI/body font */
+    /* ── Global font override ──────────────────────────────── */
     body, button, input, textarea, select, label {
       font-family: "Inter", sans-serif;
     }
 
-    /* ── DISPLAY HEADINGS — Cormorant Garamond ── */
+    /* ── Colour tokens ─────────────────────────────────────── */
+    :root {
+      --taupe: #4A4235;
+    }
 
-    .identity-headline {
+    /* ── HERO ──────────────────────────────────────────────── */
+    .s-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 140px var(--side) 100px;
+    }
+    .hero-body {
+      max-width: 780px;
+      width: 100%;
+    }
+    .hero-mark {
+      width: 36px;
+      height: auto;
+      display: block;
+      margin: 0 auto 28px;
+      mix-blend-mode: multiply;
+      opacity: 0.60;
+    }
+    .hero-overline {
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0.85;
+    }
+    .hero-heading {
       font-family: "Cormorant Garamond", serif;
       font-weight: 300;
-      font-size: clamp(52px, 8.5vw, 136px);
-      line-height: 1.02;
-      letter-spacing: -0.02em;
+      font-size: clamp(54px, 9vw, 140px);
+      line-height: 1.01;
+      letter-spacing: -0.025em;
       color: #241F17;
+      margin-bottom: 28px;
       text-shadow:
         0 1px 0    rgba(255,255,255,.55),
         0 2px 6px  rgba(36,31,23,.05),
         0 10px 24px rgba(36,31,23,.06);
     }
+    .hero-heading em {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-weight: 300;
+      background: linear-gradient(
+        135deg,
+        #5C3210 0%,
+        #8B4A1E 30%,
+        #B87040 52%,
+        #7A3E18 72%,
+        #5C3210 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,.32))
+              drop-shadow(0 3px 8px rgba(130,80,20,.16));
+    }
+    .hero-sub {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: clamp(13px, 1.1vw, 15px);
+      letter-spacing: 0.04em;
+      color: var(--taupe);
+      line-height: 1.80;
+      margin-bottom: 44px;
+      opacity: 0.85;
+    }
+    .hero-cta {
+      display: inline-block;
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(124,74,43,.30);
+      padding-bottom: 4px;
+      transition: border-color 0.3s ease, opacity 0.3s ease;
+    }
+    .hero-cta:hover { border-color: var(--gold); opacity: 0.7; }
 
-    /* Gold italic accent — foil-on-paper */
-    .identity-headline em,
-    .belief-statement em,
+    /* ── SECTION OVERLINES ─────────────────────────────────── */
+    .s-overline {
+      font-family: "Inter", sans-serif !important;
+      font-weight: 400;
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+    }
+
+    /* ── BELIEF ────────────────────────────────────────────── */
+    .belief-statement {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: clamp(24px, 3.4vw, 52px);
+      line-height: 1.26;
+      letter-spacing: -0.01em;
+      color: #241F17;
+      border: none;
+      padding: 0;
+      margin-bottom: 32px;
+      text-shadow:
+        0 1px 0    rgba(255,255,255,.50),
+        0 5px 16px rgba(36,31,23,.05);
+    }
+    .belief-statement em {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-weight: 300;
+      background: linear-gradient(
+        135deg,
+        #5C3210 0%,
+        #8B4A1E 30%,
+        #B87040 52%,
+        #7A3E18 72%,
+        #5C3210 100%
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+      filter: drop-shadow(0 1px 0 rgba(255,255,255,.32))
+              drop-shadow(0 3px 8px rgba(130,80,20,.16));
+    }
+    .belief-body {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: clamp(14px, 1.3vw, 16px);
+      line-height: 1.85;
+      color: var(--taupe);
+      margin-bottom: 28px;
+    }
+    .belief-sectors {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--taupe);
+      opacity: 0.70;
+    }
+
+    /* ── COMPASS ───────────────────────────────────────────── */
+    .cs-val {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: clamp(18px, 1.8vw, 24px);
+      letter-spacing: 0.01em;
+      color: #241F17;
+    }
+    .cs-dir {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.75;
+    }
+    .cs-star-img {
+      width: clamp(80px, 12vw, 120px);
+      height: auto;
+      display: block;
+      mix-blend-mode: multiply;
+      opacity: 0.80;
+    }
+    .cs-desc-text {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: clamp(14px, 1.3vw, 16px);
+      line-height: 1.85;
+      color: var(--taupe);
+    }
+
+    /* ── APPROACH ──────────────────────────────────────────── */
+    .approach-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 52px 72px;
+      margin-top: 44px;
+    }
+    .approach-item { }
+    .approach-num {
+      display: block;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .approach-title {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: clamp(22px, 2.4vw, 30px);
+      letter-spacing: -0.005em;
+      color: #241F17;
+      margin-bottom: 10px;
+      text-shadow:
+        0 1px 0   rgba(255,255,255,.40),
+        0 3px 8px rgba(36,31,23,.04);
+    }
+    .approach-body {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.80;
+      color: var(--taupe);
+    }
+
+    /* ── FOUNDER ───────────────────────────────────────────── */
+    .founder-name {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: clamp(36px, 4.2vw, 62px);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: #241F17;
+      text-shadow:
+        0 1px 0    rgba(255,255,255,.45),
+        0 4px 12px rgba(36,31,23,.05);
+    }
+    .founder-role {
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: clamp(11px, 1vw, 13px);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      opacity: 0.75;
+    }
+    .founder-philosophy {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: clamp(18px, 1.8vw, 24px);
+      font-style: italic;
+      line-height: 1.50;
+      letter-spacing: -0.005em;
+      color: #241F17;
+      border: none;
+      padding: 0;
+      margin: 24px 0;
+      opacity: 0.80;
+    }
+    .founder-philosophy em {
+      background: linear-gradient(135deg, #5C3210, #B87040, #5C3210);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+    }
+    .founder-bio {
+      font-family: "Inter", sans-serif;
+      font-weight: 300;
+      font-size: clamp(14px, 1.3vw, 16px);
+      line-height: 1.85;
+      color: var(--taupe);
+    }
+
+    /* ── INSIGHTS ──────────────────────────────────────────── */
+    .insights-list {
+      margin-top: 36px;
+      border-top: 1px solid rgba(36,31,23,.08);
+    }
+    .insight-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 24px;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(36,31,23,.08);
+      text-decoration: none;
+      color: #241F17;
+      transition: opacity 0.25s ease;
+    }
+    .insight-item:hover { opacity: 0.55; }
+    .insight-title {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: clamp(16px, 1.6vw, 21px);
+      letter-spacing: -0.005em;
+      line-height: 1.4;
+    }
+    .insight-arrow {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* ── INVITATION ────────────────────────────────────────── */
+    .inv-title {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 300;
+      font-size: clamp(34px, 5.5vw, 86px);
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      color: #241F17;
+      margin-bottom: 14px;
+      text-shadow:
+        0 1px 0    rgba(255,255,255,.50),
+        0 5px 18px rgba(36,31,23,.06);
+    }
     .inv-title em {
       font-family: "Cormorant Garamond", serif;
       font-style: italic;
@@ -70,118 +350,17 @@
       filter: drop-shadow(0 1px 0 rgba(255,255,255,.32))
               drop-shadow(0 3px 8px rgba(130,80,20,.16));
     }
-
-    .belief-statement {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 300;
-      font-size: clamp(24px, 3.4vw, 50px);
-      line-height: 1.28;
-      letter-spacing: -0.01em;
-      color: #241F17;
-      text-shadow:
-        0 1px 0    rgba(255,255,255,.50),
-        0 5px 16px rgba(36,31,23,.05);
-    }
-
-    .inv-title {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 300;
-      font-size: clamp(34px, 5.5vw, 86px);
-      line-height: 1.08;
-      letter-spacing: -0.015em;
-      color: #241F17;
-      text-shadow:
-        0 1px 0    rgba(255,255,255,.50),
-        0 5px 18px rgba(36,31,23,.06);
-    }
-
-    .founder-name {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 300;
-      font-size: clamp(36px, 4.2vw, 62px);
-      line-height: 1.1;
-      letter-spacing: -0.01em;
-      color: #241F17;
-      text-shadow:
-        0 1px 0    rgba(255,255,255,.45),
-        0 4px 12px rgba(36,31,23,.05);
-    }
-
-    .mi-title {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 400;
-      font-size: clamp(20px, 2vw, 28px);
-      letter-spacing: -0.005em;
-      color: #241F17;
-      text-shadow:
-        0 1px 0   rgba(255,255,255,.40),
-        0 3px 8px rgba(36,31,23,.04);
-    }
-
-    /* Compass direction value word */
-    .cs-val {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 300;
-      font-size: clamp(18px, 1.8vw, 24px);
-      letter-spacing: 0.01em;
-      color: #241F17;
-    }
-
-    /* ── BODY & UI — Inter ── */
-
-    .belief-body,
-    .mi-body,
-    .founder-bio,
-    .founder-role,
-    .inv-desc,
-    .cs-desc-text {
+    .inv-location {
       font-family: "Inter", sans-serif;
       font-weight: 300;
-      font-size: clamp(14px, 1.3vw, 16px);
-      line-height: 1.85;
-      color: var(--taupe);
-    }
-
-    .founder-role {
-      font-size: clamp(11px, 1vw, 13px);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 400;
-    }
-
-    /* Section overlines — Inter, refined tracking */
-    .s-overline {
-      font-family: "Inter", sans-serif !important;
-      font-weight: 400;
-      font-size: 10px;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: #A8854A;
-    }
-
-    /* Hero eyebrow — Inter, spaced */
-    .s-eyebrow {
-      font-family: "Inter", sans-serif !important;
-      font-weight: 300;
-      font-size: clamp(10px, 0.9vw, 12px);
-      letter-spacing: 0.20em;
+      font-size: 11px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--taupe);
-      opacity: 0.80;
+      opacity: 0.65;
     }
 
-    /* Compass cardinal labels */
-    .cs-dir {
-      font-family: "Inter", sans-serif;
-      font-weight: 300;
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: #A8854A;
-      opacity: 0.80;
-    }
-
-    /* Navigation CTA */
+    /* ── NAV ───────────────────────────────────────────────── */
     .nb-invite {
       font-family: "Inter", sans-serif !important;
       font-weight: 400;
@@ -189,75 +368,73 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
+    .nb-sub { opacity: 0.80; }
 
-    /* Form elements */
-    .inv-field  { font-family: "Inter", sans-serif; font-weight: 300; }
-    .inv-submit { font-family: "Inter", sans-serif; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; }
+    /* Mobile: hide full wordmark, show emblem only */
+    @media (max-width: 520px) {
+      .nb-text { display: none; }
+    }
 
-    /* ── MOBILE — redesigned, not just scaled ── */
+    /* ── MOBILE TYPOGRAPHY ─────────────────────────────────── */
     @media (max-width: 768px) {
-      .identity-headline {
-        font-size: clamp(40px, 11vw, 66px);
-        line-height: 1.05;
-        letter-spacing: -0.015em;
+      .s-hero {
+        padding: 120px var(--side) 80px;
+        min-height: 100dvh;
       }
+      .hero-heading {
+        font-size: clamp(44px, 12vw, 72px);
+        line-height: 1.04;
+        letter-spacing: -0.02em;
+      }
+      .hero-sub { font-size: 14px; }
       .belief-statement {
-        font-size: clamp(22px, 6.5vw, 36px);
-        line-height: 1.32;
-        letter-spacing: -0.005em;
+        font-size: clamp(22px, 7vw, 38px);
+        line-height: 1.30;
+      }
+      .approach-list {
+        grid-template-columns: 1fr;
+        gap: 36px;
       }
       .inv-title {
-        font-size: clamp(30px, 9vw, 52px);
+        font-size: clamp(30px, 10vw, 52px);
         line-height: 1.10;
       }
       .founder-name {
         font-size: clamp(32px, 9vw, 50px);
       }
-      .mi-title {
-        font-size: clamp(18px, 5vw, 24px);
-      }
-      .belief-body, .mi-body, .founder-bio {
+      .belief-body, .founder-bio, .approach-body {
         font-size: 15px;
         line-height: 1.80;
       }
+      .insight-title { font-size: clamp(15px, 4.5vw, 20px); }
     }
-    /* hero two-column layout */
-    .s-identity-body {
-      display: grid !important;
-      grid-template-columns: 1fr auto !important;
-      gap: 64px;
+
+    /* ── FORM ELEMENTS ─────────────────────────────────────── */
+    .inv-field  { font-family: "Inter", sans-serif; font-weight: 300; }
+    .inv-submit { font-family: "Inter", sans-serif; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* Remove old dead elements */
+    .lh-seal, .lh-corner, .inv-seal { display: none !important; }
+
+    /* Social links in invitation */
+    .inv-socials {
+      display: flex;
       align-items: center;
-      width: 100%;
+      gap: 12px;
+      margin-bottom: 40px;
+      font-family: "Inter", sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      opacity: 0.60;
     }
-    .identity-text { max-width: 700px; }
-    .identity-emblem { flex-shrink: 0; margin: 0; }
-    .identity-emblem img {
-      width: clamp(180px, 20vw, 300px);
-      height: clamp(180px, 20vw, 300px);
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      mix-blend-mode: multiply;
-    }
-    @media (max-width: 960px) {
-      .s-identity-body {
-        grid-template-columns: 1fr !important;
-        gap: 40px;
-      }
-      .identity-emblem { order: 2; display: flex; justify-content: center; }
-      .identity-emblem img {
-        width: 75vw;
-        height: 75vw;
-        max-width: 400px;
-        max-height: 400px;
-      }
-    }
+    .inv-social-link { transition: opacity 0.25s; }
+    .inv-social-link:hover { opacity: 0.40; }
+
   </style>
 </head>
 <body>
-
-
 
 <!-- ═══════════════════════════════════
      NAVIGATION — minimal, fixed
@@ -277,7 +454,6 @@
     </button>
   </div>
 
-  <!-- Full-screen drawer — brand reveal + editorial nav links -->
   <nav class="nb-drawer" aria-label="Navigation" aria-hidden="true">
     <div class="nb-drawer-brand">
       <img src="assets/emblem.jpeg" class="nb-drawer-emblem" alt="" aria-hidden="true" />
@@ -285,9 +461,10 @@
       <p class="nb-drawer-sub-label">Strategy · Storytelling · Significance</p>
     </div>
     <a href="#belief">Belief</a>
-    <a href="#compass">The Compass</a>
-    <a href="#method">How We Work</a>
+    <a href="#compass">The Framework</a>
+    <a href="#method">Our Approach</a>
     <a href="#founder">Founder</a>
+    <a href="#insights">Insights</a>
     <a href="#invitation">Connect</a>
   </nav>
 </header>
@@ -295,75 +472,60 @@
 <main>
 
 <!-- ═══════════════════════════════════
-     SCREEN 1 — IDENTITY
-     First impression. Nothing explained.
-     Atmosphere. Identity. Curiosity.
+     HERO — atmosphere before explanation
 ═══════════════════════════════════ -->
-<section class="screen s-identity" id="identity" aria-label="Identity">
-
-  <div class="s-body s-identity-body">
-    <div class="identity-text">
-      <p class="s-eyebrow reveal">Strategy &nbsp;·&nbsp; Storytelling &nbsp;·&nbsp; Significance</p>
-      <h1 class="identity-headline reveal">
-        Meaning<br /><em> gives direction.</em>
-      </h1>
-      <p class="identity-tagline reveal">Building brands with meaning.<br class="desktop-br" /> Creating impact that lasts.</p>
-    </div>
-    <figure class="identity-emblem reveal" aria-hidden="true">
-      <img src="assets/emblem.jpeg" alt="" />
-    </figure>
+<section class="s-hero screen" id="identity" aria-label="Identity">
+  <div class="hero-body">
+    <img class="hero-mark reveal" src="assets/compass-star.png" alt="" aria-hidden="true" />
+    <p class="hero-overline reveal">Strategy &nbsp;·&nbsp; Storytelling &nbsp;·&nbsp; Significance</p>
+    <h1 class="hero-heading reveal">
+      Meaning<br /><em>gives direction.</em>
+    </h1>
+    <p class="hero-sub reveal">
+      Building brands with meaning.<br />
+      Creating impact that lasts.
+    </p>
+    <a class="hero-cta reveal" href="#belief">Begin the journey &nbsp;→</a>
   </div>
-
-  <div class="scroll-cue reveal" aria-hidden="true">
-    <span class="sc-line"></span>
-  </div>
-
 </section>
 
 
 <!-- ═══════════════════════════════════
-     SCREEN 2 — BELIEF
-     What we believe. Simply stated.
-     Information begins here — not before.
+     BELIEF — what we believe
 ═══════════════════════════════════ -->
 <div class="sep" aria-hidden="true"></div>
 
 <section class="screen s-belief" id="belief" aria-labelledby="belief-stmt">
-
   <div class="s-body">
     <p class="s-overline reveal">Belief</p>
     <blockquote class="belief-statement reveal" id="belief-stmt">
       The strongest brands create value<br />
-      <em> beyond</em> what they sell.
+      <em>beyond</em> what they sell.
     </blockquote>
     <p class="belief-body reveal">
-      Meaning Beyond Brands is a boutique consultancy helping luxury and premium brands
-      grow through trust, connection, distinction, and customer experience.
+      Meaning Beyond Brands helps luxury and premium brands create meaning
+      beyond the transaction — through strategy, storytelling,
+      and memorable experiences.
     </p>
     <p class="belief-sectors reveal">
       Hospitality &nbsp;·&nbsp; Fashion &nbsp;·&nbsp; Wellness &nbsp;·&nbsp;
       Real Estate &nbsp;·&nbsp; Education &nbsp;·&nbsp; Lifestyle
     </p>
   </div>
-
 </section>
 
 
 <!-- ═══════════════════════════════════
-     SCREEN 3 — THE COMPASS
-     The organising metaphor. The centrepiece.
-     Navigation. Direction. Discovery.
+     THE FRAMEWORK — compass philosophy
 ═══════════════════════════════════ -->
 <div class="sep" aria-hidden="true"></div>
 
 <section class="screen s-compass" id="compass" aria-labelledby="compass-lbl">
-
   <div class="s-body">
     <p class="s-overline reveal" id="compass-lbl">The Framework</p>
 
     <div class="compass-stage">
 
-      <!-- Tap / click any direction to reveal its meaning -->
       <button class="cs-pt cs-north reveal" aria-expanded="false"
         data-description="The strongest brands create value beyond what they sell. Meaning is the foundation — the purpose that outlasts any campaign.">
         <span class="cs-val">Meaning</span>
@@ -378,54 +540,7 @@
         </button>
 
         <div class="cs-instrument" aria-hidden="true">
-          <svg class="compass-svg" viewBox="0 0 340 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="spkGold" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"   stop-color="#E8C870"/>
-                <stop offset="40%"  stop-color="#C09040"/>
-                <stop offset="100%" stop-color="#8C6828"/>
-              </linearGradient>
-              <linearGradient id="spkMuted" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"   stop-color="#9A8A6A"/>
-                <stop offset="100%" stop-color="#6A5A3A"/>
-              </linearGradient>
-              <filter id="starGlow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="2" stdDeviation="6" flood-color="#8C6020" flood-opacity=".22"/>
-              </filter>
-            </defs>
-
-            <!-- Outer bezel rings -->
-            <circle cx="170" cy="170" r="162" stroke="#A8854A" stroke-width="0.6" opacity=".30"/>
-            <circle cx="170" cy="170" r="150" stroke="#A8854A" stroke-width="0.3" stroke-dasharray="2 8" opacity=".18"/>
-            <circle cx="170" cy="170" r="136" stroke="#A8854A" stroke-width="0.5" opacity=".14"/>
-
-            <!-- Ordinal tick marks at 45° -->
-            <line x1="170" y1="10" x2="170" y2="32" stroke="#A8854A" stroke-width="0.7" opacity=".25" transform="rotate(45  170 170)"/>
-            <line x1="170" y1="10" x2="170" y2="32" stroke="#A8854A" stroke-width="0.7" opacity=".25" transform="rotate(135 170 170)"/>
-            <line x1="170" y1="10" x2="170" y2="32" stroke="#A8854A" stroke-width="0.7" opacity=".25" transform="rotate(225 170 170)"/>
-            <line x1="170" y1="10" x2="170" y2="32" stroke="#A8854A" stroke-width="0.7" opacity=".25" transform="rotate(315 170 170)"/>
-
-            <!-- Compass rose — cardinal spikes + intercardinal -->
-            <g class="compass-star-layer" style="transform-box:fill-box;transform-origin:170px 170px" filter="url(#starGlow)">
-              <!-- N spike — brighter gold -->
-              <polygon points="170,18 175,160 170,182 165,160" fill="url(#spkGold)"/>
-              <!-- S spike — muted -->
-              <polygon points="170,322 175,180 170,158 165,180" fill="url(#spkMuted)" opacity=".65"/>
-              <!-- E spike — muted -->
-              <polygon points="322,170 180,165 158,170 180,175" fill="url(#spkMuted)" opacity=".65"/>
-              <!-- W spike — muted -->
-              <polygon points="18,170 160,165 182,170 160,175"  fill="url(#spkMuted)" opacity=".65"/>
-              <!-- Intercardinal short spikes -->
-              <polygon points="170,18 175,160 170,182 165,160" fill="#C09A48" opacity=".30" transform="rotate(45  170 170)"/>
-              <polygon points="170,18 175,160 170,182 165,160" fill="#C09A48" opacity=".30" transform="rotate(135 170 170)"/>
-              <polygon points="170,18 175,160 170,182 165,160" fill="#C09A48" opacity=".30" transform="rotate(225 170 170)"/>
-              <polygon points="170,18 175,160 170,182 165,160" fill="#C09A48" opacity=".30" transform="rotate(315 170 170)"/>
-            </g>
-
-            <!-- Centre pivot -->
-            <circle cx="170" cy="170" r="5"   fill="#C8980A" opacity=".60"/>
-            <circle cx="170" cy="170" r="2"   fill="#F0D060" opacity=".80"/>
-          </svg>
+          <img class="cs-star-img" src="assets/compass-star.png" alt="" />
         </div>
 
         <button class="cs-pt cs-east reveal" aria-expanded="false"
@@ -443,64 +558,60 @@
 
     </div>
 
-    <!-- Description panel: animates in on tap / click -->
     <div class="cs-desc-panel" hidden aria-live="polite">
       <p class="cs-desc-text"></p>
     </div>
 
     <p class="compass-hint reveal" aria-hidden="true">Tap a direction to explore</p>
-
   </div>
 </section>
 
 
 <!-- ═══════════════════════════════════
-     SCREEN 4 — METHOD
-     Four movements. Editorial, not process.
+     APPROACH — four pillars
 ═══════════════════════════════════ -->
 <div class="sep" aria-hidden="true"></div>
 
 <section class="screen s-method" id="method" aria-labelledby="method-lbl">
-
   <div class="s-body">
-    <p class="s-overline reveal" id="method-lbl">How We Work</p>
-    <div class="method-list">
+    <p class="s-overline reveal" id="method-lbl">Our Approach</p>
+    <div class="approach-list">
 
-      <div class="method-item reveal">
-        <h3 class="mi-title">Assess</h3>
-        <p class="mi-body">Observe the brand, customer journey, and audience — uncovering where meaningful growth begins.</p>
+      <div class="approach-item reveal">
+        <span class="approach-num">01</span>
+        <h3 class="approach-title">Clarify</h3>
+        <p class="approach-body">Discover what makes your brand truly significant and define the value you bring beyond your offering.</p>
       </div>
 
-      <div class="method-item reveal">
-        <h3 class="mi-title">Align</h3>
-        <p class="mi-body">Close the gap between brand intention and the experience customers actually have.</p>
+      <div class="approach-item reveal">
+        <span class="approach-num">02</span>
+        <h3 class="approach-title">Connect</h3>
+        <p class="approach-body">Engage new audiences and create authentic relationships that extend your brand's reach and relevance.</p>
       </div>
 
-      <div class="method-item reveal">
-        <h3 class="mi-title">Connect</h3>
-        <p class="mi-body">Create experiences that deepen relationships with the people who matter most.</p>
+      <div class="approach-item reveal">
+        <span class="approach-num">03</span>
+        <h3 class="approach-title">Inspire</h3>
+        <p class="approach-body">Design meaningful experiences that create emotional connection and memorable moments.</p>
       </div>
 
-      <div class="method-item reveal">
-        <h3 class="mi-title">Tell Stories</h3>
-        <p class="mi-body">Transform strategy into narratives that create lasting emotional connection.</p>
+      <div class="approach-item reveal">
+        <span class="approach-num">04</span>
+        <h3 class="approach-title">Elevate</h3>
+        <p class="approach-body">Transform those connections into long-term loyalty, community, and sustainable growth.</p>
       </div>
 
     </div>
   </div>
-
 </section>
 
 
 <!-- ═══════════════════════════════════
-     SCREEN 5 — FOUNDER
-     Ana as the author of the experience.
-     Not an employee profile.
+     FOUNDER — a note from Ana
 ═══════════════════════════════════ -->
 <div class="sep" aria-hidden="true"></div>
 
 <section class="screen s-founder" id="founder" aria-labelledby="founder-name">
-
   <div class="s-body s-founder-body">
 
     <figure class="founder-fig reveal" aria-label="Ana Abad, Founder">
@@ -512,7 +623,7 @@
       <h2 class="founder-name reveal" id="founder-name">Ana Abad</h2>
       <p class="founder-role reveal">Branding &amp; Marketing Consultant</p>
       <blockquote class="founder-philosophy reveal">
-        Because meaningful brands<br />are not simply seen.<br />
+        Because meaningful brands are not simply seen.<br />
         They are <em>remembered.</em>
       </blockquote>
       <p class="founder-bio reveal">
@@ -523,41 +634,70 @@
     </div>
 
   </div>
-
 </section>
 
 
 <!-- ═══════════════════════════════════
-     SCREEN 6 — INVITATION
-     An invitation. Not a form.
-     The ending of the experience.
+     INSIGHTS — journal
+═══════════════════════════════════ -->
+<div class="sep" aria-hidden="true"></div>
+
+<section class="screen s-insights" id="insights" aria-labelledby="insights-lbl">
+  <div class="s-body">
+    <p class="s-overline reveal" id="insights-lbl">Insights</p>
+    <div class="insights-list">
+
+      <a class="insight-item reveal"
+         href="https://www.linkedin.com/company/meaning-beyond-brands/posts/?feedView=all"
+         target="_blank" rel="noopener noreferrer">
+        <span class="insight-title">Why Luxury Brands Need to Create Meaning Beyond the Transaction</span>
+        <span class="insight-arrow">→</span>
+      </a>
+
+      <a class="insight-item reveal"
+         href="https://www.linkedin.com/company/meaning-beyond-brands/posts/?feedView=all"
+         target="_blank" rel="noopener noreferrer">
+        <span class="insight-title">The Four Pillars of Brands That Last</span>
+        <span class="insight-arrow">→</span>
+      </a>
+
+      <a class="insight-item reveal"
+         href="https://www.linkedin.com/company/meaning-beyond-brands/posts/?feedView=all"
+         target="_blank" rel="noopener noreferrer">
+        <span class="insight-title">Trust Is Not a Campaign — It Is a Culture</span>
+        <span class="insight-arrow">→</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════
+     INVITATION — let's begin
 ═══════════════════════════════════ -->
 <div class="sep" aria-hidden="true"></div>
 
 <section class="screen s-invitation" id="invitation" aria-labelledby="inv-heading">
-
-
   <div class="s-body">
 
     <div class="inv-head">
       <p class="s-overline reveal">Connect</p>
       <h2 class="inv-title reveal" id="inv-heading">
-        Where would you<br /><em> like to go next?</em>
+        Let's begin<br /><em>the journey.</em>
       </h2>
       <p class="inv-location reveal">Dubai, UAE</p>
     </div>
 
-    <!-- Primary: one clear action -->
     <div class="inv-primary reveal">
       <a class="inv-whatsapp-btn" href="https://wa.me/971588812769" target="_blank" rel="noopener" aria-label="Reach out on WhatsApp">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.42A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 01-4.076-1.117l-.292-.174-3.016.86.875-2.94-.19-.302A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.406-5.844c-.242-.121-1.432-.707-1.654-.788-.222-.08-.384-.12-.545.121-.162.242-.626.788-.768.95-.141.162-.283.182-.525.06-.242-.12-1.022-.377-1.946-1.2-.72-.641-1.206-1.433-1.347-1.675-.141-.242-.015-.373.106-.493.109-.108.242-.283.363-.424.121-.141.161-.242.242-.404.08-.161.04-.303-.02-.424-.061-.12-.546-1.315-.748-1.8-.197-.473-.397-.409-.546-.416l-.465-.008c-.161 0-.424.06-.646.303-.222.242-.848.829-.848 2.022s.868 2.346.989 2.508c.12.161 1.708 2.608 4.138 3.657.579.25 1.03.399 1.381.511.58.185 1.108.159 1.525.097.465-.07 1.432-.585 1.634-1.15.201-.566.201-1.05.14-1.15-.06-.1-.222-.161-.464-.283z"/>
         </svg>
         Reach out on WhatsApp
       </a>
     </div>
 
-    <!-- Secondary: email -->
     <div class="inv-secondary reveal">
       <p class="inv-secondary-label">Prefer email?</p>
       <a class="inv-email" href="mailto:hello@meaningbeyondbrands.com">
@@ -565,7 +705,12 @@
       </a>
     </div>
 
-    <!-- Tertiary: written message -->
+    <div class="inv-socials reveal">
+      <a href="https://www.linkedin.com/company/meaning-beyond-brands/posts/?feedView=all" target="_blank" rel="noopener noreferrer" class="inv-social-link">LinkedIn</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://www.instagram.com/meaningbeyondbrands?igsh=MWs0cXdvdGk5dm9yaQ==" target="_blank" rel="noopener noreferrer" class="inv-social-link">Instagram</a>
+    </div>
+
     <div class="inv-form-section reveal">
       <button class="inv-form-toggle" aria-expanded="false">
         Prefer to write? Send a message →
@@ -573,15 +718,15 @@
       <form class="inv-form" id="contact-form" hidden novalidate>
         <div class="ff">
           <label for="cf-name">Name</label>
-          <input type="text" id="cf-name" name="name" placeholder="Your name" required />
+          <input class="inv-field" type="text" id="cf-name" name="name" placeholder="Your name" required />
         </div>
         <div class="ff">
           <label for="cf-email">Email</label>
-          <input type="email" id="cf-email" name="email" placeholder="your@email.com" required />
+          <input class="inv-field" type="email" id="cf-email" name="email" placeholder="your@email.com" required />
         </div>
         <div class="ff">
           <label for="cf-msg">Message</label>
-          <textarea id="cf-msg" name="message" placeholder="How can we help?" required></textarea>
+          <textarea class="inv-field" id="cf-msg" name="message" placeholder="How can we help?" required></textarea>
         </div>
         <button type="submit" class="inv-submit">Send →</button>
         <p class="inv-commitment">We respond within 48 hours</p>
@@ -593,7 +738,6 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer class="site-footer">
   <div class="sf-inner wrap">
     <span class="sf-brand">Meaning Beyond Brands</span>
