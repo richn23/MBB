@@ -2185,3 +2185,14 @@ header, main, footer { position: relative; z-index: 2; }
   align-items: center;
   gap: 0;
 }
+
+/* ── CRITICAL FIX: remove all ghost text ────────────────── */
+
+/* Kill site-bg entirely — Background-base.png has baked text */
+.site-bg { display: none !important; }
+
+/* pearl-water.jpg left half = baked text, right half = pure photography
+   Force background-position to show only the right/photography side */
+.hero-right {
+  background-position: right center !important;
+}
