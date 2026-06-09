@@ -1009,6 +1009,87 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 /* ── TOKEN OVERRIDES ────────────────────────────────────── */
 :root { --taupe: #4A4235; }
 
+/* ── BACKGROUND BASE ─────────────────────────────────────── */
+body {
+  background: #EDE8DF; /* fallback while image loads */
+}
+
+/* The image — fixed so it stays still as content scrolls over it */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('../images/Background-base.png');
+  background-size: cover;
+  background-position: center top;
+  pointer-events: none;
+}
+
+/* Water sparkle animation — three layers of soft light caustics
+   that drift and fade independently, simulating sunlight on moving water.
+   Confined to the lower 70% of the screen where the water lives. */
+.site-sparkle {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Only animate over the water area — top 30% is shell/marble, leave it still */
+  mask-image: linear-gradient(to bottom, transparent 28%, black 48%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 28%, black 48%, black 100%);
+}
+
+/* Caustic layer A — slow broad drift */
+.site-sparkle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 18% 12% at 22% 62%, rgba(255,252,235,.55) 0%, transparent 100%),
+    radial-gradient(ellipse 10% 7%  at 58% 74%, rgba(255,252,235,.45) 0%, transparent 100%),
+    radial-gradient(ellipse 14% 9%  at 38% 88%, rgba(255,252,235,.40) 0%, transparent 100%),
+    radial-gradient(ellipse 8%  5%  at 72% 55%, rgba(255,252,235,.35) 0%, transparent 100%),
+    radial-gradient(ellipse 20% 11% at 14% 80%, rgba(255,252,235,.30) 0%, transparent 100%);
+  animation: sparkleA 5s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+/* Caustic layer B — faster, smaller, offset timing */
+.site-sparkle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 9%  6%  at 44% 68%, rgba(255,250,220,.50) 0%, transparent 100%),
+    radial-gradient(ellipse 13% 8%  at 68% 82%, rgba(255,250,220,.45) 0%, transparent 100%),
+    radial-gradient(ellipse 7%  5%  at 28% 72%, rgba(255,250,220,.40) 0%, transparent 100%),
+    radial-gradient(ellipse 16% 10% at 82% 60%, rgba(255,250,220,.35) 0%, transparent 100%),
+    radial-gradient(ellipse 11% 7%  at 50% 90%, rgba(255,250,220,.30) 0%, transparent 100%);
+  animation: sparkleB 3.8s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+@keyframes sparkleA {
+  0%   { transform: translate(0%,    0%)   scale(1.00); opacity: 0.7; }
+  33%  { transform: translate(1.2%,  0.8%) scale(1.04); opacity: 1.0; }
+  66%  { transform: translate(-0.8%, 1.5%) scale(0.97); opacity: 0.8; }
+  100% { transform: translate(0.5%, -0.6%) scale(1.02); opacity: 0.9; }
+}
+
+@keyframes sparkleB {
+  0%   { transform: translate(0%,    0%)    scale(1.00); opacity: 0.6; }
+  40%  { transform: translate(-1.5%, 0.6%)  scale(1.05); opacity: 1.0; }
+  80%  { transform: translate(1.0%,  -1.0%) scale(0.96); opacity: 0.75; }
+  100% { transform: translate(-0.4%, 1.2%)  scale(1.03); opacity: 0.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-sparkle::before,
+  .site-sparkle::after { animation: none; }
+}
+
+/* Everything else sits above the background layers */
+header, main, footer { position: relative; z-index: 2; }
+
 /* ── HERO ────────────────────────────────────────────────── */
 .s-hero {
   display: grid;
