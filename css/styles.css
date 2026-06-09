@@ -2138,3 +2138,50 @@ header, main, footer { position: relative; z-index: 2; }
   .purpose-body { font-size: clamp(18px, 5vw, 24px); }
   .method-framework-img { max-width: 100%; }
 }
+
+/* ── HERO BUG FIXES ──────────────────────────────────────── */
+
+/* 1. Stop Background-base.png ghosting through the hero */
+.site-bg {
+  opacity: 0.04;
+  filter: saturate(0) brightness(1.5);
+}
+
+/* 2. Hero star — inline SVG, no white box */
+.hero-star {
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin: 0 auto 18px;
+  opacity: 0.88;
+}
+
+/* 3. Centre the lockup */
+.s-hero {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.hero-lockup {
+  width: 100% !important;
+  max-width: 680px !important;
+  text-align: center !important;
+}
+
+/* 4. Full-coverage veil — no edge bleed */
+.hero-left {
+  background: linear-gradient(
+    175deg,
+    rgba(20, 16, 10, 0.40) 0%,
+    rgba(20, 16, 10, 0.18) 45%,
+    rgba(20, 16, 10, 0.42) 100%
+  ) !important;
+}
+
+/* Ensure headline stacks centred */
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
