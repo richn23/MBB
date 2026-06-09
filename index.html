@@ -433,16 +433,49 @@
     .inv-social-link { transition: opacity 0.25s; }
     .inv-social-link:hover { opacity: 0.40; }
 
-    /* ── 1. HERO — split layout (active when hero-flatlay.jpg exists) ── */
-    /* Waiting for: images/hero-flatlay.jpg (pearl flatlay) */
-    .identity-visual { display: none; } /* hide until real image is in place */
+    /* ── 1. HERO — split layout ────────────────────────────── */
+    .s-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 0;
+      text-align: left;
+    }
+    .hero-body {
+      padding: 140px var(--side) 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+    .hero-mark { margin: 0 0 28px 0; }
+    .hero-overline { text-align: left; }
+    .identity-visual {
+      position: relative;
+      overflow: hidden;
+    }
+    .identity-hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      /* crop to the right half — pearl shell + business card, no text */
+      object-position: right center;
+      filter: brightness(1.02) saturate(0.88);
+    }
 
     /* ── 2. BELIEF — two-column with purpose card ──────────── */
-    /* Waiting for: images/our-purpose-card.jpg */
-    .belief-card { display: none; } /* hide until image exists */
+    .s-belief .s-body {
+      max-width: 1100px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 80px;
+      align-items: center;
+    }
+    .belief-text-col { min-width: 0; } /* prevent grid blowout */
+    .belief-card { flex-shrink: 0; }
     .belief-purpose-img {
       width: 100%;
-      max-width: 340px;
+      max-width: 320px;
       display: block;
       border-radius: 3px;
       box-shadow:
@@ -450,8 +483,7 @@
         0 12px 40px rgba(36,31,23,.10);
     }
 
-    /* ── 3. METHOD — pearl/water atmospheric background ────── */
-    /* Waiting for: images/pearl-water.jpg */
+    /* ── 3. METHOD — water sparkle atmospheric background ──── */
     .s-method { position: relative; overflow: hidden; }
     .method-bg {
       position: absolute;
@@ -461,9 +493,9 @@
     .method-bg-img {
       width: 100%; height: 100%;
       object-fit: cover;
-      object-position: center 40%;
-      opacity: 0.16;
-      filter: saturate(0.65) brightness(1.1);
+      object-position: center;
+      opacity: 0.14;
+      filter: saturate(0.55) brightness(1.12);
     }
     .method-bg-veil {
       position: absolute;
@@ -471,15 +503,14 @@
       background: linear-gradient(
         180deg,
         var(--paper) 0%,
-        rgba(244,239,231,.50) 40%,
-        rgba(244,239,231,.50) 60%,
+        rgba(244,239,231,.45) 35%,
+        rgba(244,239,231,.45) 65%,
         var(--paper) 100%
       );
     }
 
     /* ── 4. METHOD — infographic insert ────────────────────── */
-    /* Waiting for: images/framework-infographic.jpg */
-    .method-infographic { display: none; } /* hide until image exists */
+    .method-infographic { margin-top: 72px; text-align: center; }
     .mi-divider {
       display: flex;
       align-items: center;
@@ -510,8 +541,7 @@
         0 24px 64px rgba(36,31,23,.06);
     }
 
-    /* ── 5. INVITATION — water sparkle background ──────────── */
-    /* Waiting for: images/water-sparkle.jpg */
+    /* ── 5. INVITATION — MBB banner background ─────────────── */
     .s-invitation { position: relative; overflow: hidden; }
     .inv-bg {
       position: absolute;
@@ -522,8 +552,9 @@
       width: 100%; height: 100%;
       object-fit: cover;
       object-position: center;
-      opacity: 0.13;
-      filter: saturate(0.45) brightness(1.18);
+      opacity: 0.10;
+      filter: saturate(0.50) brightness(1.15);
+      mix-blend-mode: multiply;
     }
     .inv-bg-veil {
       position: absolute;
@@ -531,11 +562,35 @@
       background: linear-gradient(
         135deg,
         var(--paper) 0%,
-        rgba(244,239,231,.38) 50%,
+        rgba(244,239,231,.30) 50%,
         var(--paper) 100%
       );
     }
     .s-invitation .s-body { position: relative; z-index: 1; }
+
+    /* ── RESPONSIVE for split hero + belief grid ────────────── */
+    @media (max-width: 960px) {
+      .s-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 0;
+      }
+      .hero-body {
+        padding: 120px var(--side) 80px;
+        align-items: center;
+        text-align: center;
+        order: 2;
+      }
+      .hero-mark { margin: 0 auto 28px; }
+      .hero-overline { text-align: center; }
+      .identity-visual { order: 1; height: 38svh; }
+      .identity-hero-img { object-position: center; }
+      .s-belief .s-body {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .belief-purpose-img { max-width: 260px; margin: 0 auto; }
+    }
 
   </style>
 </head>
@@ -594,7 +649,7 @@
   </div>
   <div class="identity-visual" aria-hidden="true">
     <img
-      src="images/hero-flatlay.jpg"
+      src="images/pearl-water.jpg"
       alt=""
       class="identity-hero-img"
       loading="eager"
@@ -697,7 +752,7 @@
 
 <section class="screen s-method" id="method" aria-labelledby="method-lbl">
   <div class="method-bg" aria-hidden="true">
-    <img src="images/pearl-water.jpg" alt="" class="method-bg-img" loading="lazy" />
+    <img src="images/water-sparkle.jpg" alt="" class="method-bg-img" loading="lazy" />
     <div class="method-bg-veil"></div>
   </div>
   <div class="s-body">
@@ -822,7 +877,7 @@
 
 <section class="screen s-invitation" id="invitation" aria-labelledby="inv-heading">
   <div class="inv-bg" aria-hidden="true">
-    <img src="images/water-sparkle.jpg" alt="" class="inv-bg-img" loading="lazy" />
+    <img src="images/hero-flatlay.jpg" alt="" class="inv-bg-img" loading="lazy" />
     <div class="inv-bg-veil"></div>
   </div>
   <div class="s-body">
