@@ -1200,6 +1200,115 @@ header, main, footer { position: relative; z-index: 2; }
   opacity: 0.65;
 }
 
+/* ── OUR PURPOSE — floating paper note ──────────────────────
+   Three layers create the 3D paper illusion:
+   pn-shadow  → diffuse ambient shadow beneath the card
+   pn-edge    → the thick bottom/right edge of the paper stack
+   pn-sheet   → the top surface with texture + slight sheen
+   ──────────────────────────────────────────────────────────── */
+.s-purpose {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px clamp(24px, 6vw, 80px);
+  min-height: 70vh;
+}
+
+/* Wrapper holds all three layers in perfect registration */
+.purpose-note {
+  position: relative;
+  width: min(480px, 88vw);
+}
+
+/* Layer 1 — soft ambient shadow, offset down-right, large blur radius */
+.pn-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: transparent;
+  box-shadow:
+    0  8px  20px rgba(60, 48, 28, .13),
+    0 22px  52px rgba(60, 48, 28, .10),
+    0 48px  96px rgba(60, 48, 28, .07);
+  transform: translate(4px, 8px);
+  z-index: 0;
+}
+
+/* Layer 2 — paper stack edge: thin strip offset below/right, slightly darker */
+.pn-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: #D9D0C0;
+  transform: translate(5px, 6px);
+  z-index: 1;
+}
+
+/* Layer 3 — the top sheet: warm cotton paper, fine texture, subtle inner glow */
+.pn-sheet {
+  position: relative;
+  z-index: 2;
+  background: #F5F0E8;
+  /* Cotton paper texture via SVG turbulence */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.06 0.08' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.045'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  border-radius: 2px;
+  padding: clamp(44px, 6vw, 72px) clamp(36px, 5vw, 60px);
+  text-align: center;
+  /* Subtle inner highlight at top edge — catches light */
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.90),
+    inset 0 -1px 0 rgba(0,0,0,.04);
+}
+
+/* Gold 4-point star */
+.pn-star {
+  width: 18px;
+  height: 18px;
+  display: block;
+  margin: 0 auto 18px;
+  opacity: .88;
+}
+
+/* "OUR PURPOSE" heading */
+.pn-heading {
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-size: clamp(11px, 1.1vw, 13px);
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: #2C2416;
+  margin-bottom: 16px;
+}
+
+/* Ornamental rule */
+.pn-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.pn-line {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(to right, rgba(168,133,74,.55), rgba(168,133,74,.20));
+}
+.pn-rule .pn-line:last-child {
+  background: linear-gradient(to left, rgba(168,133,74,.55), rgba(168,133,74,.20));
+}
+
+/* Body copy */
+.pn-body {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(17px, 1.8vw, 21px);
+  font-weight: 400;
+  line-height: 1.72;
+  color: #3A3025;
+}
+
 /* ── HERO MOBILE ─────────────────────────────────────────── */
 @media (max-width: 768px) {
   .s-hero {
