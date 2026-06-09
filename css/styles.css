@@ -2213,3 +2213,11 @@ header, main, footer { position: relative; z-index: 2; }
   z-index: 3;
   pointer-events: none;
 }
+
+/* ── HERO FADE — mask to transparent, no colour mismatch ── */
+.s-hero::after { display: none !important; } /* remove old gradient overlay */
+
+.s-hero {
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+}
