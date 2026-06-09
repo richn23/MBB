@@ -433,45 +433,13 @@
     .inv-social-link { transition: opacity 0.25s; }
     .inv-social-link:hover { opacity: 0.40; }
 
-    /* ── 1. HERO — split layout with right image panel ─────── */
-    .s-hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding: 0;
-      text-align: left;
-    }
-    .hero-body {
-      padding: 140px var(--side) 100px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: left;
-    }
-    .hero-mark { margin: 0 0 28px 0; }
-    .hero-overline { text-align: left; }
-    .identity-visual {
-      position: relative;
-      overflow: hidden;
-    }
-    .identity-hero-img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center;
-      filter: brightness(1.02) saturate(0.90);
-    }
+    /* ── 1. HERO — split layout (active when hero-flatlay.jpg exists) ── */
+    /* Waiting for: images/hero-flatlay.jpg (pearl flatlay) */
+    .identity-visual { display: none; } /* hide until real image is in place */
 
     /* ── 2. BELIEF — two-column with purpose card ──────────── */
-    .s-belief .s-body {
-      max-width: 1100px;
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: 80px;
-      align-items: center;
-    }
-    .belief-text-col { }
-    .belief-card { flex-shrink: 0; }
+    /* Waiting for: images/our-purpose-card.jpg */
+    .belief-card { display: none; } /* hide until image exists */
     .belief-purpose-img {
       width: 100%;
       max-width: 340px;
@@ -483,6 +451,7 @@
     }
 
     /* ── 3. METHOD — pearl/water atmospheric background ────── */
+    /* Waiting for: images/pearl-water.jpg */
     .s-method { position: relative; overflow: hidden; }
     .method-bg {
       position: absolute;
@@ -509,7 +478,8 @@
     }
 
     /* ── 4. METHOD — infographic insert ────────────────────── */
-    .method-infographic { margin-top: 72px; text-align: center; }
+    /* Waiting for: images/framework-infographic.jpg */
+    .method-infographic { display: none; } /* hide until image exists */
     .mi-divider {
       display: flex;
       align-items: center;
@@ -541,6 +511,7 @@
     }
 
     /* ── 5. INVITATION — water sparkle background ──────────── */
+    /* Waiting for: images/water-sparkle.jpg */
     .s-invitation { position: relative; overflow: hidden; }
     .inv-bg {
       position: absolute;
@@ -565,33 +536,6 @@
       );
     }
     .s-invitation .s-body { position: relative; z-index: 1; }
-
-    /* ── RESPONSIVE overrides for new layouts ──────────────── */
-    @media (max-width: 960px) {
-      .s-hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding: 0;
-      }
-      .hero-body {
-        padding: 120px var(--side) 80px;
-        align-items: center;
-        text-align: center;
-        order: 2;
-      }
-      .hero-mark { margin: 0 auto 28px; }
-      .hero-overline { text-align: center; }
-      .identity-visual {
-        order: 1;
-        height: 38svh;
-        position: relative;
-      }
-      .s-belief .s-body {
-        grid-template-columns: 1fr;
-        gap: 36px;
-      }
-      .belief-purpose-img { max-width: 260px; margin: 0 auto; }
-    }
 
   </style>
 </head>
