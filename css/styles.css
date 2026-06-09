@@ -893,8 +893,10 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
    ============================================================ */
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 1.2s cubic-bezier(.2,.7,.2,1), transform 1.2s cubic-bezier(.2,.7,.2,1);
+  transform: translateY(24px);
+  transition:
+    opacity  1.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
@@ -1091,41 +1093,45 @@ body {
 /* Everything else sits above the background layers */
 header, main, footer { position: relative; z-index: 2; }
 
-/* ── HERO ────────────────────────────────────────────────── */
+/* ── HERO — full-bleed immersive moment ─────────────────── */
 .s-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 100svh;
-  /* sits below the fixed nav (~72px tall) */
-  padding-top: 0;
-  overflow: hidden;
   position: relative;
-}
-
-/* LEFT — parchment panel, fades into the photo on the right edge */
-.hero-left {
-  background: linear-gradient(
-    to right,
-    rgba(237,229,216,.96) 0%,
-    rgba(237,229,216,.92) 55%,
-    rgba(237,229,216,.60) 78%,
-    rgba(237,229,216,.0) 100%
-  );
+  min-height: 100svh;
   display: flex;
   align-items: center;
-  padding: 100px clamp(40px, 6vw, 96px) 80px;
+  justify-content: center;
+  overflow: hidden;
 }
 
-/* RIGHT — photograph */
+/* Pearl-water fills the entire viewport */
 .hero-right {
+  position: absolute;
+  inset: 0;
   background-image: url('../images/pearl-water.jpg');
   background-size: cover;
-  background-position: center center;
+  background-position: center 38%;
+  z-index: 0;
 }
 
-/* Lockup sits inside the left panel */
+/* Radial veil — darker at edges, breathing space at centre */
+.hero-left {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 70% 65% at 45% 52%,
+    rgba(30, 24, 16, 0.18) 0%,
+    rgba(30, 24, 16, 0.52) 100%
+  );
+}
+
+/* Centred lockup */
 .hero-lockup {
-  max-width: 480px;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 720px;
+  padding: 120px var(--side, 48px) 100px;
 }
 
 /* Gold compass star */
@@ -1144,7 +1150,7 @@ header, main, footer { position: relative; z-index: 2; }
   font-weight: 400;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: #4A3E2C;
+  color: rgba(245,240,230,.70);
   margin-bottom: 14px;
 }
 
@@ -1178,16 +1184,16 @@ header, main, footer { position: relative; z-index: 2; }
   text-transform: uppercase;
   margin-bottom: 18px;
 }
-.hh-dark  { color: #2C2416; }
-.hh-gold  { color: #A8844A; }
+.hh-dark  { color: #F5F0E6; }
+.hh-gold  { color: #D4AC7A; }
 
 /* Body copy */
 .hero-sub {
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(14px, 1.3vw, 17px);
+  font-size: clamp(15px, 1.4vw, 18px);
   font-weight: 300;
   line-height: 1.85;
-  color: #4A3E2C;
+  color: rgba(245,240,230,.80);
   margin-bottom: 28px;
   text-align: center;
 }
@@ -1199,8 +1205,7 @@ header, main, footer { position: relative; z-index: 2; }
   font-weight: 400;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: #4A3E2C;
-  opacity: 0.65;
+  color: rgba(245,240,230,.45);
 }
 
 /* ── CONNECT ─────────────────────────────────────────────── */
@@ -1644,46 +1649,34 @@ header, main, footer { position: relative; z-index: 2; }
   width: min(480px, 88vw);
 }
 
-/* Layer 1 — soft ambient shadow, offset down-right, large blur radius */
-.pn-shadow {
-  position: absolute;
-  inset: 0;
-  border-radius: 3px;
-  background: transparent;
-  box-shadow:
-    0  8px  20px rgba(60, 48, 28, .13),
-    0 22px  52px rgba(60, 48, 28, .10),
-    0 48px  96px rgba(60, 48, 28, .07);
-  transform: translate(4px, 8px);
-  z-index: 0;
-}
+/* Shadow and edge hidden — mask handles the dissolve */
+.pn-shadow,
+.pn-edge { display: none !important; }
 
-/* Layer 2 — paper stack edge: thin strip offset below/right, slightly darker */
-.pn-edge {
-  position: absolute;
-  inset: 0;
-  border-radius: 3px;
-  background: #D9D0C0;
-  transform: translate(5px, 6px);
-  z-index: 1;
-}
-
-/* Layer 3 — the top sheet: warm cotton paper, fine texture, subtle inner glow */
+/* Sheet fades at all edges via radial mask — no hard box */
 .pn-sheet {
   position: relative;
   z-index: 2;
-  background: #F5F0E8;
-  /* Cotton paper texture via SVG turbulence */
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.06 0.08' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)' opacity='0.045'/%3E%3C/svg%3E");
-  background-size: 300px 300px;
-  border-radius: 2px;
-  padding: clamp(44px, 6vw, 72px) clamp(36px, 5vw, 60px);
+  background: rgba(237, 229, 216, 0.82);
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  padding: clamp(56px, 7vw, 80px) clamp(56px, 7vw, 80px);
   text-align: center;
-  /* Subtle inner highlight at top edge — catches light */
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.90),
-    inset 0 -1px 0 rgba(0,0,0,.04);
+  max-width: 560px;
+  margin: 0 auto;
+  mask-image: radial-gradient(
+    ellipse 88% 88% at 50% 50%,
+    black 40%,
+    rgba(0,0,0,0.6) 68%,
+    transparent 90%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 88% 88% at 50% 50%,
+    black 40%,
+    rgba(0,0,0,0.6) 68%,
+    transparent 90%
+  );
 }
 
 /* Gold 4-point star */

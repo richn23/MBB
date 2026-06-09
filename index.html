@@ -2,9 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- Preload hero image so it's ready before CSS is parsed -->
+  <link rel="preload" as="image" href="/images/pearl-water.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="/assets/compass-star.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meaning Beyond Brands</title>
   <meta name="description" content="We help luxury and premium brands create meaningful growth through strategy, storytelling, and human connection." />
+  <!-- Open Graph -->
+  <meta property="og:type"         content="website" />
+  <meta property="og:url"          content="https://mbb-one.vercel.app/" />
+  <meta property="og:title"        content="Meaning Beyond Brands — Strategy · Storytelling · Significance" />
+  <meta property="og:description"  content="We help luxury and premium brands create meaningful growth through strategy, storytelling, and human connection." />
+  <meta property="og:image"        content="https://mbb-one.vercel.app/images/pearl-water.jpg" />
+  <meta property="og:image:width"  content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale"       content="en_GB" />
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Meaning Beyond Brands" />
+  <meta name="twitter:description" content="We help luxury and premium brands create meaningful growth." />
+  <meta name="twitter:image"       content="https://mbb-one.vercel.app/images/pearl-water.jpg" />
+  <link rel="canonical"            href="https://mbb-one.vercel.app/" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
@@ -22,7 +39,7 @@
   ══════════════════════════════════════════════ -->
   <header class="nav-bar" id="top">
     <a href="#identity" class="nb-brand">
-      <img src="assets/emblem.jpeg" alt="" class="nb-emblem" />
+      <img src="assets/emblem.jpeg" alt="" class="nb-emblem" width="40" height="40" />
       <span class="nb-text">
         <span class="nb-name">Meaning Beyond Brands</span>
         <span class="nb-sub">Strategy · Storytelling · Significance</span>
@@ -36,7 +53,7 @@
     </div>
     <nav class="nb-drawer" aria-label="Navigation" aria-hidden="true">
       <div class="nb-drawer-brand">
-        <img src="assets/emblem.jpeg" alt="" class="nb-drawer-emblem" />
+        <img src="assets/emblem.jpeg" alt="" class="nb-drawer-emblem" width="64" height="64" />
         <span class="nb-drawer-name">Meaning Beyond Brands</span>
         <span class="nb-drawer-sub-label">Strategy · Storytelling · Significance</span>
       </div>
@@ -54,44 +71,44 @@
 
     <section class="s-hero" id="identity">
 
-      <!-- Left: parchment text panel -->
-      <div class="hero-left">
-        <div class="hero-lockup">
-
-          <img src="assets/compass-star.png" class="hero-star" alt="" aria-hidden="true" />
-          <p class="hero-brand-name">Meaning Beyond Brands</p>
-
-          <div class="hero-divider" aria-hidden="true">
-            <span class="hd-line"></span>
-            <svg viewBox="0 0 8 8" width="6" height="6"><path d="M4 0L4.7 3.3L8 4L4.7 4.7L4 8L3.3 4.7L0 4L3.3 3.3Z" fill="#A8854A"/></svg>
-            <span class="hd-line"></span>
-          </div>
-
-          <h1 class="hero-headline">
-            <span class="hh-dark">Create</span>
-            <span class="hh-gold">Meaningful</span>
-            <span class="hh-dark">Experiences</span>
-          </h1>
-
-          <div class="hero-divider" aria-hidden="true">
-            <span class="hd-line"></span>
-            <svg viewBox="0 0 8 8" width="6" height="6"><path d="M4 0L4.7 3.3L8 4L4.7 4.7L4 8L3.3 4.7L0 4L3.3 3.3Z" fill="#A8854A"/></svg>
-            <span class="hd-line"></span>
-          </div>
-
-          <p class="hero-sub">
-            Design moments that resonate.<br>
-            Inspire connection.<br>
-            Leave a lasting impact.
-          </p>
-
-          <p class="hero-pillars">Strategy &nbsp;|&nbsp; Storytelling &nbsp;|&nbsp; Significance</p>
-
-        </div>
-      </div>
-
-      <!-- Right: photography -->
+      <!-- Full-bleed background -->
       <div class="hero-right" aria-hidden="true"></div>
+      <!-- Radial veil — darker at edges, clear at centre -->
+      <div class="hero-left" aria-hidden="true"></div>
+
+      <!-- Centred lockup -->
+      <div class="hero-lockup reveal">
+
+        <img src="assets/compass-star.png" class="hero-star" alt="" aria-hidden="true" width="40" height="40" />
+        <p class="hero-brand-name">Meaning Beyond Brands</p>
+
+        <div class="hero-divider" aria-hidden="true">
+          <span class="hd-line"></span>
+          <svg viewBox="0 0 8 8" width="6" height="6"><path d="M4 0L4.7 3.3L8 4L4.7 4.7L4 8L3.3 4.7L0 4L3.3 3.3Z" fill="#A8854A"/></svg>
+          <span class="hd-line"></span>
+        </div>
+
+        <h1 class="hero-headline">
+          <span class="hh-dark">Create</span>
+          <span class="hh-gold">Meaningful</span>
+          <span class="hh-dark">Experiences</span>
+        </h1>
+
+        <div class="hero-divider" aria-hidden="true">
+          <span class="hd-line"></span>
+          <svg viewBox="0 0 8 8" width="6" height="6"><path d="M4 0L4.7 3.3L8 4L4.7 4.7L4 8L3.3 4.7L0 4L3.3 3.3Z" fill="#A8854A"/></svg>
+          <span class="hd-line"></span>
+        </div>
+
+        <p class="hero-sub">
+          Design moments that resonate.<br>
+          Inspire connection.<br>
+          Leave a lasting impact.
+        </p>
+
+        <p class="hero-pillars">Strategy &nbsp;|&nbsp; Storytelling &nbsp;|&nbsp; Significance</p>
+
+      </div>
 
     </section>
 
@@ -101,7 +118,7 @@
         <!-- Paper surface layers for 3D depth -->
         <div class="pn-shadow" aria-hidden="true"></div>
         <div class="pn-edge"   aria-hidden="true"></div>
-        <div class="pn-sheet">
+        <div class="pn-sheet reveal">
           <svg class="pn-star" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 0L13.2 10.8L24 12L13.2 13.2L12 24L10.8 13.2L0 12L10.8 10.8Z" fill="#A8854A"/>
           </svg>
@@ -123,7 +140,7 @@
       <div class="ig-wrap">
 
         <!-- ── Part 1: The Inspiration ── -->
-        <div class="ig-block ig-inspiration">
+        <div class="ig-block ig-inspiration reveal">
           <div class="ig-star-top" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" width="28" height="28"><path d="M12 0L13.2 10.8L24 12L13.2 13.2L12 24L10.8 13.2L0 12L10.8 10.8Z" fill="#A8854A" opacity=".85"/></svg>
           </div>
@@ -183,7 +200,7 @@
         <div class="ig-connector" aria-hidden="true"><span class="ig-conn-line"></span></div>
 
         <!-- ── Part 2: The Foundation ── -->
-        <div class="ig-block ig-foundation">
+        <div class="ig-block ig-foundation reveal">
           <div class="ig-icon-ring ig-icon-ring--lg">
             <svg viewBox="0 0 24 24" fill="none" width="26" height="26"><path d="M17 20c0-2.2-2.2-4-5-4s-5 1.8-5 4M12 13a3 3 0 100-6 3 3 0 000 6zM20 20c0-1.8-1.6-3.3-4-3.8M4 20c0-1.8 1.6-3.3 4-3.8M18 9a3 3 0 00-2.8-3M6 9a3 3 0 012.8-3" stroke="#A8854A" stroke-width="1.4" stroke-linecap="round"/></svg>
           </div>
@@ -223,7 +240,7 @@
         <div class="ig-connector" aria-hidden="true"><span class="ig-conn-line"></span></div>
 
         <!-- ── Part 3: Our Approach ── -->
-        <div class="ig-block ig-approach-block">
+        <div class="ig-block ig-approach-block reveal">
           <div class="ig-approach-badge">Our Approach</div>
           <p class="ig-approach-sub">We help brands grow through four pillars.</p>
 
@@ -312,7 +329,7 @@
       <div class="connect-wrap">
 
         <!-- Primary: WhatsApp -->
-        <a href="https://wa.me/971588812769" class="connect-wa" target="_blank" rel="noopener" aria-label="Reach out on WhatsApp">
+        <a href="https://wa.me/971588812769" class="connect-wa reveal" target="_blank" rel="noopener" aria-label="Reach out on WhatsApp">
           <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
             <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.42A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 01-4.076-1.117l-.292-.174-3.016.86.875-2.94-.19-.302A7.96 7.96 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8zm4.406-5.844c-.242-.121-1.432-.707-1.654-.788-.222-.08-.384-.12-.545.121-.162.242-.626.788-.768.95-.141.162-.283.182-.525.06-.242-.12-1.022-.377-1.946-1.2-.72-.641-1.206-1.433-1.347-1.675-.141-.242-.015-.373.106-.493.109-.108.242-.283.363-.424.121-.141.161-.242.242-.404.08-.161.04-.303-.02-.424-.061-.12-.546-1.315-.748-1.8-.197-.473-.397-.409-.546-.416l-.465-.008c-.161 0-.424.06-.646.303-.222.242-.848.829-.848 2.022s.868 2.346.989 2.508c.12.161 1.708 2.608 4.138 3.657.579.25 1.03.399 1.381.511.58.185 1.108.159 1.525.097.465-.07 1.432-.585 1.634-1.15.201-.566.201-1.05.14-1.15-.06-.1-.222-.161-.464-.283z"/>
           </svg>
@@ -320,7 +337,7 @@
         </a>
 
         <!-- Secondary: Email -->
-        <a href="mailto:hello@meaningbeyondbrands.com" class="connect-email">
+        <a href="mailto:hello@meaningbeyondbrands.com" class="connect-email reveal">
           hello@meaningbeyondbrands.com
         </a>
 
