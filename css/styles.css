@@ -1009,17 +1009,128 @@ header.open .nb-drawer { opacity: 1; pointer-events: auto; }
 /* ── TOKEN OVERRIDES ────────────────────────────────────── */
 :root { --taupe: #4A4235; }
 
-/* Cormorant Garamond is the editorial voice — used throughout */
-body {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-weight: 300;
+/* ── HERO ────────────────────────────────────────────────── */
+.s-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100svh;
+  /* sits below the fixed nav (~72px tall) */
+  padding-top: 0;
+  overflow: hidden;
+  position: relative;
 }
-/* Jost reserved for the smallest UI labels only */
-.s-eyebrow, .s-overline, .nb-name, .nb-sub, .nb-invite,
-.founder-role, .hero-cta, .inv-submit, .inv-form-toggle,
-.inv-secondary-label, .inv-social, .insight-arrow,
-.compass-hint, .cs-dir, .cs-val, .sf-copy, .nb-drawer a {
+
+/* LEFT — parchment panel */
+.hero-left {
+  background-color: #EDE5D8;
+  /* Soft dappled shadow overlay — mimics the leaf-shadow light in the image */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(36,28,14,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 40%, rgba(36,28,14,.05) 0%, transparent 55%);
+  display: flex;
+  align-items: center;
+  padding: 100px clamp(40px, 6vw, 96px) 80px;
+}
+
+/* RIGHT — photograph */
+.hero-right {
+  background-image: url('../images/pearl-water.jpg');
+  background-size: cover;
+  background-position: center center;
+}
+
+/* Lockup sits inside the left panel */
+.hero-lockup {
+  max-width: 480px;
+}
+
+/* Gold compass star */
+.hero-star {
+  width: clamp(32px, 3.5vw, 48px);
+  height: auto;
+  display: block;
+  margin-bottom: 14px;
+  mix-blend-mode: multiply;
+}
+
+/* "MEANING BEYOND BRANDS" small caps label */
+.hero-brand-name {
   font-family: "Jost", sans-serif;
+  font-size: clamp(9px, 0.85vw, 11px);
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #4A3E2C;
+  margin-bottom: 14px;
+}
+
+/* Thin ornamental rule with centre diamond */
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.hd-line {
+  display: block;
+  flex: 1;
+  max-width: 48px;
+  height: 1px;
+  background: linear-gradient(to right, rgba(168,133,74,.55), rgba(168,133,74,.20));
+}
+.hero-divider:nth-of-type(2) .hd-line {
+  background: linear-gradient(to left, rgba(168,133,74,.55), rgba(168,133,74,.20));
+}
+
+/* Main headline — three stacked lines */
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(52px, 7.5vw, 108px);
+  line-height: 1.0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hh-dark  { color: #2C2416; }
+.hh-gold  { color: #A8844A; }
+
+/* Body copy */
+.hero-sub {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(14px, 1.3vw, 17px);
+  font-weight: 300;
+  line-height: 1.85;
+  color: #4A3E2C;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+/* "STRATEGY | STORYTELLING | SIGNIFICANCE" */
+.hero-pillars {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(8px, 0.75vw, 10px);
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: #4A3E2C;
+  opacity: 0.65;
+}
+
+/* ── HERO MOBILE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .s-hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 55vw;
+  }
+  .hero-left {
+    padding: 100px 28px 48px;
+  }
+  .hero-lockup { max-width: 100%; }
+  .hero-headline { font-size: clamp(42px, 13vw, 72px); }
+  .hero-sub { font-size: 15px; }
 }
 
 /* ── 1. CONTINUOUS BACKGROUND SYSTEM ────────────────────────
