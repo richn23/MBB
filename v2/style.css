@@ -5,6 +5,8 @@
   --pearl:       #F7F3EE;
   --pearl-2:     #F1EBE2;
   --calm-white:  #F5F2EF;
+  --ink:         #2E2A22;
+  --ink-soft:    rgba(46, 42, 34, 0.55);
 
   --t-drift:     52s;
   --t-shimmer-a: 14s;
@@ -39,7 +41,6 @@ body {
   will-change: opacity;
 }
 
-/* ── 0 · Base gradient ── */
 .l-base {
   z-index: 0;
   background:
@@ -47,7 +48,6 @@ body {
     linear-gradient(175deg, var(--pearl-2) 0%, var(--pearl) 45%, var(--calm-white) 100%);
 }
 
-/* ── 1 · Ambient drift ── */
 .l-drift {
   z-index: 1;
   background: radial-gradient(ellipse 75% 55% at 62% 38%, rgba(222,205,168,.22) 0%, transparent 65%);
@@ -62,13 +62,9 @@ body {
   100% { transform: translate(-2%,  2%) scale(1.01); opacity: .60; }
 }
 
-/* ── 2 · Shell / pearl ──
-   Background-base.png: 887×1774 portrait — shell sits at top-left.
-   background-position: left top keeps the shell in frame at all widths.
-   Mask: opaque top-left corner, dissolves toward bottom-right.
-   The first two stops are both black so the top-left zone stays
-   fully visible and doesn't fade exactly where the shell sits.
-── */
+/* Shell / pearl — Background-base.png (887×1774 portrait).
+   left top keeps the shell corner anchored at all viewport widths.
+   Mask strong in the top-left, dissolving toward bottom-right. */
 .l-pearl {
   z-index: 2;
   opacity: 0;
@@ -98,7 +94,6 @@ body {
   );
 }
 
-/* ── 3 · Water surface ── */
 .l-water {
   z-index: 3;
   opacity: 0;
@@ -118,7 +113,6 @@ body {
   );
 }
 
-/* ── 4 · Caustics ── */
 .l-caustics {
   z-index: 4;
   opacity: 0;
@@ -135,7 +129,7 @@ body {
 .cs--a { width:42vw; height:30vw; top:28%; left: 8%; animation: csa var(--t-shimmer-a) var(--ease-drift) infinite alternate; }
 .cs--b { width:26vw; height:20vw; top:52%; left:48%; animation: csb var(--t-shimmer-b) var(--ease-drift) infinite alternate; }
 .cs--c { width:32vw; height:24vw; top:22%; left:58%; animation: csc var(--t-shimmer-c) var(--ease-drift) infinite alternate; }
-.cs--d { width:20vw; height:16vw; top:64%; left:24%; animation: csa var(--t-shimmer-d) var(--ease-drift) infinite alternate; animation-delay:-5s; }
+.cs--d { width:20vw; height:16vw; top:64%; left:24%; animation: csa var(--t-shimmer-d) var(--ease-drift) infinite alternate; animation-delay: -5s; }
 
 @keyframes csa {
   from { transform: translate(   0,    0) scale(1.00); opacity: .45; }
@@ -150,7 +144,6 @@ body {
   to   { transform: translate(3vw, -3vh)  scale(1.10); opacity: .72; }
 }
 
-/* ── 5 · Calm finish ── */
 .l-finish {
   z-index: 5;
   opacity: 0;
@@ -163,7 +156,7 @@ body {
 
 
 /* ═══════════════════════════════════════════════════
-   LOGO — emblem only, positioned left
+   HERO — logo + engraved text, fades as one unit
 ═══════════════════════════════════════════════════ */
 .logo-stage {
   position: fixed;
@@ -172,9 +165,12 @@ body {
   transform: translateY(-52%);
   z-index: 10;
   pointer-events: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(28px, 3.5vw, 56px);
+  will-change: opacity;
 }
-
-.logo-mark { will-change: opacity; }
 
 .logo-emblem {
   display: block;
@@ -185,6 +181,29 @@ body {
   filter:
     drop-shadow(0 6px 28px rgba(50,38,18,.13))
     drop-shadow(0 2px 6px  rgba(50,38,18,.08));
+}
+
+/* Hero copy — Cormorant Garamond, generous spacing */
+.hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(18px, 2.6vw, 38px);
+  letter-spacing: 0.16em;
+  color: var(--ink);
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+/* Individual letter spans — opacity driven by scroll JS */
+.hl {
+  display: inline-block;
+  opacity: 0;
 }
 
 
@@ -202,4 +221,5 @@ body {
 ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   .l-drift, .cs--a, .cs--b, .cs--c, .cs--d { animation: none; }
+  .hl { transition: none; }
 }
