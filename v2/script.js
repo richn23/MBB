@@ -44,18 +44,29 @@
   }
   function lerp(a, b, t) { return a + (b - a) * t; }
 
-  /* ── Background layers ── */
+  /* ── Background layers ──────────────────────────────────────────
+     800vh canvas · maxScroll ≈ 9457px · 1 screen ≈ 0.076 p-units
+     Rule: plateau ≥ 2.6× fade-in; zones never overlap; gaps ≥ 0.04.
+  ── */
   var LAYERS = [
-    { id: 'lDrift',    fi:-0.01, pk:0.00, fo:0.36, end:0.46, maxOp:1.00, init:1.00 },
-    { id: 'lPearl',    fi: 0.14, pk:0.22, fo:0.32, end:0.42, maxOp:0.88, init:0 },
-    { id: 'lWater',    fi: 0.24, pk:0.30, fo:0.40, end:0.48, maxOp:0.82, init:0 },
-    { id: 'lCaustics', fi: 0.26, pk:0.32, fo:0.42, end:0.48, maxOp:1.00, init:0 },
-    { id: 'lFinish',   fi: 0.28, pk:0.36, fo:1.00, end:1.00, maxOp:1.00, init:0 },
+    // Warm drift glow — present from start, held well into water zone
+    { id: 'lDrift',    fi:-0.01, pk:0.00, fo:0.63, end:0.74, maxOp:1.00, init:1.00 },
+    // Pearl image: fade-in 0.05 · plateau 0.14 · fade-out 0.06  (ratio 2.8×)
+    { id: 'lPearl',    fi: 0.18, pk:0.23, fo:0.37, end:0.43, maxOp:0.88, init:0 },
+    // Water image: fade-in 0.05 · plateau 0.13 · fade-out 0.06  (ratio 2.6×)
+    { id: 'lWater',    fi: 0.47, pk:0.52, fo:0.65, end:0.71, maxOp:0.82, init:0 },
+    // Caustics: tracks water, offset by +0.01
+    { id: 'lCaustics', fi: 0.48, pk:0.53, fo:0.66, end:0.72, maxOp:1.00, init:0 },
+    // Finish: calm white paper — rises after water, holds forever
+    { id: 'lFinish',   fi: 0.68, pk:0.78, fo:1.00, end:1.00, maxOp:1.00, init:0 },
   ];
 
-  /* ── Content cards (fixed overlays during scroll canvas) ── */
+  /* ── Content cards (fixed overlays during scroll canvas) ──
+     Purpose card: fade-in 0.04 · plateau 0.12 · fade-out 0.04  (ratio 3×)
+     Arrives just as pearl settles; leaves just before pearl fades.
+  ── */
   var CARDS = [
-    { id: 'cardPearl', fi:0.16, pk:0.22, fo:0.28, end:0.38 },
+    { id: 'cardPearl', fi:0.20, pk:0.24, fo:0.36, end:0.40 },
   ];
 
   /* ── Hero lines
@@ -77,10 +88,10 @@
     },
   ];
 
-  var STAGE_FADE_S = 0.05;
-  var STAGE_FADE_E = 0.11;
-  var HEADER_RISE_S = 0.05;
-  var HEADER_RISE_E = 0.16;
+  var STAGE_FADE_S  = 0.06;   // hero starts fading at 0.79 screens of scroll
+  var STAGE_FADE_E  = 0.13;   // hero fully gone at 1.71 screens
+  var HEADER_RISE_S = 0.06;
+  var HEADER_RISE_E = 0.18;
 
   /* ── Build letter spans ──────────────────────────
      Spaces are always-visible text nodes; only non-space
