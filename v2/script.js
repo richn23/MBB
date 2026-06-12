@@ -67,9 +67,9 @@
   ── */
   var CARDS = [
     { id: 'cardPearl',   fi:0.20, pk:0.24, fo:0.36, end:0.40 },
-    // Water interlude: fade-in ~0.3 screens · hold ~3 full screens · fade-out ~0.3 screens
-    // Deliberately long — quote must feel like it waits for the reader.
-    { id: 'interlWater', fi:0.49, pk:0.513, fo:0.741, end:0.764 },
+    // Water interlude: fade-in ~0.3 screens · hold ~3.5 full screens · fade-out ~0.3 screens
+    // Quote holds until the finish layer is almost fully risen — waits for the reader.
+    { id: 'interlWater', fi:0.49, pk:0.513, fo:0.780, end:0.803 },
   ];
 
   /* ── Hero lines
