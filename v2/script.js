@@ -11,7 +11,7 @@
    0.20–0.40  Purpose card       — window inside pearl
    0.43–0.74  Water image        — starts exactly as pearl ends
    0.44–0.75  Caustics           — tracks water +0.01
-   0.50–0.67  Interlude quote    — STRICTLY inside water plateau (pk=0.48→fo=0.68)
+   0.40–0.51  Interlude quote    — rises as purpose card ends, opaque before Framework enters
    0.70–1.00  Finish (white)     — starts after interlude is gone
 
    Invariants (both scroll directions):
@@ -77,10 +77,16 @@
   ── */
   var CARDS = [
     { id: 'cardPearl',   fi:0.20,  pk:0.24,  fo:0.36,  end:0.40  },
-    // Overlap audit: pearl ends 0.43, interlude fi 0.50 → gap 0.07 (>1.5 screens)
-    //               purpose card ends 0.40, interlude fi 0.50 → gap 0.10 (>2 screens)
-    //               interlude end 0.668, finish fi 0.70 → gap 0.032 (>0.5 screens)
-    { id: 'interlWater', fi:0.500, pk:0.515, fo:0.655, end:0.668 },
+    // Interlude must be fully opaque BEFORE Framework beats enter the viewport.
+    // Canvas ends / Framework enters viewport at p≈0.450; beat 1 triggers is-visible
+    // at p≈0.462. With lerp=0.07 the opacity needs to reach its target well before
+    // that point — pk=0.425 gives ~600px of lerp runway (≈1.2s at normal scroll speed).
+    // fi=0.400 touches cardPearl end (0.400) cleanly; no gap needed since the purpose
+    // card is already gone and the interlude inherits the same pearl-coloured space.
+    // Fade-out at fo=0.490 reveals the Framework section cleanly after 1 screen of hold.
+    // (The "water plateau" constraint from the prior session assumed a transparent bg;
+    //  with solid --pearl background the water layer is irrelevant behind the interlude.)
+    { id: 'interlWater', fi:0.400, pk:0.425, fo:0.490, end:0.512 },
   ];
 
   /* ── Hero lines ── */
