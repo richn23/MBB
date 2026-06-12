@@ -165,6 +165,9 @@ body {
   height: var(--logo-size);
   border-radius: 50%;
   object-fit: cover;
+  /* multiply blends white pixels into any background — squares disappear even
+     if the PNG has a white fill instead of true transparency */
+  mix-blend-mode: multiply;
   filter:
     drop-shadow(0 6px 28px rgba(50,38,18,.13))
     drop-shadow(0 2px 6px  rgba(50,38,18,.08));
@@ -284,6 +287,7 @@ body {
   display: block;
   width: clamp(26px,2.4vw,36px); height: clamp(26px,2.4vw,36px);
   border-radius: 50%; object-fit: cover; flex-shrink: 0;
+  mix-blend-mode: multiply;
   filter: drop-shadow(0 1px 4px rgba(50,38,18,.10));
 }
 
