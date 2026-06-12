@@ -508,8 +508,8 @@ body {
     drop-shadow(0  3px  8px rgba(74,58,32,.10));
 
   transition:
-    filter    .85s ease,
-    transform .95s cubic-bezier(.25, 0, .45, 1);
+    filter    0.6s ease,
+    transform 0.6s ease;
 
   will-change: transform, filter;
 }
@@ -538,38 +538,17 @@ body {
 .pi[data-idx="2"] { width: 132px; height: 132px; bottom: 10px; left: 142px; }
 .pi[data-idx="3"] { width: 112px; height: 112px; bottom: 26px; right: 14px; }
 
-/* Hover sweep — diagonal light moving across sphere.
-   border-radius clips this gradient to a circle so it stays within the
-   sphere boundary now that .pi itself no longer has overflow:hidden.   */
-.pi-sweep {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: linear-gradient(
-    122deg,
-    transparent           20%,
-    rgba(255,252,242,.22) 46%,
-    rgba(255,252,242,.36) 50%,
-    rgba(255,252,242,.22) 54%,
-    transparent           80%
-  );
-  background-size: 280% 280%;
-  background-position: 180% 180%;
-  transition: background-position 1.15s ease;
-  pointer-events: none;
-}
-
-.pi:hover .pi-sweep,
-.pi:focus-visible .pi-sweep {
-  background-position: -80% -80%;
-}
+/* Sweep removed — replaced by calm brightness lift on hover */
+.pi-sweep { display: none; }
 
 .pi:hover,
 .pi:focus-visible {
+  /* Pearl simply catches the light — no movement, no sweep */
   filter:
-    drop-shadow(0 14px 42px rgba(74,58,32,.22))
-    drop-shadow(0  4px 10px rgba(74,58,32,.12));
-  transform: scale(1.02);
+    drop-shadow(0 12px 30px rgba(184,144,74,.16))
+    drop-shadow(0  4px 10px rgba(74,58,32,.10))
+    brightness(1.06);
+  transform: scale(1.015);
   outline: none;
 }
 
