@@ -299,15 +299,13 @@
     var img = document.querySelector('.logo-emblem');
     if (!img) { reveal(); return; }
 
-    if (img.complete && img.naturalWidth > 0) {
-      /* Cache hit — image already decoded, reveal immediately */
-      reveal();
-    } else {
-      img.addEventListener('load',  function () { reveal(); }, { once: true });
-      img.addEventListener('error', function () { reveal(); }, { once: true });
-      /* Fallback: reveal anyway after 2s so the page never sits empty */
-      setTimeout(reveal, 2000);
-    }
+    /* img.decode() waits until pixels are ready for painting — on iOS,
+       'load' fires before the image is composited so a bare load listener
+       can still reveal a half-painted frame. decode() closes that gap. */
+    var fallback = setTimeout(reveal, 2000);
+    img.decode()
+      .then(function () { clearTimeout(fallback); reveal(); })
+      .catch(function () { clearTimeout(fallback); reveal(); });
   })();
 
   /* ── Contact wiring ── */
