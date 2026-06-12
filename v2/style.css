@@ -969,9 +969,18 @@ body {
   text-align: center;
 }
 
-/* WA icon in contact column: override fn-icon's 20px sizing to 44px focal point */
+/* WA icon — filled glyph, ink colour, slow gold hover */
+.wa-link {
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-flex;
+  transition: color .45s ease;
+}
+.wa-link:hover { color: var(--gold); }
+
+/* Contact column: override fn-icon 20px → 46px focal-point size */
 .contact-wa-col .wa-link.fn-icon { width: auto; height: auto; }
-.contact-wa-col .wa-link svg { width: 44px; height: 44px; display: block; }
+.contact-wa-col .wa-link svg { width: 46px; height: 46px; display: block; }
 
 
 /* ── Footer ── */
