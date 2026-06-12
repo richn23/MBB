@@ -68,7 +68,7 @@ body {
 .l-pearl {
   z-index: 2;
   opacity: 0;
-  background-image: url('../images/Background-base.png');
+  background-image: url('/images/Background-base.png');
   background-size: cover;
   background-position: left top;
   background-attachment: fixed;
@@ -85,7 +85,7 @@ body {
 .l-water {
   z-index: 3;
   opacity: 0;
-  background-image: url('../images/water-sparkle-wide.jpg');
+  background-image: url('/images/water-sparkle-wide.jpg');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
