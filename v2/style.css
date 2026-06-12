@@ -464,6 +464,8 @@ body {
   flex-direction: row;
   align-items: center;
   padding: clamp(72px, 11vh, 140px) clamp(8vw, 12vw, 160px);
+  /* Generous bottom air — pearls must fully settle before Ana arrives */
+  padding-bottom: clamp(160px, 28vh, 360px);
   gap: clamp(36px, 4.5vw, 72px);
 }
 
@@ -835,14 +837,18 @@ body {
   display: block;
   width: 100%; height: 100%;
   object-fit: cover; object-position: center top;
+  /* Three-layer mask: right edge · bottom edge · top edge.
+     All three intersected so every edge dissolves into the pearl background. */
   -webkit-mask-image:
-    linear-gradient(to right,  black 55%, transparent 92%),
-    linear-gradient(to bottom, black 72%, transparent 100%);
+    linear-gradient(to right,   black 55%, transparent 92%),
+    linear-gradient(to bottom,  black 72%, transparent 100%),
+    linear-gradient(to bottom,  transparent 0%, black 16%);
   mask-image:
-    linear-gradient(to right,  black 55%, transparent 92%),
-    linear-gradient(to bottom, black 72%, transparent 100%);
-  -webkit-mask-composite: destination-in;
-  mask-composite: intersect;
+    linear-gradient(to right,   black 55%, transparent 92%),
+    linear-gradient(to bottom,  black 72%, transparent 100%),
+    linear-gradient(to bottom,  transparent 0%, black 16%);
+  -webkit-mask-composite: destination-in, destination-in;
+  mask-composite: intersect, intersect;
 }
 
 .about-text-col {
@@ -1030,6 +1036,7 @@ body {
   .section-perspectives {
     flex-direction: column;
     padding: clamp(56px, 8vh, 96px) clamp(28px, 7vw, 48px);
+    padding-bottom: clamp(100px, 22vh, 240px);
     gap: clamp(24px, 3.5vh, 40px);
   }
 
@@ -1051,8 +1058,9 @@ body {
   .about-portrait-col { flex: 0 0 auto; height: 64vw; min-height: 240px; }
   .about-img {
     object-position: center 20%;
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+    /* Single gradient handles both top and bottom dissolves on mobile */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 58%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 14%, black 58%, transparent 100%);
     -webkit-mask-composite: unset; mask-composite: unset;
   }
   .about-text-col { padding: clamp(36px,5vh,56px) clamp(28px,7vw,44px); }
