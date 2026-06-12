@@ -101,9 +101,15 @@
     curCard[cfg.id] = 0;
   });
 
-  var stageEl  = document.getElementById('logoStage');
-  var curStage = 1;
-  var LERP     = 0.07;
+  var stageEl   = document.getElementById('logoStage');
+  var headerEl  = document.getElementById('siteHeader');
+  var curStage  = 1;
+  var curHeader = 0;
+  var LERP      = 0.07;
+
+  /* Header rises as hero fades, stays for the rest of the journey */
+  var HEADER_RISE_S = 0.17;
+  var HEADER_RISE_E = 0.30;
 
   /* ── Tick ── */
   function tick() {
@@ -128,6 +134,14 @@
     var stageTarget = fall(p, STAGE_FADE_S, STAGE_FADE_E);
     curStage = lerp(curStage, stageTarget, LERP);
     if (stageEl) stageEl.style.opacity = curStage.toFixed(4);
+
+    /* Header — fades in as hero dissolves, stays visible */
+    var headerTarget = rise(p, HEADER_RISE_S, HEADER_RISE_E);
+    curHeader = lerp(curHeader, headerTarget, LERP);
+    if (headerEl) {
+      headerEl.style.opacity = curHeader.toFixed(4);
+      headerEl.style.pointerEvents = curHeader > 0.05 ? 'auto' : 'none';
+    }
 
     /* Letter reveal — direct scroll (no lerp: user controls pace) */
     lineLetters.forEach(function (line) {
