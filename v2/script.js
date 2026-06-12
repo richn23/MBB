@@ -142,7 +142,7 @@
       });
     });
   }
-  autoReveal();
+  /* autoReveal() is called by the emblem load guard below, not here */
 
   /* ── Init layer and card elements ── */
   var layerEls = {}, cardEls = {}, curLayer = {}, curCard = {};
@@ -278,22 +278,36 @@
 
   tick();
 
-  /* ── Emblem decode guard ──────────────────────────────────────────────
-     Drop-shadow is deferred until the image is decoded. On iOS, applying
-     filter to an undecoded image in a fixed stacking context causes a
-     rectangular paint artifact. .img-ready is added after load or
-     immediately when img.complete is already true (cache hit). */
+  /* ── Emblem load guard — gate entire hero reveal on image being ready ──
+     The hero (logo + letter sequence) is invisible until the emblem image
+     fires its load event. This prevents iOS from flashing a half-decoded
+     rectangle: nothing is painted until the image is fully available.
+     A 2s fallback ensures the page never stays blank if the image errors. */
   (function () {
-    function markReady(img) {
-      if (img) img.classList.add('img-ready');
+    var logoMark = document.querySelector('.logo-mark');
+    var shEmblem = document.querySelector('.sh-emblem');
+    var revealed = false;
+
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      if (logoMark) logoMark.classList.add('is-loaded');
+      if (shEmblem) shEmblem.classList.add('is-loaded');
+      autoReveal();
     }
-    document.querySelectorAll('.logo-emblem, .sh-emblem').forEach(function (img) {
-      if (img.complete) {
-        markReady(img);
-      } else {
-        img.addEventListener('load', function () { markReady(img); }, { once: true });
-      }
-    });
+
+    var img = document.querySelector('.logo-emblem');
+    if (!img) { reveal(); return; }
+
+    if (img.complete && img.naturalWidth > 0) {
+      /* Cache hit — image already decoded, reveal immediately */
+      reveal();
+    } else {
+      img.addEventListener('load',  function () { reveal(); }, { once: true });
+      img.addEventListener('error', function () { reveal(); }, { once: true });
+      /* Fallback: reveal anyway after 2s so the page never sits empty */
+      setTimeout(reveal, 2000);
+    }
   })();
 
   /* ── Contact wiring ── */
