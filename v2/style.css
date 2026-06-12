@@ -215,28 +215,36 @@ body {
 /* ═══════════════════════════════════════════════════
    SITE HEADER
 ═══════════════════════════════════════════════════ */
+/* Two-state header:
+   ghost  (hero zone)  — fully transparent, no background
+   lifted (scrolled)   — near-opaque pearl, warm shadow, blur, gold hairline
+   Background / shadow / blur are set as inline styles by script.js (curLift).
+   z-index 20 ensures the sheet sits above all content (z-index 10). */
 .site-header {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 20;
   opacity: 0;
   pointer-events: none;
-  will-change: opacity;
+  /* will-change managed by JS inline styles */
+  isolation: isolate; /* own stacking context so backdrop-filter clips correctly */
 }
 
-/* Fix 4 — strong paper-tone scrim so nav text stays legible over any content */
-.site-header::before {
-  content: '';
+/* Gold hairline — the finished edge of the stationery sheet.
+   Opacity driven by curLift in script.js (0 at top, 1 when lifted). */
+.sh-hairline {
   position: absolute;
-  inset: 0;
-  height: 120px;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
   background: linear-gradient(
-    to bottom,
-    rgba(247,243,238,.94) 0%,
-    rgba(247,243,238,.64) 38%,
-    rgba(247,243,238,.22) 70%,
+    to right,
+    transparent 0%,
+    rgba(184,144,74,.42) 12%,
+    rgba(212,168,86,.55) 50%,
+    rgba(184,144,74,.42) 88%,
     transparent 100%
   );
+  opacity: 0;
   pointer-events: none;
 }
 

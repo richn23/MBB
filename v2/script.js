@@ -142,11 +142,18 @@
     curCard[cfg.id] = 0;
   });
 
-  var stageEl   = document.getElementById('logoStage');
-  var headerEl  = document.getElementById('siteHeader');
-  var curStage  = 1;
-  var curHeader = 0;
-  var LERP      = 0.07;
+  var stageEl    = document.getElementById('logoStage');
+  var headerEl   = document.getElementById('siteHeader');
+  var hairlineEl = document.getElementById('shHairline');
+  var curStage   = 1;
+  var curHeader  = 0;
+  var curLift    = 0;
+  var LERP       = 0.07;
+
+  /* Header lift: rises from STAGE_FADE_E (hero fully gone) to 0.22,
+     so the stationery "thickness" appears as the hero disappears. */
+  var HEADER_LIFT_S = STAGE_FADE_E; /* 0.13 */
+  var HEADER_LIFT_E = 0.22;
 
   /* ── Fade sections — real layout below scroll canvas
      body { overflow-x: hidden } breaks IntersectionObserver,
@@ -188,6 +195,26 @@
     if (headerEl) {
       headerEl.style.opacity = curHeader.toFixed(4);
       headerEl.style.pointerEvents = curHeader > 0.05 ? 'auto' : 'none';
+    }
+
+    /* Header lift — near-opaque paper + shadow + blur once hero is gone.
+       Reads as a fixed stationery sheet above the scrolling page.        */
+    var liftTarget = rise(p, HEADER_LIFT_S, HEADER_LIFT_E);
+    curLift = lerp(curLift, liftTarget, LERP);
+    if (headerEl) {
+      var L = curLift;
+      headerEl.style.backgroundColor =
+        'rgba(247,243,238,' + (0.97 * L).toFixed(3) + ')';
+      headerEl.style.backdropFilter =
+        'blur(' + (8 * L).toFixed(1) + 'px)';
+      headerEl.style.webkitBackdropFilter =
+        'blur(' + (8 * L).toFixed(1) + 'px)';
+      headerEl.style.boxShadow =
+        '0 12px 30px -12px rgba(74,58,32,' + (0.18 * L).toFixed(3) + '),' +
+        'inset 0 1px 0 rgba(255,255,255,' + (0.65 * L).toFixed(3) + ')';
+    }
+    if (hairlineEl) {
+      hairlineEl.style.opacity = curLift.toFixed(4);
     }
 
     /* Fade sections — reveal when top edge enters bottom 85% of viewport */
