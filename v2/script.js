@@ -387,14 +387,15 @@
       submit.style.opacity = '.5';
       submit.textContent = 'Sending…';
 
+      var params = new URLSearchParams();
+      params.append('name',    nameEl.value.trim());
+      params.append('email',   emailEl.value.trim());
+      params.append('message', msgEl.value.trim());
+
       fetch(CONTACT.formAction, {
         method:  'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          name:    nameEl.value.trim(),
-          email:   emailEl.value.trim(),
-          message: msgEl.value.trim(),
-        }),
+        headers: { 'Accept': 'application/json' },
+        body:    params,
       })
         .then(function (res) { return res.json().then(function (d) { return { ok: res.ok, data: d }; }); })
         .then(function (r) {
