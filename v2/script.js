@@ -73,13 +73,18 @@
      delay  = ms from page load before this line's letter stagger begins
      stagger = ms between each successive letter
   ── */
+  /* Reveal sequence (prefers-reduced-motion skips entirely via CSS):
+     0ms–720ms  logo mark fades in (CSS animation on .logo-mark)
+     820ms+     line 1 letters stagger in
+     ~1900ms+   line 2 letters stagger in
+     ~2950ms    last letter of line 2 begins fading — full sequence ≈ 3s  */
   var LINES = [
     {
-      elId: 'heroLine1', delay: 280, stagger: 48,
+      elId: 'heroLine1', delay: 820, stagger: 52,
       segments: [{ text: 'Meaning beyond brands.', gold: false }],
     },
     {
-      elId: 'heroLine2', delay: 700, stagger: 42,
+      elId: 'heroLine2', delay: 1900, stagger: 38,
       segments: [
         { text: 'Create ',      gold: false },
         { text: 'Meaningful',   gold: true  },
@@ -116,12 +121,16 @@
     return { spans: spans, delay: line.delay, stagger: line.stagger };
   });
 
-  /* ── Auto-reveal hero letters on load ── */
+  /* ── Auto-reveal hero letters on load ──
+     Clears both opacity AND blur (blur-to-sharp = engraving emerging from paper).
+     prefers-reduced-motion: CSS sets .hl { opacity:1; filter:none } instantly,
+     so these timeouts fire but have no visual effect.                            */
   function autoReveal() {
     lineLetters.forEach(function (line) {
       line.spans.forEach(function (span, i) {
         setTimeout(function () {
           span.style.opacity = '1';
+          span.style.filter  = 'blur(0)';
         }, line.delay + i * line.stagger);
       });
     });
