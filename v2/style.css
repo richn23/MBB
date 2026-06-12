@@ -496,24 +496,34 @@ body {
 .pi {
   position: absolute;
   border-radius: 50%;
-  overflow: hidden; /* clips pi-sweep and pi-label to circle */
+  overflow: hidden; /* clips pi-img, pi-sweep and pi-label to circle */
   cursor: pointer;
   pointer-events: auto;
+  background: transparent;
 
-  background-image: url('/assets/pearl.png');
-  background-size: cover;
-  background-position: center;
-
-  /* drop-shadow follows the painted circular shape (applied post-clip) */
-  filter:
-    drop-shadow(0 10px 32px rgba(74,58,32,.20))
-    drop-shadow(0  3px  8px rgba(74,58,32,.12));
+  /* box-shadow follows border-radius (circular) and is NOT clipped by overflow:hidden —
+     this is the only way to shadow the pearl without touching the image's colours.      */
+  box-shadow:
+    0 10px 32px rgba(74,58,32,.18),
+    0  3px  8px rgba(74,58,32,.10);
 
   transition:
-    filter    .85s ease,
-    transform .95s cubic-bezier(.25, 0, .45, 1);
+    box-shadow .85s ease,
+    transform  .95s cubic-bezier(.25, 0, .45, 1);
 
-  will-change: transform, filter;
+  will-change: transform;
+}
+
+/* Pearl photograph — no filter, no blend mode, no tint, no manipulation of any kind.
+   object-fit:cover centres and fills the circle; scaling is the only transform.      */
+.pi-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
 }
 
 /* Sizes — [0] newest & largest */
@@ -547,10 +557,9 @@ body {
 
 .pi:hover,
 .pi:focus-visible {
-  filter:
-    drop-shadow(0 10px 32px rgba(74,58,32,.20))
-    drop-shadow(0  3px  8px rgba(74,58,32,.12))
-    brightness(1.07);
+  box-shadow:
+    0 14px 42px rgba(74,58,32,.22),
+    0  4px 10px rgba(74,58,32,.12);
   transform: scale(1.02);
   outline: none;
 }

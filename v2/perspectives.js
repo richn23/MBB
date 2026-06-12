@@ -29,7 +29,16 @@
       item.setAttribute('tabindex', '0');
       item.setAttribute('aria-label', article.title + ', ' + article.date);
 
-      /* Hover sweep layer (clipped inside sphere) */
+      /* Pearl photograph — rendered as-is, no filter, no tint, no blend mode.
+         The image's natural warm tone IS the correct colour.                  */
+      var img = document.createElement('img');
+      img.src = '/assets/pearl.png';
+      img.className = 'pi-img';
+      img.alt = '';
+      img.setAttribute('aria-hidden', 'true');
+      item.appendChild(img);
+
+      /* Hover sweep layer — light shimmer ABOVE the image, clipped to circle */
       var sweep = document.createElement('div');
       sweep.className = 'pi-sweep';
       item.appendChild(sweep);
