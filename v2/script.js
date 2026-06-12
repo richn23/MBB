@@ -1,15 +1,17 @@
 /* ═══════════════════════════════════════════════════
    SCROLL-DRIVEN ENVIRONMENT — v2
-   350vh canvas, estimated maxScroll ≈ 6200px (720px viewport + ~300vh real sections)
+   1200vh canvas · maxScroll ≈ 12337px (720px viewport)
+   1 screen ≈ 0.058 p-units at 720px viewport.
 
    Beat map (progress 0.0 → 1.0):
-   0.00–0.05  Hero visible, auto-reveal already playing
-   0.05–0.11  Hero stage fades out as user begins to scroll
-   0.14–0.42  Pearl image
-   0.16–0.38  Pearl stationery card (Our Purpose)
-   0.24–0.48  Water image
-   0.26–0.48  Caustics
-   0.28–1.00  Finish layer — holds white through real-section scroll
+   0.00–0.06  Hero visible, auto-reveal already playing
+   0.06–0.13  Hero stage fades out as user begins to scroll
+   0.18–0.43  Pearl image
+   0.20–0.40  Pearl stationery card (Our Purpose)
+   0.29–0.45  Interlude quote — 3 screens of hold, ends as Framework enters viewport
+   0.47–0.71  Water image
+   0.48–0.72  Caustics
+   0.68–1.00  Finish layer
 ═══════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -45,7 +47,7 @@
   function lerp(a, b, t) { return a + (b - a) * t; }
 
   /* ── Background layers ──────────────────────────────────────────
-     800vh canvas · maxScroll ≈ 9457px · 1 screen ≈ 0.076 p-units
+     1200vh canvas · maxScroll ≈ 12337px · 1 screen ≈ 0.058 p-units
      Rule: plateau ≥ 2.6× fade-in; zones never overlap; gaps ≥ 0.04.
   ── */
   var LAYERS = [
@@ -67,9 +69,10 @@
   ── */
   var CARDS = [
     { id: 'cardPearl',   fi:0.20, pk:0.24, fo:0.36, end:0.40 },
-    // Water interlude: fade-in ~0.3 screens · hold ~3.5 full screens · fade-out ~0.3 screens
-    // Quote holds until the finish layer is almost fully risen — waits for the reader.
-    { id: 'interlWater', fi:0.49, pk:0.513, fo:0.780, end:0.803 },
+    // Interlude: mid-pearl zone, hold ≈ 3 screens, ends when Framework first enters viewport.
+    // Full-viewport z-index:12 overlay in CSS; gradient veil masks sections rising from below.
+    // p-values calibrated for maxScroll ≈ 16 000px (1200vh canvas + real sections).
+    { id: 'interlWater', fi:0.287, pk:0.307, fo:0.430, end:0.450 },
   ];
 
   /* ── Hero lines

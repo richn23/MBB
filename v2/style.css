@@ -403,13 +403,30 @@ body {
 
 /* ── Water interlude — editorial quote floating in the light ── */
 .interlude-water {
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  width: min(700px, 82vw);
+  /* Full-viewport fixed overlay, above real sections (z-index: 10) */
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  transform: none;
+  z-index: 12;
   text-align: center;
+  /* Gradient veil: transparent at top so canvas atmosphere shows through;
+     creamy pearl at bottom to mask sections rising from below during fade-out. */
+  background: linear-gradient(
+    to bottom,
+    transparent              0%,
+    transparent             38%,
+    rgba(247,243,238,0.45)  58%,
+    rgba(247,243,238,0.85)  76%,
+    rgba(247,243,238,0.98) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .iw-inner {
+  /* Constrain text width now that the container spans the full viewport */
+  width: min(700px, 82vw);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -774,13 +791,14 @@ body {
 
 
 /* ═══════════════════════════════════════════════════
-   SCROLL CANVAS — 800vh
-   Real sections = 4417px (613vh). 800vh canvas → maxScroll ≈ 9457px
-   so the atmosphere occupies 53% of total scroll. Each settled zone
-   gets ~1.7–1.8 screens of plateau; gaps between zones are ~0.5 screens.
+   SCROLL CANVAS — 1200vh
+   1200vh canvas (720px viewport) → canvas_height 8640px, maxScroll ≈ 12337px.
+   Extended from 800vh to give the water interlude a full 3-screen hold
+   entirely within the canvas (before real sections appear).
+   Framework first enters viewport at scroll ≈ 7920px (p ≈ 0.642).
 ═══════════════════════════════════════════════════ */
 .scroll-canvas {
-  height: 800vh;
+  height: 1200vh;
   pointer-events: none;
 }
 
