@@ -1,0 +1,281 @@
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS
+═══════════════════════════════════════════════════ */
+:root {
+  /* Colour palette */
+  --pearl:       #F7F3EE;   /* warm near-white — paper base */
+  --pearl-2:     #F1EBE2;   /* slightly warmer — light paper */
+  --champagne:   #E6D6BE;   /* warm gold-ivory */
+  --warm-sand:   #D4C0A0;   /* mid warm tone */
+  --water-cool:  #E8ECF0;   /* soft blue-grey for water zone */
+  --calm-white:  #F5F2EF;   /* refined near-white finish */
+  --gold-warm:   #B8904A;   /* ambient light colour */
+
+  /* Ambient motion timing */
+  --t-drift:     52s;       /* slow light drift cycle */
+  --t-shimmer-a: 14s;       /* caustic spot A */
+  --t-shimmer-b: 11s;       /* caustic spot B */
+  --t-shimmer-c: 17s;       /* caustic spot C */
+  --t-shimmer-d:  9s;       /* caustic spot D */
+
+  /* Easing */
+  --ease-drift:  cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --ease-fade:   cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Blend distances — used for mask feathering */
+  --blend-soft:  18%;       /* edge fade inside each layer */
+  --blend-wide:  28%;       /* wider edge fade */
+
+  /* Logo */
+  --logo-size: clamp(72px, 8vw, 108px);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   RESET + BASE
+═══════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;   /* JS handles all motion */
+}
+
+body {
+  background: var(--pearl);
+  overflow-x: hidden;
+  font-family: 'Jost', sans-serif;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   LAYER SYSTEM — fixed, full-viewport, stacked
+═══════════════════════════════════════════════════ */
+.l {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+
+/* ── Layer 0: Base gradient — warm paper, always visible ── */
+.l-base {
+  z-index: 0;
+  background:
+    /* subtle top vignette */
+    radial-gradient(
+      ellipse 120% 40% at 50% 0%,
+      rgba(210, 190, 155, 0.18) 0%,
+      transparent 70%
+    ),
+    /* main vertical gradient: warm top → cool bottom */
+    linear-gradient(
+      175deg,
+      var(--pearl-2)   0%,
+      var(--pearl)    45%,
+      var(--calm-white) 100%
+    );
+}
+
+
+/* ── Layer 1: Ambient light drift ── */
+.l-drift {
+  z-index: 1;
+  background:
+    radial-gradient(
+      ellipse 75% 55% at 62% 38%,
+      rgba(222, 205, 168, 0.22) 0%,
+      transparent 65%
+    );
+  animation: drift var(--t-drift) var(--ease-drift) infinite alternate;
+}
+
+@keyframes drift {
+  0%   { transform: translate(0,      0    ) scale(1.00); opacity: 0.60; }
+  25%  { transform: translate( 6%,   3%   ) scale(1.04); opacity: 0.80; }
+  50%  { transform: translate(-4%,   6%   ) scale(0.97); opacity: 0.65; }
+  75%  { transform: translate( 3%,  -4%   ) scale(1.06); opacity: 0.75; }
+  100% { transform: translate(-2%,   2%   ) scale(1.01); opacity: 0.60; }
+}
+
+
+/* ── Layer 2: Pearl / shell photography ── */
+.l-pearl {
+  z-index: 2;
+  opacity: 0;
+  background-image: url('../images/Background-base.png');
+  background-size: cover;
+  background-position: center 40%;
+  background-attachment: fixed;
+  mix-blend-mode: multiply;
+  filter: saturate(0.75) brightness(1.08) sepia(0.08);
+  /* Radial mask: soft emergence from centre, dissolves at all edges */
+  -webkit-mask-image: radial-gradient(
+    ellipse 88% 82% at 50% 44%,
+    black 18%,
+    rgba(0,0,0,0.65) 42%,
+    rgba(0,0,0,0.25) 68%,
+    transparent 86%
+  );
+  mask-image: radial-gradient(
+    ellipse 88% 82% at 50% 44%,
+    black 18%,
+    rgba(0,0,0,0.65) 42%,
+    rgba(0,0,0,0.25) 68%,
+    transparent 86%
+  );
+}
+
+
+/* ── Layer 3: Water surface ── */
+.l-water {
+  z-index: 3;
+  opacity: 0;
+  background-image: url('../images/water-sparkle.jpg');
+  background-size: cover;
+  background-position: center 55%;
+  background-attachment: fixed;
+  mix-blend-mode: multiply;
+  filter: saturate(0.55) brightness(1.10) sepia(0.12);
+  /* Mask: stronger centre, fades wide at all edges */
+  -webkit-mask-image: radial-gradient(
+    ellipse 94% 88% at 50% 52%,
+    black 22%,
+    rgba(0,0,0,0.55) 50%,
+    rgba(0,0,0,0.18) 72%,
+    transparent 90%
+  );
+  mask-image: radial-gradient(
+    ellipse 94% 88% at 50% 52%,
+    black 22%,
+    rgba(0,0,0,0.55) 50%,
+    rgba(0,0,0,0.18) 72%,
+    transparent 90%
+  );
+}
+
+
+/* ── Layer 4: Caustic shimmer ── */
+.l-caustics {
+  z-index: 4;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.cs {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 248, 222, 0.55) 0%,
+    rgba(240, 225, 180, 0.28) 38%,
+    transparent 68%
+  );
+}
+
+.cs--a {
+  width: 42vw; height: 30vw;
+  top: 28%; left: 8%;
+  animation: csa var(--t-shimmer-a) var(--ease-drift) infinite alternate;
+}
+.cs--b {
+  width: 26vw; height: 20vw;
+  top: 52%; left: 48%;
+  animation: csb var(--t-shimmer-b) var(--ease-drift) infinite alternate;
+}
+.cs--c {
+  width: 32vw; height: 24vw;
+  top: 22%; left: 58%;
+  animation: csc var(--t-shimmer-c) var(--ease-drift) infinite alternate;
+}
+.cs--d {
+  width: 20vw; height: 16vw;
+  top: 64%; left: 24%;
+  animation: csa var(--t-shimmer-d) var(--ease-drift) infinite alternate;
+  animation-delay: -5s;
+}
+
+@keyframes csa {
+  from { transform: translate(0, 0)     scale(1.00); opacity: 0.45; }
+  to   { transform: translate(5vw, 3vh) scale(1.12); opacity: 0.82; }
+}
+@keyframes csb {
+  from { transform: translate(0, 0)      scale(1.05); opacity: 0.60; }
+  to   { transform: translate(-4vw, 4vh) scale(0.90); opacity: 0.78; }
+}
+@keyframes csc {
+  from { transform: translate(0, 0)      scale(0.94); opacity: 0.38; }
+  to   { transform: translate(3vw, -3vh) scale(1.10); opacity: 0.72; }
+}
+
+
+/* ── Layer 5: Calm finish ── */
+.l-finish {
+  z-index: 5;
+  opacity: 0;
+  background:
+    radial-gradient(
+      ellipse 100% 60% at 50% 100%,
+      rgba(245, 242, 238, 0.95) 0%,
+      rgba(245, 242, 238, 0.70) 40%,
+      transparent 72%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(248, 245, 241, 0.88) 55%,
+      var(--calm-white) 100%
+    );
+}
+
+
+/* ═══════════════════════════════════════════════════
+   LOGO STAGE
+═══════════════════════════════════════════════════ */
+.logo-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.logo-emblem {
+  width: var(--logo-size);
+  height: var(--logo-size);
+  border-radius: 50%;
+  object-fit: cover;
+  /* Very subtle shadow to lift off the paper */
+  filter: drop-shadow(0 4px 18px rgba(60,45,20,0.12)) drop-shadow(0 1px 4px rgba(60,45,20,0.08));
+  opacity: 0.92;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SCROLL CANVAS — gives the page its height
+═══════════════════════════════════════════════════ */
+.scroll-canvas {
+  height: 500vh;
+  pointer-events: none;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   REDUCED MOTION
+═══════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .l-drift,
+  .cs--a,
+  .cs--b,
+  .cs--c,
+  .cs--d {
+    animation: none;
+  }
+}

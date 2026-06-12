@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meaning Beyond Brands</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="../images/Background-base.png" />
+  <link rel="preload" as="image" href="../images/water-sparkle.jpg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════
+       Environment layers — all fixed-position
+       stacked bottom → top via z-index
+  ════════════════════════════════════════════ -->
+
+  <!-- 0 · Warm paper base — always visible -->
+  <div class="l l-base" aria-hidden="true"></div>
+
+  <!-- 1 · Light drift — ambient drifting highlight -->
+  <div class="l l-drift" aria-hidden="true"></div>
+
+  <!-- 2 · Shell + pearl photography -->
+  <div class="l l-pearl" id="lPearl" aria-hidden="true"></div>
+
+  <!-- 3 · Water surface -->
+  <div class="l l-water" id="lWater" aria-hidden="true"></div>
+
+  <!-- 4 · Caustic shimmer — sunlight through water -->
+  <div class="l l-caustics" id="lCaustics" aria-hidden="true">
+    <span class="cs cs--a"></span>
+    <span class="cs cs--b"></span>
+    <span class="cs cs--c"></span>
+    <span class="cs cs--d"></span>
+  </div>
+
+  <!-- 5 · Calm finish — final wash -->
+  <div class="l l-finish" id="lFinish" aria-hidden="true"></div>
+
+
+  <!-- ════════════════════════════════════════════
+       Logo — first viewport only
+  ════════════════════════════════════════════ -->
+  <div class="logo-stage" id="logoStage">
+    <img
+      src="../assets/emblem.jpeg"
+      alt="Meaning Beyond Brands"
+      class="logo-emblem"
+      width="100"
+      height="100"
+    />
+  </div>
+
+
+  <!-- Scroll canvas — provides 500vh of scrollable height -->
+  <div class="scroll-canvas" aria-hidden="true"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
