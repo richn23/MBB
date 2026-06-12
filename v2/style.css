@@ -191,32 +191,23 @@ body {
   color: var(--ink);
 }
 
-/* Line 2 — semi-bold, warm bronze-gold gradient with slow sheen */
+/* Line 2 — semi-bold; "Create" + "Experiences" are ink, only "Meaningful" is gold */
 .hero-line-2 {
   font-weight: 600;
   font-size: clamp(13px, 1.6vw, 23px);
   letter-spacing: 0.12em;
-  background: linear-gradient(
-    100deg,
-    #7A5218  0%,
-    #C8904A 22%,
-    #E8C870 36%,
-    #D4A855 46%,
-    #EED282 54%,
-    #C09040 68%,
-    #A87030 82%,
-    #7A5218 100%
-  );
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gold-sheen var(--t-gold-sheen) ease-in-out infinite alternate;
+  color: var(--ink);
 }
 
-@keyframes gold-sheen {
-  from { background-position:   0% center; }
-  to   { background-position: 100% center; }
+/* Gold letters inside line 2 — "Meaningful" only */
+.hl-gold {
+  color: #B8904A;
+  animation: gold-letter-shimmer var(--t-gold-sheen) ease-in-out infinite alternate;
+}
+
+@keyframes gold-letter-shimmer {
+  from { color: #A07030; }
+  to   { color: #D4A860; }
 }
 
 /* Individual letter spans — opacity driven by JS */
@@ -367,29 +358,20 @@ body {
 .pearl-card {
   position: relative;
   overflow: hidden;
-  background: #F6F1E8;
+  /* Real paper photo as the card surface */
+  background-image: url('/images/our-purpose-paper-blank.png');
+  background-size: cover;
+  background-position: center;
+  background-color: #F6F1E8; /* fallback while image loads */
   border-radius: 3px;
   padding: clamp(36px, 4.5vw, 58px) clamp(36px, 4.2vw, 56px);
   text-align: center;
-  /* Lying-on-surface shadow: wide, warm, very low opacity */
   box-shadow:
     0  1px  2px  rgba(50,32,10,.06),
     0  4px  10px rgba(50,32,10,.07),
     0 12px  28px rgba(50,32,10,.06),
     0 30px  60px rgba(50,32,10,.05),
     4px 6px 24px rgba(50,32,10,.04);
-}
-
-/* Paper grain — feTurbulence SVG noise, barely perceptible */
-.pearl-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-  opacity: 0.032;
-  mix-blend-mode: multiply;
-  pointer-events: none;
 }
 
 /* Compass star */
@@ -538,5 +520,5 @@ body {
 ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   .l-drift, .cs--a, .cs--b, .cs--c, .cs--d,
-  .hero-line-2 { animation: none; }
+  .hl-gold { animation: none; }
 }

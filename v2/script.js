@@ -56,35 +56,49 @@
 
   /* ── Hero letter lines ── */
   var LINES = [
-    { text: 'Meaning beyond brands.',     elId: 'heroLine1', start: 0.02, end: 0.09 },
-    { text: 'Create Meaningful Experiences', elId: 'heroLine2', start: 0.07, end: 0.16 },
+    {
+      elId: 'heroLine1', start: 0.02, end: 0.09,
+      segments: [{ text: 'Meaning beyond brands.', gold: false }],
+    },
+    {
+      elId: 'heroLine2', start: 0.07, end: 0.16,
+      segments: [
+        { text: 'Create ',      gold: false },
+        { text: 'Meaningful',   gold: true  },
+        { text: ' Experiences', gold: false },
+      ],
+    },
   ];
 
   var STAGE_FADE_S = 0.17;
   var STAGE_FADE_E = 0.24;
 
-  /* Build letter spans for each line */
+  /* Build letter spans for each line (segment-aware) */
   var lineLetters = LINES.map(function (line) {
-    var el     = document.getElementById(line.elId);
-    var spans  = [];
-    var total  = line.text.length;
-    var range  = line.end - line.start;
-    var window = range / total * 3.2; /* each letter fades over ~3 char-widths — soft overlap */
+    var el    = document.getElementById(line.elId);
+    var spans = [];
+    var total = line.segments.reduce(function (n, s) { return n + s.text.length; }, 0);
+    var range = line.end - line.start;
+    var win   = range / total * 3.2; /* each letter fades over ~3 char-widths — soft overlap */
+    var idx   = 0;
 
-    line.text.split('').forEach(function (char, i) {
-      if (char === ' ') {
-        el.appendChild(document.createTextNode(' '));
-      } else {
-        var span = document.createElement('span');
-        span.className = 'hl';
-        span.textContent = char;
-        span.style.opacity = '0';
-        el.appendChild(span);
-        spans.push({ span: span, idx: i });
-      }
+    line.segments.forEach(function (seg) {
+      seg.text.split('').forEach(function (char) {
+        if (char === ' ') {
+          el.appendChild(document.createTextNode(' '));
+        } else {
+          var span = document.createElement('span');
+          span.className = seg.gold ? 'hl hl-gold' : 'hl';
+          span.textContent = char;
+          span.style.opacity = '0';
+          el.appendChild(span);
+          spans.push({ span: span, idx: idx });
+        }
+        idx++;
+      });
     });
 
-    return { spans: spans, total: total, start: line.start, end: line.end, window: window };
+    return { spans: spans, total: total, start: line.start, end: line.end, window: win };
   });
 
   /* ── Init elements ── */
@@ -107,7 +121,7 @@
   var curHeader = 0;
   var LERP      = 0.07;
 
-  /* Header rises as hero fades, stays for the rest of the journey */
+  /* Header rises as hero fades, stays visible for the rest of the journey */
   var HEADER_RISE_S = 0.17;
   var HEADER_RISE_E = 0.30;
 

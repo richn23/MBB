@@ -1,0 +1,6 @@
+*.docx
+*.zip
+uploads/
+.claude/
+content/
+Assets/ChatGPT*
