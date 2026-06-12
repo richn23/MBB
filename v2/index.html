@@ -26,10 +26,9 @@
   </div>
   <div class="l l-finish"   id="lFinish"   aria-hidden="true"></div>
 
-  <!-- ── Site header — hidden at top, fades in after hero dissolves ── -->
+  <!-- ── Site header ── -->
   <header class="site-header" id="siteHeader">
     <div class="sh-inner">
-
       <div class="sh-left">
         <img src="/assets/emblem.jpeg" alt="" class="sh-emblem" aria-hidden="true"
              width="32" height="32" />
@@ -38,95 +37,91 @@
           <span class="sh-tagline">Strategy · Storytelling · Significance</span>
         </div>
       </div>
-
       <nav class="sh-right">
         <a href="#" class="sh-connect">Let's Connect</a>
       </nav>
-
     </div>
   </header>
 
-  <!-- ── Hero: logo + two-line engraved text ── -->
+  <!-- ── Hero ── -->
   <div class="logo-stage" id="logoStage">
-
     <div class="logo-mark">
       <img src="/assets/emblem.jpeg" alt="" class="logo-emblem"
            width="300" height="300" aria-hidden="true" />
     </div>
-
     <div class="hero-copy">
       <p class="hero-line hero-line-1" id="heroLine1" aria-hidden="true"></p>
       <p class="hero-line hero-line-2" id="heroLine2" aria-hidden="true"></p>
     </div>
-
   </div>
 
-  <!-- ── Pearl zone: Our Purpose stationery card ── -->
+  <!-- ── Pearl zone: Our Purpose card ── -->
   <div class="content-block card-pearl" id="cardPearl" aria-hidden="true">
     <div class="pearl-card">
-
       <div class="pc-star-wrap">
         <img src="/assets/compass-star.png" alt="" class="pc-star"
              width="40" height="40" aria-hidden="true" />
       </div>
-
       <p class="pc-heading">Our Purpose</p>
-
       <div class="pc-divider">
         <span class="pd-line"></span>
         <span class="pd-gem">✦</span>
         <span class="pd-line"></span>
       </div>
-
       <p class="pc-body">We help luxury and premium brands create meaningful
         growth through strategy, storytelling, and human connection.</p>
-
       <div class="pc-foot"></div>
-
     </div>
   </div>
 
-  <!-- ── Water zone: framework placeholder ── -->
-  <div class="content-block card-framework" id="cardFramework" aria-hidden="true">
-    <div class="fw-box">
-      <span class="fw-label">Framework</span>
+  <!-- ── Water zone: Perspectives ── -->
+  <div class="content-block card-perspectives" id="cardPerspectives">
+
+    <div class="persp-header">
+      <h2 class="persp-heading">Perspectives</h2>
+      <div class="persp-divider">
+        <span class="pd-line"></span>
+        <span class="pd-gem">✦</span>
+        <span class="pd-line"></span>
+      </div>
+      <p class="persp-sub">Thoughts on branding, meaning,<br>storytelling, and long-term value.</p>
     </div>
+
+    <div class="pearl-arrangement">
+      <div class="pearl-stage" id="pearlArrangement" aria-label="Perspectives collection">
+        <!-- Populated by perspectives.js -->
+      </div>
+    </div>
+
   </div>
 
-  <!-- Scroll canvas: 650vh — drives all fixed-layer progress -->
+  <!-- Scroll canvas: 650vh -->
   <div class="scroll-canvas" aria-hidden="true"></div>
 
 
   <!-- ═══════════════════════════════════════════
-       REAL SECTIONS — scroll in below the canvas,
-       sit above all fixed layers (z-index: 10)
+       REAL SECTIONS — below scroll canvas
   ═══════════════════════════════════════════ -->
 
   <!-- ── About Ana ── -->
   <section class="section-about fade-section" id="sectionAbout">
-
     <div class="about-portrait-col">
       <img src="/assets/founder.jpeg" alt="Ana, founder of Meaning Beyond Brands"
            class="about-img" />
     </div>
-
     <div class="about-text-col">
       <h2 class="about-heading">About Ana</h2>
       <p class="about-body">With a background in English Literature and over four years of professional experience in Dubai, Ana has always been drawn to the stories, ideas, and connections that bring people together.</p>
       <p class="about-body">Through Meaning Beyond Brands, she helps businesses create value beyond what they sell by engaging new audiences, crafting meaningful experiences, and building relationships that endure.</p>
       <p class="about-body">Her vision is to contribute to the UAE's business landscape by helping brands remain relevant, connected, and meaningful in an ever-evolving world.</p>
     </div>
-
   </section>
 
 
   <!-- ── Contact ── -->
   <section class="section-contact fade-section" id="sectionContact">
-
     <div class="contact-form-col">
-
       <p class="contact-heading">Get in Touch</p>
-
       <form class="contact-form" id="contactForm" novalidate>
         <div class="cff-field">
           <label class="cff-label" for="cfName">Name</label>
@@ -142,9 +137,7 @@
         </div>
         <button class="cff-submit" type="submit">Send</button>
       </form>
-
     </div>
-
     <div class="contact-wa-col">
       <p class="wa-invite">Prefer to talk?</p>
       <a class="wa-link" href="https://wa.me/" target="_blank" rel="noopener noreferrer">
@@ -157,25 +150,19 @@
         +971 XX XXX XXXX
       </a>
     </div>
-
   </section>
 
 
   <!-- ── Footer ── -->
   <footer class="site-footer fade-section" id="siteFooter">
-
     <div class="footer-rule" aria-hidden="true"></div>
-
     <div class="footer-star-wrap" aria-hidden="true">
       <img src="/assets/compass-star.png" alt="" class="footer-star" />
     </div>
-
     <nav class="footer-nav" aria-label="Footer navigation">
       <a href="#" class="fn-link">About</a>
       <a href="#" class="fn-link">Services</a>
       <a href="#" class="fn-link">Contact</a>
-
-      <!-- Instagram -->
       <a href="#" class="fn-link fn-icon" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -184,8 +171,6 @@
           <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
         </svg>
       </a>
-
-      <!-- LinkedIn -->
       <a href="#" class="fn-link fn-icon" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
@@ -197,10 +182,46 @@
         </svg>
       </a>
     </nav>
-
   </footer>
 
 
+  <!-- ── Perspectives modal ── -->
+  <div class="persp-backdrop" id="perspBackdrop" aria-hidden="true"></div>
+
+  <div class="persp-modal" id="perspModal"
+       role="dialog" aria-modal="true" aria-labelledby="perspModalTitle">
+    <button class="pm-close" id="perspClose" aria-label="Close">✕</button>
+
+    <div class="pm-star-wrap" aria-hidden="true">
+      <img src="/assets/compass-star.png" alt="" class="pm-star"
+           width="28" height="28" />
+    </div>
+
+    <p class="pm-byline"></p>
+
+    <h2 class="pm-title" id="perspModalTitle"></h2>
+
+    <div class="pm-divider" aria-hidden="true">
+      <span class="pd-line"></span>
+      <span class="pd-gem">✦</span>
+      <span class="pd-line"></span>
+    </div>
+
+    <div class="pm-lines"></div>
+
+    <p class="pm-ellipsis" aria-hidden="true">…</p>
+
+    <div class="pm-foot-rule" aria-hidden="true"></div>
+
+    <div class="pm-footer">
+      <a class="pm-continue" href="#" target="_blank" rel="noopener noreferrer">
+        Continue reading on LinkedIn ↗
+      </a>
+    </div>
+  </div>
+
+
   <script src="/v2/script.js"></script>
+  <script src="/v2/perspectives.js"></script>
 </body>
 </html>
