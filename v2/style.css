@@ -342,7 +342,7 @@ body {
 
 .pearl-card {
   position: relative; overflow: hidden;
-  background-image: url('/images/our-purpose-paper-blank.png');
+  background-image: url('/images/our-purpose-paper-blank.png?v=2');
   background-size: cover; background-position: center;
   background-color: #F6F1E8;
   border-radius: 3px;
@@ -656,7 +656,7 @@ body {
   pointer-events: none;
 
   /* Paper — real grain matches Our Purpose card */
-  background-image: url('/images/our-purpose-paper-blank.png');
+  background-image: url('/images/our-purpose-paper-blank.png?v=2');
   background-size: cover;
   background-position: center;
   background-color: var(--pearl);
@@ -943,17 +943,7 @@ body {
   color: var(--ink-mid); letter-spacing: .03em;
 }
 
-.wa-link {
-  display: flex; align-items: center; gap: 13px;
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300; font-size: clamp(17px,1.7vw,24px);
-  letter-spacing: .05em; color: var(--ink);
-  text-decoration: none;
-  transition: color .4s ease;
-}
-.wa-link:hover { color: var(--gold); }
-
-.wa-icon { width: 22px; height: 22px; flex-shrink: 0; }
+/* wa-link uses fn-icon for sizing/colour/hover — no extra rules needed */
 
 
 /* ── Footer ── */

@@ -28,8 +28,7 @@
      CONTACT DETAILS — update BOTH values here only.
   ══════════════════════════════════════════════════ */
   var CONTACT = {
-    display: '+971 58 881 2769',
-    waUrl:   'https://wa.me/971588812769',
+    waUrl: 'https://wa.me/971585903249',
   };
 
   /* ── Math helpers ── */
@@ -280,10 +279,8 @@
 
   /* ── Contact wiring ── */
   (function () {
-    var waLink    = document.querySelector('.wa-link');
-    var waDisplay = document.querySelector('.wa-display');
-    if (waLink)    waLink.href = CONTACT.waUrl;
-    if (waDisplay) waDisplay.textContent = CONTACT.display;
+    var waLink = document.querySelector('.wa-link');
+    if (waLink) waLink.href = CONTACT.waUrl;
   })();
 
   /* ── Contact form ── */
