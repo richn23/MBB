@@ -26,7 +26,7 @@
   function fall(p, start, end) { return 1 - rise(p, start, end); }
 
   const LAYERS = [
-    { id: 'lPearl',    fadeIn: 0.10, peak: 0.25, fadeOut: 0.68, end: 0.82, maxOp: 0.88 },
+    { id: 'lPearl',    fadeIn: 0.12, peak: 0.28, fadeOut: 0.68, end: 0.82, maxOp: 0.88 },
     { id: 'lWater',    fadeIn: 0.46, peak: 0.62, fadeOut: 0.86, end: 0.96, maxOp: 0.58 },
     { id: 'lCaustics', fadeIn: 0.50, peak: 0.65, fadeOut: 0.86, end: 0.96, maxOp: 1.00 },
     { id: 'lFinish',   fadeIn: 0.84, peak: 0.94, fadeOut: 1.00, end: 1.00, maxOp: 1.00 },
@@ -53,7 +53,7 @@
       if (els[cfg.id]) els[cfg.id].style.opacity = cur[cfg.id].toFixed(4);
     });
 
-    const logoTarget = fall(p, 0.28, 0.48);
+    const logoTarget = fall(p, 0.02, 0.08);
     curLogo = lerp(curLogo, logoTarget, LERP);
     if (logoEl) logoEl.style.opacity = curLogo.toFixed(4);
 
