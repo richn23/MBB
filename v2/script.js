@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════
    SCROLL-DRIVEN ENVIRONMENT — v2
-   650vh page, maxScroll ≈ 550vh
+   650vh canvas, maxScroll ≈ 550vh
 
    Beat map (progress 0.0 → 1.0):
    0.00–0.02  Logo alone on calm paper
@@ -14,7 +14,7 @@
    0.60–0.84  Framework placeholder
    0.74–0.84  Drift fades out  ← calm prep
    0.76–0.84  Caustics fade    ← calm prep
-   0.84–1.00  Still finish + profile card
+   0.84–1.00  Still finish — real sections scroll in below
 ═══════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -47,11 +47,10 @@
     { id: 'lFinish',   fi: 0.84, pk: 0.92, fo: 1.00, end: 1.00, maxOp: 1.00, init: 0 },
   ];
 
-  /* ── Content cards ── */
+  /* ── Content cards (fixed overlays during scroll canvas) ── */
   var CARDS = [
     { id: 'cardPearl',     fi: 0.42, pk: 0.48, fo: 0.56, end: 0.64 },
     { id: 'cardFramework', fi: 0.60, pk: 0.67, fo: 0.76, end: 0.84 },
-    { id: 'cardFinish',    fi: 0.86, pk: 0.92, fo: 1.00, end: 1.00 },
   ];
 
   /* ── Hero letter lines ── */
@@ -79,7 +78,7 @@
     var spans = [];
     var total = line.segments.reduce(function (n, s) { return n + s.text.length; }, 0);
     var range = line.end - line.start;
-    var win   = range / total * 3.2; /* each letter fades over ~3 char-widths — soft overlap */
+    var win   = range / total * 3.2;
     var idx   = 0;
 
     line.segments.forEach(function (seg) {
@@ -121,14 +120,23 @@
   var curHeader = 0;
   var LERP      = 0.07;
 
-  /* Header rises as hero fades, stays visible for the rest of the journey */
   var HEADER_RISE_S = 0.17;
   var HEADER_RISE_E = 0.30;
+
+  /* ── Fade sections — real layout below the scroll canvas ──
+     body { overflow-x: hidden } breaks IntersectionObserver's viewport root,
+     so we check directly in the tick loop instead.                          */
+  var fadeSections = Array.prototype.slice.call(
+    document.querySelectorAll('.fade-section')
+  ).map(function (el) {
+    return { el: el, done: false };
+  });
 
   /* ── Tick ── */
   function tick() {
     var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     var p = window.scrollY / maxScroll;
+    var vh = window.innerHeight;
 
     /* Background layers */
     LAYERS.forEach(function (cfg) {
@@ -144,12 +152,12 @@
       if (cardEls[cfg.id]) cardEls[cfg.id].style.opacity = curCard[cfg.id].toFixed(4);
     });
 
-    /* Logo stage — both lines fade as one unit */
+    /* Logo stage */
     var stageTarget = fall(p, STAGE_FADE_S, STAGE_FADE_E);
     curStage = lerp(curStage, stageTarget, LERP);
     if (stageEl) stageEl.style.opacity = curStage.toFixed(4);
 
-    /* Header — fades in as hero dissolves, stays visible */
+    /* Header */
     var headerTarget = rise(p, HEADER_RISE_S, HEADER_RISE_E);
     curHeader = lerp(curHeader, headerTarget, LERP);
     if (headerEl) {
@@ -157,7 +165,7 @@
       headerEl.style.pointerEvents = curHeader > 0.05 ? 'auto' : 'none';
     }
 
-    /* Letter reveal — direct scroll (no lerp: user controls pace) */
+    /* Letter reveal — direct scroll, no lerp */
     lineLetters.forEach(function (line) {
       line.spans.forEach(function (item) {
         var lStart = line.start + (item.idx / line.total) * (line.end - line.start);
@@ -166,8 +174,25 @@
       });
     });
 
+    /* Fade sections — reveal when top edge enters bottom 85% of viewport */
+    fadeSections.forEach(function (item) {
+      if (item.done) return;
+      var top = item.el.getBoundingClientRect().top;
+      if (top < vh * 0.85) {
+        item.el.classList.add('is-visible');
+        item.done = true;
+      }
+    });
+
     requestAnimationFrame(tick);
   }
 
   tick();
+
+  /* ── Contact form — no backend yet ── */
+  var contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) { e.preventDefault(); });
+  }
+
 })();
