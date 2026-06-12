@@ -6,7 +6,8 @@
   --pearl-2:     #F1EBE2;
   --calm-white:  #F5F2EF;
   --ink:         #2E2A22;
-  --ink-soft:    rgba(46, 42, 34, 0.55);
+  --ink-mid:     rgba(46, 42, 34, 0.65);
+  --ink-soft:    rgba(46, 42, 34, 0.42);
 
   --t-drift:     52s;
   --t-shimmer-a: 14s;
@@ -32,7 +33,7 @@ body {
 
 
 /* ═══════════════════════════════════════════════════
-   LAYER SYSTEM
+   LAYER SYSTEM — all fixed, opacity driven by JS
 ═══════════════════════════════════════════════════ */
 .l {
   position: fixed;
@@ -41,6 +42,7 @@ body {
   will-change: opacity;
 }
 
+/* 0 · Base gradient — always on, not JS-controlled */
 .l-base {
   z-index: 0;
   background:
@@ -48,23 +50,23 @@ body {
     linear-gradient(175deg, var(--pearl-2) 0%, var(--pearl) 45%, var(--calm-white) 100%);
 }
 
+/* 1 · Ambient drift — JS fades this out before calm finish.
+   Opacity is NOT in the keyframes so JS inline style wins cleanly. */
 .l-drift {
   z-index: 1;
-  background: radial-gradient(ellipse 75% 55% at 62% 38%, rgba(222,205,168,.22) 0%, transparent 65%);
+  background: radial-gradient(ellipse 75% 55% at 62% 38%, rgba(222,205,168,.28) 0%, transparent 65%);
   animation: drift var(--t-drift) var(--ease-drift) infinite alternate;
 }
 
 @keyframes drift {
-  0%   { transform: translate(  0,   0) scale(1.00); opacity: .60; }
-  25%  { transform: translate( 6%,  3%) scale(1.04); opacity: .80; }
-  50%  { transform: translate(-4%,  6%) scale(0.97); opacity: .65; }
-  75%  { transform: translate( 3%, -4%) scale(1.06); opacity: .75; }
-  100% { transform: translate(-2%,  2%) scale(1.01); opacity: .60; }
+  0%   { transform: translate(  0,   0) scale(1.00); }
+  25%  { transform: translate( 6%,  3%) scale(1.04); }
+  50%  { transform: translate(-4%,  6%) scale(0.97); }
+  75%  { transform: translate( 3%, -4%) scale(1.06); }
+  100% { transform: translate(-2%,  2%) scale(1.01); }
 }
 
-/* Shell / pearl — Background-base.png (887×1774 portrait).
-   left top keeps the shell corner anchored at all viewport widths.
-   Mask strong in the top-left, dissolving toward bottom-right. */
+/* 2 · Shell / pearl */
 .l-pearl {
   z-index: 2;
   opacity: 0;
@@ -94,6 +96,7 @@ body {
   );
 }
 
+/* 3 · Water surface */
 .l-water {
   z-index: 3;
   opacity: 0;
@@ -113,6 +116,7 @@ body {
   );
 }
 
+/* 4 · Caustics — also faded out before calm finish */
 .l-caustics {
   z-index: 4;
   opacity: 0;
@@ -144,6 +148,7 @@ body {
   to   { transform: translate(3vw, -3vh)  scale(1.10); opacity: .72; }
 }
 
+/* 5 · Calm finish — plain paper wash */
 .l-finish {
   z-index: 5;
   opacity: 0;
@@ -156,7 +161,7 @@ body {
 
 
 /* ═══════════════════════════════════════════════════
-   HERO — logo + engraved text, fades as one unit
+   HERO — logo + engraved text
 ═══════════════════════════════════════════════════ */
 .logo-stage {
   position: fixed;
@@ -183,12 +188,7 @@ body {
     drop-shadow(0 2px 6px  rgba(50,38,18,.08));
 }
 
-/* Hero copy — Cormorant Garamond, generous spacing */
-.hero-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+.hero-copy { display: flex; flex-direction: column; justify-content: center; }
 
 .hero-line {
   font-family: 'Cormorant Garamond', serif;
@@ -200,7 +200,6 @@ body {
   white-space: nowrap;
 }
 
-/* Individual letter spans — opacity driven by scroll JS */
 .hl {
   display: inline-block;
   opacity: 0;
@@ -208,10 +207,126 @@ body {
 
 
 /* ═══════════════════════════════════════════════════
-   SCROLL CANVAS
+   CONTENT BLOCKS — fixed, scroll-driven opacity
+═══════════════════════════════════════════════════ */
+.content-block {
+  position: fixed;
+  pointer-events: none;
+  will-change: opacity;
+  opacity: 0;
+  z-index: 8;
+}
+
+
+/* ── Pearl stationery card ──
+   Right side of viewport, vertically centred.
+   Ivory, generous padding, feels printed not floating. */
+.card-pearl {
+  right: 8vw;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: clamp(260px, 30vw, 400px);
+}
+
+.pearl-card {
+  background: rgba(249, 245, 239, 0.94);
+  border: 1px solid rgba(160, 138, 100, 0.16);
+  padding: clamp(28px, 3.2vw, 48px) clamp(32px, 3.8vw, 56px);
+  box-shadow:
+    0 1px 3px  rgba(60,40,10,.05),
+    0 4px 16px rgba(60,40,10,.06),
+    0 10px 32px rgba(60,40,10,.04);
+}
+
+.pc-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(15px, 1.5vw, 20px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+
+.pc-body {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(13px, 1.2vw, 16px);
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+  color: var(--ink-mid);
+}
+
+.pc-body--2 { margin-top: 10px; }
+
+
+/* ── Framework placeholder ──
+   Centred, faint outlined reservation. */
+.card-framework {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(280px, 58vw, 760px);
+}
+
+.fw-box {
+  border: 1px solid rgba(46,42,34,.10);
+  height: clamp(180px, 34vh, 320px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fw-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(10px, 0.9vw, 12px);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+
+/* ── Calm finish: portrait + contact ── */
+.card-finish {
+  right: 12vw;
+  bottom: 12vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cf-portrait {
+  width: clamp(80px, 8vw, 120px);
+  height: clamp(100px, 10vw, 152px);
+  background: rgba(190, 178, 160, 0.32);
+}
+
+.cf-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-size: clamp(12px, 1.1vw, 15px);
+  letter-spacing: 0.24em;
+  color: var(--ink-mid);
+}
+
+.cf-contact {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(11px, 0.95vw, 13px);
+  letter-spacing: 0.10em;
+  color: var(--ink-soft);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SCROLL CANVAS — 650vh
 ═══════════════════════════════════════════════════ */
 .scroll-canvas {
-  height: 500vh;
+  height: 650vh;
   pointer-events: none;
 }
 
@@ -221,5 +336,4 @@ body {
 ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   .l-drift, .cs--a, .cs--b, .cs--c, .cs--d { animation: none; }
-  .hl { transition: none; }
 }

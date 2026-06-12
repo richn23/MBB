@@ -6,47 +6,63 @@
   <title>Meaning Beyond Brands</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="../images/Background-base.png" />
-  <link rel="preload" as="image" href="../images/water-sparkle-clean.jpg" />
+  <link rel="preload" as="image" href="../images/water-sparkle-wide.jpg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- Environment layers -->
-  <div class="l l-base"     aria-hidden="true"></div>
-  <div class="l l-drift"    aria-hidden="true"></div>
-  <div class="l l-pearl"    id="lPearl"    aria-hidden="true"></div>
-  <div class="l l-water"    id="lWater"    aria-hidden="true"></div>
-  <div class="l l-caustics" id="lCaustics" aria-hidden="true">
+  <!-- ── Environment layers ── -->
+  <div class="l l-base"                         aria-hidden="true"></div>
+  <div class="l l-drift"    id="lDrift"         aria-hidden="true"></div>
+  <div class="l l-pearl"    id="lPearl"         aria-hidden="true"></div>
+  <div class="l l-water"    id="lWater"         aria-hidden="true"></div>
+  <div class="l l-caustics" id="lCaustics"      aria-hidden="true">
     <span class="cs cs--a"></span>
     <span class="cs cs--b"></span>
     <span class="cs cs--c"></span>
     <span class="cs cs--d"></span>
   </div>
-  <div class="l l-finish"   id="lFinish"   aria-hidden="true"></div>
+  <div class="l l-finish"   id="lFinish"        aria-hidden="true"></div>
 
-  <!-- Hero: logo + engraved text — fades as one unit -->
+  <!-- ── Hero: logo + engraved text ── -->
   <div class="logo-stage" id="logoStage">
-
     <div class="logo-mark">
-      <img
-        src="../Assets/emblem.jpeg"
-        alt=""
-        class="logo-emblem"
-        width="300"
-        height="300"
-        aria-hidden="true"
-      />
+      <img src="../Assets/emblem.jpeg" alt="" class="logo-emblem"
+           width="300" height="300" aria-hidden="true" />
     </div>
-
     <div class="hero-copy">
       <p class="hero-line" id="heroLine" aria-hidden="true"></p>
     </div>
-
   </div>
 
-  <!-- Scroll canvas -->
+  <!-- ── Pearl zone: stationery card ── -->
+  <div class="content-block card-pearl" id="cardPearl" aria-hidden="true">
+    <div class="pearl-card">
+      <p class="pc-heading">On meaning</p>
+      <p class="pc-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+        sed do eiusmod tempor incididunt ut labore.</p>
+      <p class="pc-body pc-body--2">Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris.</p>
+    </div>
+  </div>
+
+  <!-- ── Water zone: framework placeholder ── -->
+  <div class="content-block card-framework" id="cardFramework" aria-hidden="true">
+    <div class="fw-box">
+      <span class="fw-label">Framework</span>
+    </div>
+  </div>
+
+  <!-- ── Calm finish: profile + contact ── -->
+  <div class="content-block card-finish" id="cardFinish" aria-hidden="true">
+    <div class="cf-portrait"></div>
+    <p class="cf-name">— Name —</p>
+    <p class="cf-contact">email · instagram</p>
+  </div>
+
+  <!-- Scroll canvas: 650vh -->
   <div class="scroll-canvas" aria-hidden="true"></div>
 
   <script src="script.js"></script>
