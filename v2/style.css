@@ -2,26 +2,18 @@
    DESIGN TOKENS
 ═══════════════════════════════════════════════════ */
 :root {
-  /* Colour palette */
   --pearl:       #F7F3EE;
   --pearl-2:     #F1EBE2;
-  --champagne:   #E6D6BE;
-  --warm-sand:   #D4C0A0;
   --calm-white:  #F5F2EF;
-  --ink:         #2E2A22;
-  --ink-soft:    rgba(46, 42, 34, 0.58);
 
-  /* Ambient motion timing */
   --t-drift:     52s;
   --t-shimmer-a: 14s;
   --t-shimmer-b: 11s;
   --t-shimmer-c: 17s;
   --t-shimmer-d:  9s;
 
-  /* Easing */
-  --ease-drift:  cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  --ease-drift: cubic-bezier(0.45, 0.05, 0.55, 0.95);
 
-  /* Logo */
   --logo-size: clamp(180px, 22vw, 300px);
 }
 
@@ -29,21 +21,16 @@
 /* ═══════════════════════════════════════════════════
    RESET + BASE
 ═══════════════════════════════════════════════════ */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   background: var(--pearl);
   overflow-x: hidden;
-  font-family: 'Jost', sans-serif;
 }
 
 
 /* ═══════════════════════════════════════════════════
-   LAYER SYSTEM — fixed, full-viewport, stacked
+   LAYER SYSTEM
 ═══════════════════════════════════════════════════ */
 .l {
   position: fixed;
@@ -52,86 +39,70 @@ body {
   will-change: opacity;
 }
 
-
-/* ── Layer 0: Base gradient ── */
+/* ── 0 · Base gradient ── */
 .l-base {
   z-index: 0;
   background:
-    radial-gradient(
-      ellipse 120% 40% at 50% 0%,
-      rgba(210, 190, 155, 0.18) 0%,
-      transparent 70%
-    ),
-    linear-gradient(
-      175deg,
-      var(--pearl-2)    0%,
-      var(--pearl)     45%,
-      var(--calm-white) 100%
-    );
+    radial-gradient(ellipse 120% 40% at 50% 0%, rgba(210,190,155,.18) 0%, transparent 70%),
+    linear-gradient(175deg, var(--pearl-2) 0%, var(--pearl) 45%, var(--calm-white) 100%);
 }
 
-
-/* ── Layer 1: Ambient light drift ── */
+/* ── 1 · Ambient drift ── */
 .l-drift {
   z-index: 1;
-  background: radial-gradient(
-    ellipse 75% 55% at 62% 38%,
-    rgba(222, 205, 168, 0.22) 0%,
-    transparent 65%
-  );
+  background: radial-gradient(ellipse 75% 55% at 62% 38%, rgba(222,205,168,.22) 0%, transparent 65%);
   animation: drift var(--t-drift) var(--ease-drift) infinite alternate;
 }
 
 @keyframes drift {
-  0%   { transform: translate(0,     0   ) scale(1.00); opacity: 0.60; }
-  25%  { transform: translate( 6%,  3%  ) scale(1.04); opacity: 0.80; }
-  50%  { transform: translate(-4%,  6%  ) scale(0.97); opacity: 0.65; }
-  75%  { transform: translate( 3%, -4%  ) scale(1.06); opacity: 0.75; }
-  100% { transform: translate(-2%,  2%  ) scale(1.01); opacity: 0.60; }
+  0%   { transform: translate(  0,   0) scale(1.00); opacity: .60; }
+  25%  { transform: translate( 6%,  3%) scale(1.04); opacity: .80; }
+  50%  { transform: translate(-4%,  6%) scale(0.97); opacity: .65; }
+  75%  { transform: translate( 3%, -4%) scale(1.06); opacity: .75; }
+  100% { transform: translate(-2%,  2%) scale(1.01); opacity: .60; }
 }
 
-
-/* ── Layer 2: Pearl / shell photography ──
-   pearl-water.jpg — photography on the RIGHT half.
-   background-position: 80% keeps text off-screen.
-   Top-left anchored mask: strong top-left, dissolves
-   toward bottom-right so the image has no hard edges.
+/* ── 2 · Shell / pearl ──
+   Background-base.png: 887×1774 portrait — shell sits at top-left.
+   background-position: left top keeps the shell in frame at all widths.
+   Mask: opaque top-left corner, dissolves toward bottom-right.
+   The first two stops are both black so the top-left zone stays
+   fully visible and doesn't fade exactly where the shell sits.
 ── */
 .l-pearl {
   z-index: 2;
   opacity: 0;
   background-image: url('../images/Background-base.png');
   background-size: cover;
-  background-position: center 35%;
+  background-position: left top;
   background-attachment: fixed;
   mix-blend-mode: normal;
-  filter: saturate(0.82) brightness(0.96) sepia(0.06);
+  filter: saturate(0.84) brightness(0.95) sepia(0.05);
   -webkit-mask-image: linear-gradient(
-    to bottom right,
-    black          0%,
-    black         22%,
-    rgba(0,0,0,.85) 40%,
-    rgba(0,0,0,.50) 60%,
-    rgba(0,0,0,.18) 76%,
-    transparent    90%
+    145deg,
+    black            0%,
+    black           30%,
+    rgba(0,0,0,.80) 50%,
+    rgba(0,0,0,.42) 68%,
+    rgba(0,0,0,.12) 82%,
+    transparent     95%
   );
   mask-image: linear-gradient(
-    to bottom right,
-    black          0%,
-    black         22%,
-    rgba(0,0,0,.85) 40%,
-    rgba(0,0,0,.50) 60%,
-    rgba(0,0,0,.18) 76%,
-    transparent    90%
+    145deg,
+    black            0%,
+    black           30%,
+    rgba(0,0,0,.80) 50%,
+    rgba(0,0,0,.42) 68%,
+    rgba(0,0,0,.12) 82%,
+    transparent     95%
   );
 }
 
-
-/* ── Layer 3: Water surface ── */
+/* ── 3 · Water surface ── */
 .l-water {
   z-index: 3;
   opacity: 0;
-  background-image: url('../images/water-sparkle.jpg');
+  background-image: url('../images/water-sparkle-clean.jpg');
   background-size: cover;
   background-position: center 55%;
   background-attachment: fixed;
@@ -139,22 +110,15 @@ body {
   filter: saturate(0.55) brightness(1.10) sepia(0.12);
   -webkit-mask-image: radial-gradient(
     ellipse 94% 88% at 50% 52%,
-    black 22%,
-    rgba(0,0,0,0.55) 50%,
-    rgba(0,0,0,0.18) 72%,
-    transparent 90%
+    black 22%, rgba(0,0,0,.55) 50%, rgba(0,0,0,.18) 72%, transparent 90%
   );
   mask-image: radial-gradient(
     ellipse 94% 88% at 50% 52%,
-    black 22%,
-    rgba(0,0,0,0.55) 50%,
-    rgba(0,0,0,0.18) 72%,
-    transparent 90%
+    black 22%, rgba(0,0,0,.55) 50%, rgba(0,0,0,.18) 72%, transparent 90%
   );
 }
 
-
-/* ── Layer 4: Caustic shimmer ── */
+/* ── 4 · Caustics ── */
 .l-caustics {
   z-index: 4;
   opacity: 0;
@@ -164,56 +128,42 @@ body {
 .cs {
   position: absolute;
   border-radius: 50%;
-  background: radial-gradient(
-    circle at center,
-    rgba(255, 248, 222, 0.55) 0%,
-    rgba(240, 225, 180, 0.28) 38%,
-    transparent 68%
-  );
+  background: radial-gradient(circle at center,
+    rgba(255,248,222,.55) 0%, rgba(240,225,180,.28) 38%, transparent 68%);
 }
 
-.cs--a { width: 42vw; height: 30vw; top: 28%; left:  8%; animation: csa var(--t-shimmer-a) var(--ease-drift) infinite alternate; }
-.cs--b { width: 26vw; height: 20vw; top: 52%; left: 48%; animation: csb var(--t-shimmer-b) var(--ease-drift) infinite alternate; }
-.cs--c { width: 32vw; height: 24vw; top: 22%; left: 58%; animation: csc var(--t-shimmer-c) var(--ease-drift) infinite alternate; }
-.cs--d { width: 20vw; height: 16vw; top: 64%; left: 24%; animation: csa var(--t-shimmer-d) var(--ease-drift) infinite alternate; animation-delay: -5s; }
+.cs--a { width:42vw; height:30vw; top:28%; left: 8%; animation: csa var(--t-shimmer-a) var(--ease-drift) infinite alternate; }
+.cs--b { width:26vw; height:20vw; top:52%; left:48%; animation: csb var(--t-shimmer-b) var(--ease-drift) infinite alternate; }
+.cs--c { width:32vw; height:24vw; top:22%; left:58%; animation: csc var(--t-shimmer-c) var(--ease-drift) infinite alternate; }
+.cs--d { width:20vw; height:16vw; top:64%; left:24%; animation: csa var(--t-shimmer-d) var(--ease-drift) infinite alternate; animation-delay:-5s; }
 
 @keyframes csa {
-  from { transform: translate(0, 0)     scale(1.00); opacity: 0.45; }
-  to   { transform: translate(5vw, 3vh) scale(1.12); opacity: 0.82; }
+  from { transform: translate(   0,    0) scale(1.00); opacity: .45; }
+  to   { transform: translate(5vw, 3vh)  scale(1.12); opacity: .82; }
 }
 @keyframes csb {
-  from { transform: translate(0, 0)      scale(1.05); opacity: 0.60; }
-  to   { transform: translate(-4vw, 4vh) scale(0.90); opacity: 0.78; }
+  from { transform: translate(    0,    0) scale(1.05); opacity: .60; }
+  to   { transform: translate(-4vw, 4vh)  scale(0.90); opacity: .78; }
 }
 @keyframes csc {
-  from { transform: translate(0, 0)      scale(0.94); opacity: 0.38; }
-  to   { transform: translate(3vw, -3vh) scale(1.10); opacity: 0.72; }
+  from { transform: translate(   0,    0) scale(0.94); opacity: .38; }
+  to   { transform: translate(3vw, -3vh)  scale(1.10); opacity: .72; }
 }
 
-
-/* ── Layer 5: Calm finish ── */
+/* ── 5 · Calm finish ── */
 .l-finish {
   z-index: 5;
   opacity: 0;
   background:
-    radial-gradient(
-      ellipse 100% 60% at 50% 100%,
-      rgba(245, 242, 238, 0.95) 0%,
-      rgba(245, 242, 238, 0.70) 40%,
-      transparent 72%
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(248, 245, 241, 0.88) 55%,
-      var(--calm-white) 100%
-    );
+    radial-gradient(ellipse 100% 60% at 50% 100%,
+      rgba(245,242,238,.95) 0%, rgba(245,242,238,.70) 40%, transparent 72%),
+    linear-gradient(to bottom,
+      transparent 0%, rgba(248,245,241,.88) 55%, var(--calm-white) 100%);
 }
 
 
 /* ═══════════════════════════════════════════════════
-   LOGO STAGE
-   Positioned left — premium stationery mark feel.
+   LOGO — emblem only, positioned left
 ═══════════════════════════════════════════════════ */
 .logo-stage {
   position: fixed;
@@ -224,9 +174,7 @@ body {
   pointer-events: none;
 }
 
-.logo-mark {
-  will-change: opacity;
-}
+.logo-mark { will-change: opacity; }
 
 .logo-emblem {
   display: block;
@@ -235,35 +183,8 @@ body {
   border-radius: 50%;
   object-fit: cover;
   filter:
-    drop-shadow(0 6px 28px rgba(50, 38, 18, 0.13))
-    drop-shadow(0 2px 6px  rgba(50, 38, 18, 0.08));
-}
-
-
-/* ── Hero text — scroll-revealed wordmark ── */
-.hero-text {
-  margin-top: 22px;
-  opacity: 0;
-  will-change: opacity;
-}
-
-.ht-name {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-size: clamp(11px, 1.1vw, 14px);
-  letter-spacing: 0.30em;
-  text-transform: uppercase;
-  color: var(--ink);
-  margin-bottom: 7px;
-}
-
-.ht-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-style: italic;
-  font-size: clamp(10px, 0.95vw, 12px);
-  letter-spacing: 0.18em;
-  color: var(--ink-soft);
+    drop-shadow(0 6px 28px rgba(50,38,18,.13))
+    drop-shadow(0 2px 6px  rgba(50,38,18,.08));
 }
 
 
@@ -280,7 +201,5 @@ body {
    REDUCED MOTION
 ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  .l-drift, .cs--a, .cs--b, .cs--c, .cs--d {
-    animation: none;
-  }
+  .l-drift, .cs--a, .cs--b, .cs--c, .cs--d { animation: none; }
 }

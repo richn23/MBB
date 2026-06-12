@@ -4,24 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Meaning Beyond Brands</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet" />
-  <link rel="preload" as="image" href="../images/pearl-water.jpg" />
-  <link rel="preload" as="image" href="../images/water-sparkle.jpg" />
+  <link rel="preload" as="image" href="../images/Background-base.png" />
+  <link rel="preload" as="image" href="../images/water-sparkle-clean.jpg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ════════════════════════════════════════════
-       Environment layers — all fixed-position
-       stacked bottom → top via z-index
-  ════════════════════════════════════════════ -->
-
-  <!-- 0 · Warm paper base — always visible -->
+  <!-- 0 · Warm paper base -->
   <div class="l l-base" aria-hidden="true"></div>
 
-  <!-- 1 · Light drift — ambient drifting highlight -->
+  <!-- 1 · Ambient light drift -->
   <div class="l l-drift" aria-hidden="true"></div>
 
   <!-- 2 · Shell + pearl photography -->
@@ -30,7 +22,7 @@
   <!-- 3 · Water surface -->
   <div class="l l-water" id="lWater" aria-hidden="true"></div>
 
-  <!-- 4 · Caustic shimmer — sunlight through water -->
+  <!-- 4 · Caustic shimmer -->
   <div class="l l-caustics" id="lCaustics" aria-hidden="true">
     <span class="cs cs--a"></span>
     <span class="cs cs--b"></span>
@@ -38,34 +30,24 @@
     <span class="cs cs--d"></span>
   </div>
 
-  <!-- 5 · Calm finish — final wash -->
+  <!-- 5 · Calm finish -->
   <div class="l l-finish" id="lFinish" aria-hidden="true"></div>
 
-
-  <!-- ════════════════════════════════════════════
-       Logo mark + hero text
-  ════════════════════════════════════════════ -->
+  <!-- Logo — emblem only, no text -->
   <div class="logo-stage">
-
     <div class="logo-mark" id="logoMark">
       <img
         src="../Assets/emblem.jpeg"
-        alt="Meaning Beyond Brands"
+        alt=""
         class="logo-emblem"
         width="300"
         height="300"
+        aria-hidden="true"
       />
     </div>
-
-    <div class="hero-text" id="heroText">
-      <p class="ht-name">Meaning Beyond Brands</p>
-      <p class="ht-sub">Strategy · Storytelling · Significance</p>
-    </div>
-
   </div>
 
-
-  <!-- Scroll canvas — provides 500vh of scrollable height -->
+  <!-- Scroll canvas -->
   <div class="scroll-canvas" aria-hidden="true"></div>
 
   <script src="script.js"></script>
