@@ -344,45 +344,126 @@ body {
   z-index: 8;
 }
 
-/* Pearl stationery card */
+/* ── Our Purpose stationery card ── */
 .card-pearl {
   right: 8vw;
   top: 50%;
   transform: translateY(-50%);
-  max-width: clamp(260px, 30vw, 400px);
+  width: clamp(280px, 30vw, 420px);
+}
+
+/* On narrow screens: sit below the shell, centred, not edge-to-edge */
+@media (max-width: 800px) {
+  .card-pearl {
+    right: auto;
+    left: 50%;
+    top: auto;
+    bottom: 8vh;
+    transform: translateX(-50%);
+    width: clamp(280px, 80vw, 420px);
+  }
 }
 
 .pearl-card {
-  background: rgba(249, 245, 239, 0.94);
-  border: 1px solid rgba(160, 138, 100, 0.16);
-  padding: clamp(28px, 3.2vw, 48px) clamp(32px, 3.8vw, 56px);
+  position: relative;
+  overflow: hidden;
+  background: #F6F1E8;
+  border-radius: 3px;
+  padding: clamp(36px, 4.5vw, 58px) clamp(36px, 4.2vw, 56px);
+  text-align: center;
+  /* Lying-on-surface shadow: wide, warm, very low opacity */
   box-shadow:
-    0 1px 3px  rgba(60,40,10,.05),
-    0 4px 16px rgba(60,40,10,.06),
-    0 10px 32px rgba(60,40,10,.04);
+    0  1px  2px  rgba(50,32,10,.06),
+    0  4px  10px rgba(50,32,10,.07),
+    0 12px  28px rgba(50,32,10,.06),
+    0 30px  60px rgba(50,32,10,.05),
+    4px 6px 24px rgba(50,32,10,.04);
 }
 
+/* Paper grain — feTurbulence SVG noise, barely perceptible */
+.pearl-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.032;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Compass star */
+.pc-star-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.pc-star {
+  width: 38px;
+  height: 38px;
+  mix-blend-mode: multiply;   /* kills the white PNG background on ivory card */
+  opacity: 0.88;
+  /* Embossed into paper: highlight below, shadow above */
+  filter:
+    drop-shadow(0  1.5px 0   rgba(255,255,255,.60))
+    drop-shadow(0 -0.5px 0.8px rgba(55,36,10,.20));
+}
+
+/* "OUR PURPOSE" heading */
 .pc-heading {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 400;
-  font-size: clamp(15px, 1.5vw, 20px);
-  letter-spacing: 0.14em;
+  font-size: clamp(9px, 0.9vw, 12px);
+  letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--ink);
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
+/* Gold divider */
+.pc-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.pd-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right,
+    transparent 0%, #B8904A 25%, #D4A855 50%, #B8904A 75%, transparent 100%);
+}
+
+.pd-gem {
+  font-size: 7px;
+  color: #C09040;
+  line-height: 1;
+  opacity: 0.85;
+}
+
+/* Body — large, centred, letterpress feel */
 .pc-body {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 300;
-  font-style: italic;
-  font-size: clamp(13px, 1.2vw, 16px);
-  letter-spacing: 0.04em;
-  line-height: 1.7;
-  color: var(--ink-mid);
+  font-weight: 400;
+  font-size: clamp(16px, 1.7vw, 23px);
+  letter-spacing: 0.025em;
+  line-height: 1.76;
+  color: rgba(46, 42, 34, 0.80);
+  /* Soft deboss — 1px white below each letter */
+  text-shadow: 0 1px 0 rgba(255,255,255,.38);
+  margin-bottom: 0;
 }
 
-.pc-body--2 { margin-top: 10px; }
+/* Footer hairline */
+.pc-foot {
+  width: 36px;
+  height: 1px;
+  margin: 24px auto 0;
+  background: linear-gradient(to right,
+    transparent 0%, #B8904A 30%, #D4A855 50%, #B8904A 70%, transparent 100%);
+}
 
 /* Framework placeholder */
 .card-framework {
