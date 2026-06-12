@@ -71,7 +71,6 @@ body {
   background-image: url('/images/Background-base.png');
   background-size: cover;
   background-position: left top;
-  background-attachment: fixed;
   mix-blend-mode: normal;
   filter: saturate(0.84) brightness(0.95) sepia(0.05);
   -webkit-mask-image: linear-gradient(145deg,
@@ -88,7 +87,6 @@ body {
   background-image: url('/images/water-sparkle-wide.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   mix-blend-mode: multiply;
   filter: saturate(0.70) brightness(0.92) sepia(0.10);
   -webkit-mask-image: radial-gradient(ellipse 94% 88% at 50% 52%,
@@ -512,6 +510,54 @@ body {
 .scroll-canvas {
   height: 650vh;
   pointer-events: none;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   MOBILE — ≤ 600px
+═══════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  :root { --logo-size: clamp(110px, 32vw, 150px); }
+
+  /* Hero: stack logo above text, centred */
+  .logo-stage {
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(18px, 3.5vh, 28px);
+  }
+
+  .hero-copy {
+    height: auto;
+    padding: 0;
+    gap: clamp(10px, 2vh, 16px);
+    justify-content: flex-start;
+    text-align: center;
+  }
+
+  .hero-line {
+    font-size: clamp(13px, 4.2vw, 18px);
+    white-space: normal;
+  }
+
+  .hero-line-2 {
+    font-size: clamp(12px, 3.8vw, 16px);
+  }
+
+  /* Header: tagline too narrow at this width, drop it */
+  .sh-tagline { display: none; }
+  .sh-name    { font-size: 10px; }
+  .sh-connect { font-size: 10px; }
+
+  /* Calm finish: centre instead of pinned right */
+  .card-finish {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 8vh;
+    align-items: center;
+  }
 }
 
 
