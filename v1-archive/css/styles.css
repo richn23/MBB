@@ -1,0 +1,2271 @@
+/* ============================================================
+   MEANING BEYOND BRANDS — Experience Redesign
+   Atmosphere before information.
+   Identity before explanation.
+   Emotion before process.
+   ============================================================ */
+
+/* ── Tokens ─────────────────────────────────────────────── */
+:root {
+  --paper:   #F4EFE7;
+  --paper-2: #ECE3D4;
+  --ink:     #241F17;
+  --taupe:   #6E6555;
+  --gold:    #7C4A2B;
+  --gold-lt: #9B6040;
+  --line:    rgba(36,31,23,.11);
+  --side:    clamp(28px, 5.5vw, 80px);
+}
+
+/* ── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: linear-gradient(180deg,
+    #E8DCC9 0%,
+    #EDE4D6 25%,
+    #F2EBE2 50%,
+    #F7F2EC 75%,
+    #FAF7F2 100%);
+  color: var(--ink);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 18px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+::selection { background: var(--gold); color: var(--paper); }
+
+/* ── Cotton paper texture ────────────────────────────────── */
+/* Low-frequency turbulence = long organic fibers, not grain/noise */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .042;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.04 0.06' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+
+/* ── Ambient light — sunlight drifting across paper ─────── */
+/* Single soft warm pool, barely moves, 28s cycle            */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -15%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 110% 70% at 48% 38%,
+    rgba(252, 244, 224, .11),
+    transparent 68%
+  );
+  animation: ambientDrift 28s ease-in-out infinite;
+}
+@keyframes ambientDrift {
+  0%   { transform: translate(0%,   0%); }
+  50%  { transform: translate(3.5%, 2.5%); }
+  100% { transform: translate(0%,   0%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  body::after { animation: none; }
+}
+
+header, main, footer { position: relative; z-index: 2; }
+
+/* ── Shared utility ──────────────────────────────────────── */
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--side); }
+
+/* ============================================================
+   NAVIGATION — fixed, minimal
+   ============================================================ */
+.nav-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 22px var(--side);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* Fades to transparent below — does not box in the content */
+  background: linear-gradient(to bottom, var(--paper) 55%, transparent);
+}
+.nb-brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  z-index: 201;
+  position: relative;
+}
+/* Circular emblem logo mark */
+.nb-emblem {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1px solid rgba(168,133,74,.22);
+}
+.nb-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.nb-name {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+  line-height: 1;
+}
+.nb-sub {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 8.5px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .65;
+  white-space: nowrap;
+  line-height: 1;
+}
+.nb-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 201;
+}
+.nb-invite {
+  font-family: "Jost", sans-serif;
+  font-size: 11px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: opacity .3s;
+}
+.nb-invite:hover { opacity: .65; }
+
+/* Hamburger — shown on mobile */
+.nb-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  width: 44px; height: 44px;
+  padding: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nb-toggle span {
+  display: block;
+  width: 22px; height: 1px;
+  background: var(--ink);
+  transition: transform .35s, opacity .35s;
+  transform-origin: center;
+}
+header.open .nb-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+header.open .nb-toggle span:nth-child(2) { opacity: 0; }
+header.open .nb-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Full-screen editorial drawer */
+.nb-drawer {
+  display: none;
+  flex-direction: column;
+  position: fixed;
+  inset: 0;
+  background: var(--paper-2);
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  z-index: 199;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s cubic-bezier(.2,.7,.2,1);
+}
+header.open .nb-drawer { opacity: 1; pointer-events: auto; }
+.nb-drawer a {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(30px, 5vw, 48px);
+  font-weight: 300;
+  color: var(--taupe);
+  letter-spacing: .01em;
+  line-height: 1.4;
+  transition: color .25s;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+}
+.nb-drawer a:hover { color: var(--ink); }
+
+/* Drawer brand — wordmark revealed when menu opens */
+.nb-drawer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--line);
+  width: 100%;
+  max-width: 380px;
+}
+.nb-drawer-emblem {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(168,133,74,.28);
+}
+.nb-drawer-name {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(15px, 3.5vw, 20px);
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.3;
+}
+.nb-drawer-sub-label {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 9px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .55;
+}
+
+
+/* ============================================================
+   SCREEN — base for all six screens
+   ============================================================ */
+.screen {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 110px var(--side) 80px;
+  position: relative;
+  overflow: hidden;
+}
+.s-body { position: relative; z-index: 1; }
+
+/* Shared overline label */
+.s-overline {
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: .42em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 30px;
+  padding-top: 22px; /* room for the engraved rule above */
+}
+/* Eyebrow for identity screen (location) */
+.s-eyebrow {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .65;
+  display: block;
+  margin-bottom: 32px;
+}
+
+/* ============================================================
+   ATMOSPHERICS — shared atmospheric elements
+   ============================================================ */
+/* ============================================================
+   STATIONERY DESIGN SYSTEM
+   Every element derives from the brand identity itself.
+   Letterhead · Engraved rules · Compass seals · Fine borders
+   ============================================================ */
+
+/* ── Letterhead seal: compass mark as company crest ───────── */
+/* Identity screen — top-right corner, like a letterhead mark */
+.lh-seal {
+  position: absolute;
+  top: 108px;
+  right: var(--side);
+  width: 72px; height: 72px;
+  opacity: .16;
+  pointer-events: none;
+  z-index: 0;
+}
+.lh-seal svg { display: block; width: 100%; height: 100%; }
+
+/* ── Letterhead corner rules — fine L-shaped detail ───────── */
+/* Like the embossed corners of premium stationery */
+.lh-corner {
+  position: absolute;
+  width: 28px; height: 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+.lh-corner-tl {
+  top: 108px;  left: var(--side);
+  border-top:  1px solid rgba(168,133,74,.28);
+  border-left: 1px solid rgba(168,133,74,.28);
+}
+.lh-corner-tr {
+  top: 108px;  right: var(--side);
+  border-top:   1px solid rgba(168,133,74,.28);
+  border-right: 1px solid rgba(168,133,74,.28);
+}
+
+/* ── Section ornament divider ─────────────────────────────── */
+/* Fine ruled line with compass mark — letterpress ornament rule */
+.sep {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 26px var(--side);
+}
+.sep::before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(168,133,74,.22));
+}
+.sep::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, rgba(168,133,74,.22));
+}
+.sep svg { display: block; opacity: .38; flex-shrink: 0; }
+
+/* ── Section overline rule — engraved letterhead detail ────── */
+/* Short rule above eyebrow label, like letterhead section marks */
+.s-overline {
+  position: relative;
+}
+.s-overline::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 40px; height: 1px;
+  background: var(--gold);
+  opacity: .35;
+}
+
+/* ── Invitation: fine ruled card border ───────────────────── */
+/* Like a premium invitation card with a single inset border */
+.inv-frame {
+  position: absolute;
+  inset: 88px 48px 48px 48px;
+  border: 1px solid rgba(168,133,74,.13);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Invitation: compass closing seal ─────────────────────── */
+/* Like a wax seal or embossed mark at the close of a letter */
+.inv-seal {
+  position: absolute;
+  bottom: 56px;
+  right: 64px;
+  width: 60px; height: 60px;
+  opacity: .15;
+  pointer-events: none;
+  z-index: 0;
+}
+.inv-seal svg { display: block; width: 100%; height: 100%; }
+
+/* ── Scroll cue ──────────────────────────────────────────── */
+.scroll-cue {
+  position: absolute;
+  bottom: 36px;
+  left: var(--side);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sc-line {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scPulse 2.6s ease-in-out infinite;
+}
+@keyframes scPulse {
+  0%   { opacity: 0; transform: scaleY(0); transform-origin: top; }
+  45%  { opacity: 1; transform: scaleY(1); transform-origin: top; }
+  100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
+}
+
+/* ============================================================
+   SCREEN 1 — IDENTITY
+   ============================================================ */
+.s-identity-body {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 64px;
+  align-items: center;
+  width: 100%;
+}
+.identity-text { max-width: 700px; }
+.identity-emblem {
+  flex-shrink: 0;
+  margin: 0;
+}
+.identity-emblem img {
+  width: clamp(180px, 20vw, 300px);
+  height: clamp(180px, 20vw, 300px);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  mix-blend-mode: multiply;
+}
+.identity-headline {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  font-size: clamp(58px, 9.5vw, 148px);
+  line-height: 1.04;
+  letter-spacing: -.025em;
+  color: var(--ink);
+}
+.identity-headline em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+/* Brand tagline beneath the headline — matches asset copy */
+.identity-tagline {
+  margin-top: 32px;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(16px, 1.6vw, 22px);
+  color: var(--taupe);
+  line-height: 1.65;
+  opacity: .85;
+}
+
+/* ============================================================
+   SCREEN 2 — BELIEF
+   ============================================================ */
+.s-belief .s-body { max-width: 680px; }
+.belief-statement {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(26px, 3.8vw, 58px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  border: none;
+  padding: 0;
+  margin-bottom: 40px;
+}
+.belief-statement em { font-style: italic; color: var(--gold); }
+.belief-body {
+  font-size: clamp(17px, 1.7vw, 21px);
+  color: var(--taupe);
+  line-height: 1.75;
+  max-width: 50ch;
+  margin-bottom: 28px;
+}
+.belief-sectors {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .55;
+}
+
+/* ============================================================
+   SCREEN 3 — THE COMPASS
+   ============================================================ */
+.s-compass .s-body { text-align: center; }
+.compass-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 0 auto;
+  max-width: 640px;
+  padding: 8px 0 20px;
+}
+.cs-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.cs-north, .cs-south {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 0;
+}
+.cs-west { text-align: right; padding-right: 24px; }
+.cs-east { text-align: left;  padding-left: 24px; }
+.cs-west, .cs-east {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 100px;
+}
+.cs-west .cs-dir { align-self: flex-end; }
+.cs-east .cs-dir { align-self: flex-start; }
+.cs-val {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: clamp(11px, 1.5vw, 16px);
+  letter-spacing: .32em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+.cs-dir {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 8.5px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .45;
+}
+.cs-instrument { flex-shrink: 0; }
+.compass-svg {
+  display: block;
+  width: clamp(180px, 26vw, 340px);
+  height: auto;
+}
+/* Compass directions are interactive buttons */
+.cs-pt {
+  background: none;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity .25s;
+  padding: 8px 12px;
+}
+.cs-pt:hover .cs-val,
+.cs-pt:focus-visible .cs-val { color: var(--gold); }
+.cs-pt[aria-expanded="true"] .cs-val { color: var(--gold); }
+.cs-pt[aria-expanded="true"] .cs-dir { opacity: .8; }
+
+/* Animated description panel */
+.cs-desc-panel {
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+  text-align: center;
+  animation: descIn .45s cubic-bezier(.2,.7,.2,1) forwards;
+}
+@keyframes descIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.cs-desc-text {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(17px, 1.7vw, 22px);
+  color: var(--taupe);
+  line-height: 1.65;
+  max-width: 46ch;
+  margin: 0 auto;
+}
+.compass-hint {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 9.5px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .4;
+  margin-top: 20px;
+  text-align: center;
+  transition: opacity .6s;
+}
+.compass-hint.faded { opacity: 0; }
+
+.compass-note {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.5vw, 19px);
+  color: var(--taupe);
+  max-width: 44ch;
+  margin: 0 auto;
+  line-height: 1.65;
+  opacity: .85;
+}
+
+/* ============================================================
+   SCREEN 4 — METHOD
+   ============================================================ */
+.s-method .s-body { max-width: 900px; }
+.method-list { display: flex; flex-direction: column; }
+.method-item {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 36px;
+  align-items: baseline;
+  padding: 32px 0;
+  border-top: 1px solid var(--line);
+}
+.method-item:last-child { border-bottom: 1px solid var(--line); }
+.mi-title {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3vw, 44px);
+  letter-spacing: -.005em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+.mi-body {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 1.5vw, 19px);
+  color: var(--taupe);
+  line-height: 1.7;
+}
+
+/* ============================================================
+   SCREEN 5 — FOUNDER
+   ============================================================ */
+.s-founder-body {
+  display: grid;
+  grid-template-columns: .75fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1100px;
+}
+.founder-fig { position: relative; }
+.founder-fig img {
+  width: 100%;
+  height: 620px;
+  object-fit: cover;
+  object-position: center 15%;
+  display: block;
+  filter: grayscale(.06) contrast(1.03);
+}
+.founder-fig::after {
+  content: "";
+  position: absolute;
+  bottom: -18px; right: -18px;
+  left: 18px; top: 18px;
+  border: 1px solid var(--gold);
+  opacity: .3;
+  z-index: -1;
+}
+.founder-name {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -.015em;
+  margin-bottom: 10px;
+}
+.founder-role {
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  margin-bottom: 40px;
+}
+.founder-philosophy {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.2vw, 28px);
+  line-height: 1.45;
+  color: var(--ink);
+  border: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+.founder-philosophy em { color: var(--gold); }
+.founder-bio {
+  font-size: clamp(16px, 1.5vw, 19px);
+  color: var(--taupe);
+  line-height: 1.75;
+  max-width: 46ch;
+}
+
+/* ============================================================
+   SCREEN 6 — INVITATION
+   ============================================================ */
+.s-invitation .s-body {
+  max-width: 680px;
+  position: relative;
+  z-index: 1;
+}
+.inv-title {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  font-size: clamp(40px, 6.5vw, 100px);
+  line-height: 1.06;
+  letter-spacing: -.025em;
+  margin-bottom: 14px;
+}
+.inv-title em { font-style: italic; color: var(--gold); }
+.inv-location {
+  font-family: "Jost", sans-serif;
+  font-weight: 300;
+  font-size: 10px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .55;
+  margin-bottom: 48px;
+}
+
+/* Primary: single WhatsApp CTA */
+.inv-primary { margin-bottom: 40px; }
+.inv-whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(20px, 2.2vw, 28px);
+  color: var(--ink);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--gold);
+  transition: color .3s, gap .35s;
+}
+.inv-whatsapp-btn:hover { color: var(--gold); gap: 20px; }
+.inv-whatsapp-btn svg { flex-shrink: 0; color: var(--gold); }
+
+/* Secondary: email */
+.inv-secondary { margin-bottom: 36px; }
+.inv-secondary-label {
+  font-family: "Jost", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .55;
+  margin-bottom: 10px;
+}
+.inv-email {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 1.6vw, 20px);
+  color: var(--taupe);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 3px;
+  transition: color .3s, border-color .3s;
+}
+.inv-email:hover { color: var(--ink); border-color: var(--line); }
+
+/* Form — tertiary, revealed on request */
+.inv-form-toggle {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--gold-lt);
+  padding-bottom: 5px;
+  font-family: "Jost", sans-serif;
+  font-size: 10.5px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  cursor: pointer;
+  transition: color .3s, border-color .3s;
+}
+.inv-form-toggle:hover { color: var(--ink); border-color: var(--ink); }
+.inv-form {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 480px;
+}
+.ff { display: flex; flex-direction: column; gap: 8px; }
+.ff label {
+  font-family: "Jost", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+.ff input, .ff textarea {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  outline: none;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  color: var(--ink);
+  padding: 10px 0 12px;
+  width: 100%;
+  transition: border-color .3s;
+  resize: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.ff input:focus, .ff textarea:focus { border-bottom-color: var(--gold); }
+.ff input::placeholder, .ff textarea::placeholder { color: var(--taupe); opacity: .45; }
+.ff textarea { min-height: 96px; }
+.inv-submit {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 6px;
+  font-family: "Jost", sans-serif;
+  font-size: 11px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: color .3s;
+}
+.inv-submit:hover { color: var(--gold); }
+.inv-commitment {
+  margin-top: 14px;
+  font-family: "Jost", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .45;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--paper-2);
+  border-top: 1px solid var(--line);
+  padding: 44px var(--side) 40px;
+}
+.sf-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.sf-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 15px;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+}
+.sf-tag {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--taupe);
+}
+.sf-social {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: .55;
+}
+.sf-social a { transition: opacity .3s; }
+.sf-social a:hover { opacity: 1; color: var(--gold); }
+.sf-copy {
+  font-family: "Jost", sans-serif;
+  font-size: 9.5px;
+  letter-spacing: .2em;
+  color: var(--taupe);
+  opacity: .45;
+}
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity  1.4s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
+   RESPONSIVE — TABLET / MOBILE  ≤ 960px
+   ============================================================ */
+@media (max-width: 960px) {
+  :root { --side: 24px; }
+
+  /* Nav — emblem only, no text on mobile */
+  .nav-bar { padding: 18px 20px; }
+  .nb-invite { display: none; }
+  .nb-text { display: none; }          /* full name hidden in header bar */
+  .nb-emblem { width: 34px; height: 34px; }
+  .nb-toggle { display: flex; }
+  .nb-drawer { display: flex; }
+
+  /* All screens */
+  .screen { padding: 100px 24px 72px; min-height: 100svh; }
+
+  /* Stationery elements: simplify on small screens */
+  .lh-seal { width: 48px; height: 48px; top: 80px; opacity: .12; }
+  .lh-corner { width: 18px; height: 18px; top: 80px; }
+  .inv-frame { inset: 80px 24px 40px 24px; }
+  .inv-seal { width: 44px; height: 44px; bottom: 44px; right: 32px; }
+  .sep { padding: 20px 24px; }
+
+  /* Identity */
+  .s-identity-body {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .identity-emblem { order: 2; }
+  .identity-emblem img {
+    width: clamp(120px, 40vw, 200px);
+    height: clamp(120px, 40vw, 200px);
+  }
+  .identity-headline br { display: none; }
+  .identity-headline {
+    font-size: clamp(42px, 11vw, 72px);
+    line-height: 1.08;
+  }
+
+  /* Belief */
+  .belief-statement br { display: none; }
+  .belief-statement { font-size: clamp(24px, 6.5vw, 40px); }
+
+  /* Compass */
+  .compass-svg { width: clamp(150px, 40vw, 240px); }
+  .cs-west, .cs-east { min-width: 72px; }
+
+  /* Method */
+  .method-item {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 26px 0;
+  }
+  .mi-title { font-size: clamp(24px, 5.5vw, 36px); }
+
+  /* Founder */
+  .s-founder-body {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .founder-fig img { height: 360px; }
+  .founder-fig::after { display: none; }
+  .founder-name { font-size: clamp(36px, 9vw, 52px); }
+
+  /* Invitation */
+  .inv-title { font-size: clamp(34px, 9vw, 64px); }
+  .inv-title br { display: none; }
+
+  /* Footer */
+  .sf-inner { flex-direction: column; text-align: center; gap: 10px; }
+}
+
+/* ============================================================
+   RESPONSIVE — SMALL PHONE  ≤ 430px
+   ============================================================ */
+@media (max-width: 430px) {
+  :root { --side: 20px; }
+  .screen { padding: 88px 20px 60px; }
+  .nb-sub { display: none; }
+  .nb-emblem { width: 32px; height: 32px; }
+
+  .identity-headline { font-size: clamp(36px, 10.5vw, 54px); }
+  .belief-statement { font-size: clamp(22px, 7vw, 34px); }
+  .belief-body { font-size: 16px; }
+  .compass-svg { width: clamp(120px, 36vw, 180px); }
+  .cs-west, .cs-east { min-width: 58px; }
+  .cs-val { font-size: 10px; letter-spacing: .24em; }
+  .mi-title { font-size: clamp(22px, 6vw, 30px); }
+  .mi-body { font-size: 16px; }
+  .founder-fig img { height: 280px; }
+  .inv-title { font-size: clamp(30px, 10vw, 52px); }
+  .inv-ch { font-size: 16px; }
+  .ff input, .ff textarea { font-size: 16px; } /* prevent iOS zoom */
+  .inv-submit { min-height: 44px; }
+}
+
+
+/* ============================================================
+   EDITORIAL REDESIGN 2026
+   One immersive luxury brand narrative.
+   Quiet confidence. Cormorant throughout.
+   Think Aman. The Row. Loro Piana.
+   ============================================================ */
+
+/* ── TOKEN OVERRIDES ────────────────────────────────────── */
+:root { --taupe: #4A4235; }
+
+/* ── BACKGROUND BASE ─────────────────────────────────────── */
+body {
+  background: #EDE8DF; /* fallback while image loads */
+}
+
+/* The image — fixed so it stays still as content scrolls over it */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('../images/Background-base.png');
+  background-size: cover;
+  background-position: center top;
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+/* Water sparkle animation — three layers of soft light caustics
+   that drift and fade independently, simulating sunlight on moving water.
+   Confined to the lower 70% of the screen where the water lives. */
+.site-sparkle {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* Only animate over the water area — top 30% is shell/marble, leave it still */
+  mask-image: linear-gradient(to bottom, transparent 28%, black 48%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 28%, black 48%, black 100%);
+}
+
+/* Caustic layer A — slow broad drift */
+.site-sparkle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 18% 12% at 22% 62%, rgba(255,252,235,.55) 0%, transparent 100%),
+    radial-gradient(ellipse 10% 7%  at 58% 74%, rgba(255,252,235,.45) 0%, transparent 100%),
+    radial-gradient(ellipse 14% 9%  at 38% 88%, rgba(255,252,235,.40) 0%, transparent 100%),
+    radial-gradient(ellipse 8%  5%  at 72% 55%, rgba(255,252,235,.35) 0%, transparent 100%),
+    radial-gradient(ellipse 20% 11% at 14% 80%, rgba(255,252,235,.30) 0%, transparent 100%);
+  animation: sparkleA 5s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+/* Caustic layer B — faster, smaller, offset timing */
+.site-sparkle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 9%  6%  at 44% 68%, rgba(255,250,220,.50) 0%, transparent 100%),
+    radial-gradient(ellipse 13% 8%  at 68% 82%, rgba(255,250,220,.45) 0%, transparent 100%),
+    radial-gradient(ellipse 7%  5%  at 28% 72%, rgba(255,250,220,.40) 0%, transparent 100%),
+    radial-gradient(ellipse 16% 10% at 82% 60%, rgba(255,250,220,.35) 0%, transparent 100%),
+    radial-gradient(ellipse 11% 7%  at 50% 90%, rgba(255,250,220,.30) 0%, transparent 100%);
+  animation: sparkleB 3.8s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+
+@keyframes sparkleA {
+  0%   { transform: translate(0%,    0%)   scale(1.00); opacity: 0.7; }
+  33%  { transform: translate(1.2%,  0.8%) scale(1.04); opacity: 1.0; }
+  66%  { transform: translate(-0.8%, 1.5%) scale(0.97); opacity: 0.8; }
+  100% { transform: translate(0.5%, -0.6%) scale(1.02); opacity: 0.9; }
+}
+
+@keyframes sparkleB {
+  0%   { transform: translate(0%,    0%)    scale(1.00); opacity: 0.6; }
+  40%  { transform: translate(-1.5%, 0.6%)  scale(1.05); opacity: 1.0; }
+  80%  { transform: translate(1.0%,  -1.0%) scale(0.96); opacity: 0.75; }
+  100% { transform: translate(-0.4%, 1.2%)  scale(1.03); opacity: 0.85; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-sparkle::before,
+  .site-sparkle::after { animation: none; }
+}
+
+/* Everything else sits above the background layers */
+header, main, footer { position: relative; z-index: 2; }
+
+/* ── HERO — full-bleed immersive moment ─────────────────── */
+.s-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Pearl-water fills the entire viewport */
+.hero-right {
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/pearl-water.jpg');
+  background-size: cover;
+  background-position: center 38%;
+  z-index: 0;
+}
+
+/* Radial veil — darker at edges, breathing space at centre */
+.hero-left {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 70% 65% at 45% 52%,
+    rgba(30, 24, 16, 0.18) 0%,
+    rgba(30, 24, 16, 0.52) 100%
+  );
+}
+
+/* Centred lockup */
+.hero-lockup {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 720px;
+  padding: 120px var(--side, 48px) 100px;
+}
+
+/* Gold compass star */
+.hero-star {
+  width: clamp(32px, 3.5vw, 48px);
+  height: auto;
+  display: block;
+  margin-bottom: 14px;
+  mix-blend-mode: multiply;
+}
+
+/* "MEANING BEYOND BRANDS" small caps label */
+.hero-brand-name {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(9px, 0.85vw, 11px);
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(245,240,230,.70);
+  margin-bottom: 14px;
+}
+
+/* Thin ornamental rule with centre diamond */
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.hd-line {
+  display: block;
+  flex: 1;
+  max-width: 48px;
+  height: 1px;
+  background: linear-gradient(to right, rgba(168,133,74,.55), rgba(168,133,74,.20));
+}
+.hero-divider:nth-of-type(2) .hd-line {
+  background: linear-gradient(to left, rgba(168,133,74,.55), rgba(168,133,74,.20));
+}
+
+/* Main headline — three stacked lines */
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(52px, 7.5vw, 108px);
+  line-height: 1.0;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hh-dark  { color: #F5F0E6; }
+.hh-gold  { color: #D4AC7A; }
+
+/* Body copy */
+.hero-sub {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(245,240,230,.80);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+/* "STRATEGY | STORYTELLING | SIGNIFICANCE" */
+.hero-pillars {
+  font-family: "Jost", sans-serif;
+  font-size: clamp(8px, 0.75vw, 10px);
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(245,240,230,.45);
+}
+
+/* ── CONNECT ─────────────────────────────────────────────── */
+.s-connect {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px clamp(24px, 6vw, 80px);
+  min-height: 60vh;
+}
+
+.connect-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  text-align: center;
+  max-width: 480px;
+}
+
+.connect-star { margin-bottom: 16px; }
+
+.connect-heading {
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-size: clamp(11px, 1.1vw, 13px);
+  letter-spacing: 0.40em;
+  text-transform: uppercase;
+  color: #2C2416;
+  margin-bottom: 18px;
+}
+
+.connect-rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+.connect-rule-line {
+  display: block;
+  width: 44px; height: 1px;
+  background: linear-gradient(to right, rgba(168,133,74,.50), rgba(168,133,74,.15));
+}
+.connect-rule .connect-rule-line:last-child {
+  background: linear-gradient(to left, rgba(168,133,74,.50), rgba(168,133,74,.15));
+}
+
+/* WhatsApp button */
+.connect-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #7A5C32;
+  color: #F5F0E8;
+  font-family: "Jost", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 2px;
+  margin-bottom: 22px;
+  transition: background .28s, transform .28s;
+}
+.connect-wa:hover {
+  background: #5C3210;
+  transform: translateY(-1px);
+}
+
+/* Email */
+.connect-email {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-weight: 300;
+  color: #4A3E2C;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(168,133,74,.30);
+  padding-bottom: 3px;
+  margin-bottom: 36px;
+  transition: color .25s, border-color .25s;
+}
+.connect-email:hover { color: #A8854A; border-color: #A8854A; }
+
+/* Social links */
+.connect-social {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #4A3E2C;
+  opacity: 0.55;
+}
+.connect-social a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity .25s, color .25s;
+}
+.connect-social a:hover { opacity: 1; color: #A8854A; }
+
+/* ── INFOGRAPHIC ─────────────────────────────────────────────
+   Built fresh in HTML/CSS. Three parts: Inspiration → Foundation → Approach
+   Hover: .ig-hoverable scales 1.03 — subtle, precise.
+   ──────────────────────────────────────────────────────────── */
+.s-ig {
+  padding: 80px clamp(24px, 6vw, 80px) 100px;
+}
+
+.ig-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* Universal hover — felt, not obvious */
+.ig-hoverable {
+  transition: transform 0.38s cubic-bezier(.22,.68,0,1.2);
+  cursor: default;
+}
+.ig-hoverable:hover { transform: scale(1.03); }
+
+/* Block wrapper — each of the three parts */
+.ig-block {
+  width: 100%;
+  text-align: center;
+}
+
+/* Star at top of inspiration */
+.ig-star-top { margin-bottom: 10px; }
+
+/* Section labels */
+.ig-section-label {
+  font-family: "Jost", sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #4A3E2C;
+  margin-bottom: 32px;
+}
+.ig-section-label--gold { color: #A8854A; margin-bottom: 20px; }
+
+/* ── INSPIRATION: 3-column grid ── */
+.ig-tri-grid {
+  display: grid;
+  grid-template-columns: 1fr 28px 1fr 28px 1fr;
+  align-items: start;
+  gap: 12px;
+}
+.ig-tri-col {
+  background: rgba(245,240,232,.70);
+  border: 1px solid rgba(168,133,74,.14);
+  border-radius: 4px;
+  padding: 28px 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.ig-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 48px;
+}
+
+/* Story circle */
+.ig-story-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(168,133,74,.30);
+  background: rgba(168,133,74,.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 12px;
+}
+.ig-story-text {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13px;
+  line-height: 1.70;
+  color: #3A3025;
+  text-align: left;
+}
+.ig-story-text em { color: #A8854A; font-style: normal; }
+
+/* Icon rings */
+.ig-icon-ring {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(168,133,74,.35);
+  background: rgba(245,240,232,.60);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.ig-icon-ring--lg {
+  width: 56px; height: 56px;
+  margin: 0 auto 14px;
+}
+
+.ig-col-label {
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color: #4A3E2C;
+}
+.ig-col-body {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 14px;
+  line-height: 1.70;
+  color: #3A3025;
+  text-align: center;
+}
+.ig-col-body em { color: #A8854A; font-style: normal; }
+.ig-italic { font-style: italic; }
+
+/* ── FOUNDATION BOX ── */
+.ig-foundation-box {
+  border: 1px solid rgba(168,133,74,.20);
+  border-radius: 8px;
+  background: rgba(245,240,232,.55);
+  padding: 32px 28px;
+  margin-top: 8px;
+}
+.ig-foundation-intro {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: #3A3025;
+  line-height: 1.70;
+  margin-bottom: 28px;
+}
+.ig-foundation-intro em { font-style: italic; color: #A8854A; }
+
+.ig-four-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.ig-four-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 10px;
+}
+.ig-four-icon {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(168,133,74,.28);
+  background: rgba(245,240,232,.70);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ig-four-label {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #3A3025;
+  text-align: center;
+}
+
+/* ── CONNECTORS between blocks ── */
+.ig-connector {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+}
+.ig-conn-line {
+  display: block;
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(168,133,74,.40), rgba(168,133,74,.10));
+}
+
+/* ── APPROACH BADGE ── */
+.ig-approach-badge {
+  display: inline-block;
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #F5F0E8;
+  background: #7A5C32;
+  border-radius: 20px;
+  padding: 7px 20px;
+  margin-bottom: 12px;
+}
+.ig-approach-sub {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: #4A3E2C;
+  margin-bottom: 40px;
+}
+
+/* ── PILLARS ROW ── */
+.ig-pillars {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+}
+.ig-pillar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+}
+.ig-pillar-num {
+  font-family: "Jost", sans-serif;
+  font-size: 11px;
+  color: #A8854A;
+  opacity: .70;
+  letter-spacing: 0.08em;
+}
+.ig-pillar-circle {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(245,240,232,.80);
+  border: 1px solid rgba(168,133,74,.25);
+  box-shadow: 0 4px 16px rgba(60,45,20,.08), 0 1px 0 rgba(255,255,255,.70) inset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ig-pillar-name {
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #2C2416;
+}
+.ig-pillar-rule {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ig-pillar-rule span {
+  display: block;
+  width: 18px; height: 1px;
+  background: rgba(168,133,74,.40);
+}
+.ig-pillar-desc {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 13px;
+  line-height: 1.65;
+  color: #4A3E2C;
+  text-align: center;
+}
+
+/* Connector between pillars */
+.ig-pillar-connector {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 44px;
+  flex-shrink: 0;
+}
+.ig-pc-line {
+  display: block;
+  width: 12px; height: 1px;
+  background: rgba(168,133,74,.35);
+}
+
+/* ── CLOSING QUOTE ── */
+.ig-closing {
+  background: rgba(245,240,232,.65);
+  border: 1px solid rgba(168,133,74,.18);
+  border-radius: 6px;
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  width: 100%;
+  margin-top: 8px;
+}
+.ig-closing-star { flex-shrink: 0; }
+.ig-closing-text { text-align: left; }
+.ig-closing-main {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 400;
+  color: #2C2416;
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.ig-closing-em {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  color: #A8854A;
+  line-height: 1.55;
+}
+
+/* ── INFOGRAPHIC MOBILE ── */
+@media (max-width: 768px) {
+  .ig-tri-grid { grid-template-columns: 1fr; }
+  .ig-arrow { display: none; }
+  .ig-four-grid { grid-template-columns: repeat(2, 1fr); }
+  .ig-pillars { flex-wrap: wrap; justify-content: center; }
+  .ig-pillar { width: 45%; flex: none; }
+  .ig-pillar-connector { display: none; }
+  .ig-closing { flex-direction: column; text-align: center; }
+  .ig-closing-text { text-align: center; }
+}
+
+/* ── OUR PURPOSE — floating paper note ──────────────────────
+   Three layers create the 3D paper illusion:
+   pn-shadow  → diffuse ambient shadow beneath the card
+   pn-edge    → the thick bottom/right edge of the paper stack
+   pn-sheet   → the top surface with texture + slight sheen
+   ──────────────────────────────────────────────────────────── */
+.s-purpose {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px clamp(24px, 6vw, 80px);
+  min-height: 70vh;
+}
+
+/* Wrapper holds all three layers in perfect registration */
+.purpose-note {
+  position: relative;
+  width: min(480px, 88vw);
+}
+
+/* Shadow and edge hidden — mask handles the dissolve */
+.pn-shadow,
+.pn-edge { display: none !important; }
+
+/* Sheet fades at all edges via radial mask — no hard box */
+.pn-sheet {
+  position: relative;
+  z-index: 2;
+  background: rgba(237, 229, 216, 0.82);
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  padding: clamp(56px, 7vw, 80px) clamp(56px, 7vw, 80px);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+  mask-image: radial-gradient(
+    ellipse 88% 88% at 50% 50%,
+    black 40%,
+    rgba(0,0,0,0.6) 68%,
+    transparent 90%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 88% 88% at 50% 50%,
+    black 40%,
+    rgba(0,0,0,0.6) 68%,
+    transparent 90%
+  );
+}
+
+/* Gold 4-point star */
+.pn-star {
+  width: 18px;
+  height: 18px;
+  display: block;
+  margin: 0 auto 18px;
+  opacity: .88;
+}
+
+/* "OUR PURPOSE" heading */
+.pn-heading {
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-size: clamp(11px, 1.1vw, 13px);
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: #2C2416;
+  margin-bottom: 16px;
+}
+
+/* Ornamental rule */
+.pn-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.pn-line {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: linear-gradient(to right, rgba(168,133,74,.55), rgba(168,133,74,.20));
+}
+.pn-rule .pn-line:last-child {
+  background: linear-gradient(to left, rgba(168,133,74,.55), rgba(168,133,74,.20));
+}
+
+/* Body copy */
+.pn-body {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(17px, 1.8vw, 21px);
+  font-weight: 400;
+  line-height: 1.72;
+  color: #3A3025;
+}
+
+/* ── HERO MOBILE ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .s-hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 55vw;
+  }
+  .hero-left {
+    padding: 100px 28px 48px;
+  }
+  .hero-lockup { max-width: 100%; }
+  .hero-headline { font-size: clamp(42px, 13vw, 72px); }
+  .hero-sub { font-size: 15px; }
+}
+
+/* ── 1. CONTINUOUS BACKGROUND SYSTEM ────────────────────────
+   Single warm gradient across the full page height.
+   Champagne at the top → parchment → pearl at the foot.
+   No section breaks. No abrupt colour shifts.
+   ──────────────────────────────────────────────────────────── */
+
+/* Retire old body pseudo-elements — the site-backdrop replaces them */
+body::before, body::after { display: none !important; }
+
+.site-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+/* Layer A — parchment gradient foundation */
+.site-backdrop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    170deg,
+    #DDD0B8 0%,
+    #E8DCC9 12%,
+    #EDE4D6 28%,
+    #F0E9DF 50%,
+    #F5F1EB 72%,
+    #F9F6F1 88%,
+    #FDFCFA 100%
+  );
+}
+/* Layer B — water sparkle: ambient shimmer, felt not seen */
+.site-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/water-sparkle.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  background-attachment: fixed;
+  opacity: 0.055;
+  mix-blend-mode: soft-light;
+  filter: saturate(0.18) brightness(1.25);
+}
+
+/* Paper texture — lives on a separate fixed layer above the backdrop */
+.site-texture {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .036;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.04 0.06' numOctaves='6' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-size: 400px 400px;
+}
+
+/* Ambient light drift — gentle warmth moving across the ground */
+.site-light {
+  position: fixed;
+  inset: -15%;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 110% 70% at 48% 38%,
+    rgba(252,244,224,.07),
+    transparent 68%
+  );
+  animation: ambientDrift 32s ease-in-out infinite;
+}
+@keyframes ambientDrift {
+  0%   { transform: translate(0%, 0%); }
+  50%  { transform: translate(3.5%, 2.5%); }
+  100% { transform: translate(0%, 0%); }
+}
+@media (prefers-reduced-motion: reduce) { .site-light { animation: none; } }
+
+header, main, footer { position: relative; z-index: 2; }
+
+/* ── 2. HERO — editorial composition ────────────────────────
+   Text left, dark on parchment — quiet confidence.
+   pearl-water.jpg fades in from the right edge — organic, not a poster.
+   NO dark veil. NO white text. Photography is environment, not drama.
+   ──────────────────────────────────────────────────────────── */
+.s-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: 140px var(--side) 100px;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* pearl-water.jpg: shows the right half (shell / pearl / marble).
+   Left-to-right mask dissolves photography into the parchment ground. */
+.hero-image-right {
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 52%;
+  background-image: url('../images/pearl-water.jpg');
+  background-size: cover;
+  background-position: right 35%;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: linear-gradient(to right,
+    transparent 0%,
+    rgba(0,0,0,.25) 18%,
+    rgba(0,0,0,.65) 48%,
+    black 100%
+  );
+  -webkit-mask-image: linear-gradient(to right,
+    transparent 0%,
+    rgba(0,0,0,.25) 18%,
+    rgba(0,0,0,.65) 48%,
+    black 100%
+  );
+  filter: saturate(0.80) brightness(1.05);
+}
+
+.hero-body {
+  position: relative;
+  z-index: 1;
+  max-width: min(580px, 54vw);
+}
+
+/* Round emblem — small, precise, like a wax seal */
+.hero-emblem {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 30px;
+  border: 1px solid rgba(168,133,74,.20);
+  mix-blend-mode: multiply;
+}
+
+/* Dark ink on parchment — the editorial register */
+.s-hero .identity-headline {
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(255,255,255,.50), 0 6px 18px rgba(36,31,23,.04);
+}
+.s-hero .identity-headline em {
+  font-style: italic;
+  background: linear-gradient(135deg, #5C3210 0%, #8B4A1E 30%, #B87040 52%, #7A3E18 72%, #5C3210 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255,255,255,.28)) drop-shadow(0 2px 6px rgba(130,80,20,.12));
+}
+.s-hero .s-eyebrow {
+  color: var(--taupe);
+  opacity: 0.60;
+  letter-spacing: 0.26em;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: block;
+}
+.s-hero .identity-tagline {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--taupe);
+  margin-top: 18px;
+  line-height: 1.72;
+}
+
+/* CTA — dark, understated, ink with a gold hover */
+.hero-cta {
+  display: inline-block;
+  margin-top: 38px;
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(36,31,23,.22);
+  padding-bottom: 5px;
+  transition: color .30s, border-color .30s;
+}
+.hero-cta:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ── 3. PURPOSE — stationery found on the page ──────────── */
+.s-purpose { background: transparent; }
+.purpose-card {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 60px var(--side);
+}
+.purpose-star { width: 20px; height: 20px; display: block; margin: 0 auto 26px; }
+.purpose-heading {
+  font-family: "Jost", sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.46em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.purpose-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.purpose-rule-line {
+  display: block;
+  width: 48px; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(155,96,64,.40), transparent);
+}
+.purpose-body {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(19px, 2.2vw, 26px);
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--ink);
+  max-width: 36ch;
+  margin: 0 auto;
+}
+
+/* ── 4. APPROACH — infographic as a discovered strategy page */
+.s-method .s-body { max-width: 840px; text-align: center; }
+.method-intro {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: clamp(17px, 1.9vw, 22px);
+  color: var(--taupe);
+  max-width: 40ch;
+  margin: 0 auto 52px;
+  line-height: 1.72;
+}
+.method-framework { width: 100%; margin: 0 auto 52px; }
+.method-framework-img {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.method-closing {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(17px, 1.8vw, 22px);
+  color: var(--taupe);
+  line-height: 1.72;
+  text-align: center;
+  max-width: 44ch;
+  margin: 0 auto;
+}
+.method-closing em { font-style: italic; color: var(--gold); }
+
+/* ── 5. COMPASS — jewellery object ─────────────────────── */
+.cs-star-img {
+  width: clamp(80px, 12vw, 120px);
+  height: auto;
+  display: block;
+  mix-blend-mode: multiply;
+  opacity: 0.82;
+}
+
+/* ── 6. CLOSING — emotional climax ──────────────────────────
+   pearl-water.jpg right: shell, pearls, business card.
+   Photography breathes on the right. Text sits on parchment left.
+   Same quiet language as the hero. No dark poster.
+   ──────────────────────────────────────────────────────────── */
+.s-closing {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+  background: transparent;
+}
+/* pearl-water.jpg — right half shows the photography */
+.closing-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../images/pearl-water.jpg');
+  background-size: cover;
+  background-position: right 30%;
+  z-index: 0;
+}
+/* Parchment veil: opaque left, dissolves right — text reads dark on light */
+.closing-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to right,
+    rgba(238,230,218,.97) 0%,
+    rgba(238,230,218,.90) 30%,
+    rgba(238,230,218,.48) 56%,
+    rgba(238,230,218,.10) 78%,
+    transparent 100%
+  );
+}
+.closing-body {
+  position: relative;
+  z-index: 2;
+  padding: 120px var(--side) 100px;
+  max-width: 540px;
+}
+/* Dark ink on parchment — mirrors the hero's quiet confidence */
+.closing-headline {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  font-size: clamp(50px, 8vw, 124px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 28px;
+  text-shadow: 0 1px 0 rgba(255,255,255,.42), 0 6px 18px rgba(36,31,23,.04);
+}
+.closing-headline em {
+  font-style: italic;
+  background: linear-gradient(135deg, #5C3210 0%, #8B4A1E 30%, #B87040 52%, #7A3E18 72%, #5C3210 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.closing-rule { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+.closing-rule-line { display: block; width: 40px; height: 1px; background: rgba(155,96,64,.32); }
+.closing-sub {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(16px, 1.7vw, 20px);
+  color: var(--taupe);
+  line-height: 1.80;
+  margin-bottom: 8px;
+}
+.closing-cta { color: var(--ink); border-color: rgba(36,31,23,.20); }
+.closing-cta:hover { color: var(--gold); border-color: var(--gold); }
+
+/* ── 7. INSIGHTS ──────────────────────────────────────────── */
+.insights-list { list-style: none; padding: 0; margin: 0; }
+.insight-item { border-top: 1px solid var(--line); }
+.insight-item:last-child { border-bottom: 1px solid var(--line); }
+.insight-item a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  text-decoration: none;
+  color: var(--ink);
+  transition: opacity .28s;
+}
+.insight-item a:hover { opacity: 0.50; }
+.insight-title {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 300;
+  font-size: clamp(16px, 1.6vw, 21px);
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+}
+.insight-arrow { font-size: 13px; color: var(--gold); flex-shrink: 0; }
+
+/* ── 8. CONNECT — social line ─────────────────────────────── */
+.inv-social {
+  display: block;
+  font-family: "Jost", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--taupe);
+  opacity: 0.52;
+  margin-bottom: 36px;
+}
+.inv-social a:hover { opacity: 1; color: var(--gold); }
+
+/* ── MOBILE ───────────────────────────────────────────────── */
+@media (max-width: 960px) {
+  /* Hero: hide the right-edge photography — full parchment ground on mobile */
+  .hero-image-right { display: none; }
+  .hero-body { max-width: 100%; }
+  .s-hero { align-items: flex-start; padding: 120px var(--side) 80px; }
+  .s-hero .identity-headline { font-size: clamp(44px, 12vw, 72px); }
+  .hero-emblem { width: 44px; height: 44px; }
+
+  /* Closing: full-width veil since image fills the whole section */
+  .closing-veil {
+    background: linear-gradient(
+      to bottom,
+      rgba(238,230,218,.94) 0%,
+      rgba(238,230,218,.72) 50%,
+      rgba(238,230,218,.90) 100%
+    );
+  }
+  .closing-headline { font-size: clamp(42px, 11vw, 68px); }
+  .closing-body { max-width: 100%; }
+
+  .purpose-body { font-size: clamp(18px, 5vw, 24px); }
+  .method-framework-img { max-width: 100%; }
+}
+
+/* ── HERO BUG FIXES ──────────────────────────────────────── */
+
+/* 1. Stop Background-base.png ghosting through the hero */
+.site-bg {
+  opacity: 0.04;
+  filter: saturate(0) brightness(1.5);
+}
+
+/* 2. Hero star — inline SVG, no white box */
+.hero-star {
+  width: 32px;
+  height: 32px;
+  display: block;
+  margin: 0 auto 18px;
+  opacity: 0.88;
+}
+
+/* 3. Centre the lockup */
+.s-hero {
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.hero-lockup {
+  width: 100% !important;
+  max-width: 680px !important;
+  text-align: center !important;
+}
+
+/* 4. Full-coverage veil — no edge bleed */
+.hero-left {
+  background: linear-gradient(
+    175deg,
+    rgba(20, 16, 10, 0.40) 0%,
+    rgba(20, 16, 10, 0.18) 45%,
+    rgba(20, 16, 10, 0.42) 100%
+  ) !important;
+}
+
+/* Ensure headline stacks centred */
+.hero-headline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── CRITICAL FIX: remove all ghost text ────────────────── */
+
+/* Kill site-bg entirely — Background-base.png has baked text */
+.site-bg { display: none !important; }
+
+/* pearl-water.jpg left half = baked text, right half = pure photography
+   Force background-position to show only the right/photography side */
+.hero-right {
+  background-position: right center !important;
+}
+
+/* ── USE Background-base.png FOR HERO — no baked text ───── */
+.hero-right {
+  background-image: url('../images/Background-base.png') !important;
+  background-position: center top !important;
+}
+
+/* ── HERO BOTTOM FADE ────────────────────────────────────── */
+.s-hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 28%;
+  background: linear-gradient(to bottom, transparent, #EDE8DF);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ── HERO FADE — mask to transparent, no colour mismatch ── */
+.s-hero::after { display: none !important; } /* remove old gradient overlay */
+
+.s-hero {
+  -webkit-mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+}
+
+/* ── PURPOSE CARD — restore 3D depth ────────────────────── */
+
+/* Bring back shadow and edge layers */
+.pn-shadow,
+.pn-edge { display: block !important; }
+
+/* Deeper, more dramatic shadow */
+.pn-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: transparent;
+  box-shadow:
+    0  6px  16px rgba(60,45,20,.14),
+    0 18px  42px rgba(60,45,20,.12),
+    0 40px  80px rgba(60,45,20,.10),
+    0 70px 120px rgba(60,45,20,.07);
+  transform: translate(6px, 10px);
+  z-index: 0;
+}
+
+/* Thicker, more visible edge */
+.pn-edge {
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  background: #C8BDA8;
+  transform: translate(7px, 8px);
+  z-index: 1;
+}
+
+/* Clean crisp sheet — no mask dissolve */
+.pn-sheet {
+  position: relative;
+  z-index: 2;
+  background: #F7F3EC;
+  border-radius: 2px;
+  padding: clamp(56px, 7vw, 80px) clamp(56px, 7vw, 80px);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(0,0,0,.03);
+}
