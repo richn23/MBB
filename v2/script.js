@@ -28,7 +28,8 @@
      CONTACT DETAILS — update BOTH values here only.
   ══════════════════════════════════════════════════ */
   var CONTACT = {
-    waUrl: 'https://wa.me/971585903249',
+    waUrl:      'https://wa.me/971585903249',
+    formAction: 'https://formspree.io/f/mbdezbwq',
   };
 
   /* ── Math helpers ── */
@@ -284,9 +285,135 @@
   })();
 
   /* ── Contact form ── */
-  var contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) { e.preventDefault(); });
-  }
+  (function () {
+    var form    = document.getElementById('contactForm');
+    if (!form) return;
+
+    var nameEl  = document.getElementById('cfName');
+    var emailEl = document.getElementById('cfEmail');
+    var msgEl   = document.getElementById('cfMessage');
+    var submit  = form.querySelector('.cff-submit');
+
+    /* Validation — soft gold underline on invalid fields */
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function validate() {
+      var ok = true;
+      [nameEl, emailEl, msgEl].forEach(function (el) {
+        el.style.borderBottomColor = '';
+      });
+      if (!nameEl.value.trim()) {
+        nameEl.style.borderBottomColor = 'var(--gold)';
+        ok = false;
+      }
+      if (!EMAIL_RE.test(emailEl.value.trim())) {
+        emailEl.style.borderBottomColor = 'var(--gold)';
+        ok = false;
+      }
+      if (!msgEl.value.trim()) {
+        msgEl.style.borderBottomColor = 'var(--gold)';
+        ok = false;
+      }
+      return ok;
+    }
+
+    /* State helpers */
+    function setDisabled(on) {
+      [nameEl, emailEl, msgEl, submit].forEach(function (el) {
+        el.disabled = on;
+      });
+    }
+
+    function showSuccess() {
+      /* Fade form out, replace with quiet confirmation */
+      form.style.transition = 'opacity .5s ease';
+      form.style.opacity = '0';
+      setTimeout(function () {
+        form.style.display = 'none';
+
+        var wrap = document.createElement('div');
+        wrap.className = 'cf-confirm';
+
+        var heading = form.parentNode.querySelector('.contact-heading');
+        if (heading) {
+          heading.style.transition = 'opacity .5s ease';
+          heading.style.opacity = '0';
+        }
+
+        var msg = document.createElement('p');
+        msg.className = 'cf-confirm-msg';
+        msg.textContent = 'Thank you. Your message has been received.';
+
+        var rule = document.createElement('div');
+        rule.className = 'cf-confirm-rule';
+
+        wrap.appendChild(msg);
+        wrap.appendChild(rule);
+
+        /* Insert after the form's parent column */
+        var col = form.parentNode;
+        col.appendChild(wrap);
+
+        /* Fade in */
+        wrap.style.opacity = '0';
+        wrap.style.transition = 'opacity .6s ease';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            wrap.style.opacity = '1';
+          });
+        });
+      }, 520);
+    }
+
+    function showError() {
+      var existing = form.querySelector('.cf-error');
+      if (existing) return;
+      var line = document.createElement('p');
+      line.className = 'cf-error';
+      line.textContent = 'Something went wrong. Please try again, or reach us on WhatsApp.';
+      form.appendChild(line);
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var existing = form.querySelector('.cf-error');
+      if (existing) existing.parentNode.removeChild(existing);
+
+      if (!validate()) return;
+
+      setDisabled(true);
+      var originalText = submit.textContent;
+      submit.style.transition = 'opacity .3s ease';
+      submit.style.opacity = '.5';
+      submit.textContent = 'Sending…';
+
+      fetch(CONTACT.formAction, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name:    nameEl.value.trim(),
+          email:   emailEl.value.trim(),
+          message: msgEl.value.trim(),
+        }),
+      })
+        .then(function (res) { return res.json().then(function (d) { return { ok: res.ok, data: d }; }); })
+        .then(function (r) {
+          if (r.ok) {
+            showSuccess();
+          } else {
+            setDisabled(false);
+            submit.style.opacity = '1';
+            submit.textContent = originalText;
+            showError();
+          }
+        })
+        .catch(function () {
+          setDisabled(false);
+          submit.style.opacity = '1';
+          submit.textContent = originalText;
+          showError();
+        });
+    });
+  })();
 
 })();
