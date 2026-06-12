@@ -893,7 +893,7 @@ body {
   max-width: 480px;
 }
 
-.cff-field { display: flex; flex-direction: column; gap: 10px; }
+.cff-field { display: flex; flex-direction: column; gap: 8px; }
 
 .cff-label {
   font-family: 'Cormorant Garamond', serif;
@@ -907,14 +907,14 @@ body {
   font-weight: 300; font-size: clamp(15px,1.2vw,18px);
   color: var(--ink); background: transparent;
   border: none; border-bottom: 1px solid rgba(46,42,34,.20);
-  border-radius: 0; padding: 6px 0 10px;
+  border-radius: 0; padding: 12px 0 12px;
   outline: none; width: 100%;
   transition: border-color .35s ease;
   -webkit-appearance: none; appearance: none;
 }
 .cff-input:focus { border-bottom-color: var(--gold); }
 
-.cff-textarea { resize: none; min-height: 100px; line-height: 1.7; }
+.cff-textarea { resize: none; min-height: 80px; line-height: 1.7; }
 
 .cff-submit {
   align-self: flex-start;
@@ -923,7 +923,7 @@ body {
   letter-spacing: .34em; text-transform: uppercase;
   color: var(--ink); background: transparent;
   border: 1px solid rgba(46,42,34,.28); border-radius: 0;
-  padding: 13px 36px; cursor: pointer; margin-top: 6px;
+  padding: 13px 56px; cursor: pointer; margin-top: 6px;
   transition: color .35s ease, border-color .35s ease;
 }
 .cff-submit:hover { color: var(--gold); border-color: var(--gold); }
@@ -932,7 +932,7 @@ body {
   flex: 0 0 auto;
   width: clamp(200px,26vw,300px);
   display: flex; flex-direction: column;
-  justify-content: center;
+  justify-content: center; align-items: center;
   gap: clamp(16px,2.2vh,26px);
 }
 
@@ -941,9 +941,12 @@ body {
   font-weight: 300; font-style: italic;
   font-size: clamp(17px,1.7vw,24px);
   color: var(--ink-mid); letter-spacing: .03em;
+  text-align: center;
 }
 
-/* wa-link uses fn-icon for sizing/colour/hover — no extra rules needed */
+/* WA icon in contact column: override fn-icon's 20px sizing to 44px focal point */
+.contact-wa-col .wa-link.fn-icon { width: auto; height: auto; }
+.contact-wa-col .wa-link svg { width: 44px; height: 44px; display: block; }
 
 
 /* ── Footer ── */
