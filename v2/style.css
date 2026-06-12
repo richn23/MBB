@@ -403,22 +403,17 @@ body {
 
 /* ── Water interlude — editorial quote floating in the light ── */
 .interlude-water {
-  /* Full-viewport fixed overlay, above real sections (z-index: 10) */
+  /* Full-viewport fixed overlay, above real sections (z-index: 10).
+     Solid background: when the interlude appears (p ≥ 0.50) the canvas is
+     covered by the Framework section — water texture is not visible behind it,
+     so a transparent/gradient bg would expose section content. Solid pearl
+     covers it cleanly and matches the section paper colour. */
   left: 0; top: 0;
   width: 100%; height: 100%;
   transform: none;
   z-index: 12;
   text-align: center;
-  /* Gradient veil: transparent at top so canvas atmosphere shows through;
-     creamy pearl at bottom to mask sections rising from below during fade-out. */
-  background: linear-gradient(
-    to bottom,
-    transparent              0%,
-    transparent             38%,
-    rgba(247,243,238,0.45)  58%,
-    rgba(247,243,238,0.85)  76%,
-    rgba(247,243,238,0.98) 100%
-  );
+  background: var(--pearl);
   display: flex;
   align-items: center;
   justify-content: center;

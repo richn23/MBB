@@ -1,25 +1,31 @@
 /* ═══════════════════════════════════════════════════
    SCROLL-DRIVEN ENVIRONMENT — v2
-   1200vh canvas · maxScroll ≈ 12337px (720px viewport)
-   1 screen ≈ 0.058 p-units at 720px viewport.
+   1200vh canvas · real sections ≈ 8976px
+   Actual maxScroll ≈ 16 300px at 668px viewport.
+   1 screen ≈ 0.041 p-units at 668px viewport.
 
    Beat map (progress 0.0 → 1.0):
-   0.00–0.06  Hero visible, auto-reveal already playing
-   0.06–0.13  Hero stage fades out as user begins to scroll
+   0.00–0.06  Hero visible, auto-reveal playing
+   0.06–0.13  Hero stage fades out
    0.18–0.43  Pearl image
-   0.20–0.40  Pearl stationery card (Our Purpose)
-   0.29–0.45  Interlude quote — 3 screens of hold, ends as Framework enters viewport
-   0.47–0.71  Water image
-   0.48–0.72  Caustics
-   0.68–1.00  Finish layer
+   0.20–0.40  Purpose card       — window inside pearl
+   0.43–0.74  Water image        — starts exactly as pearl ends
+   0.44–0.75  Caustics           — tracks water +0.01
+   0.50–0.67  Interlude quote    — STRICTLY inside water plateau (pk=0.48→fo=0.68)
+   0.70–1.00  Finish (white)     — starts after interlude is gone
+
+   Invariants (both scroll directions):
+   · Every value is a pure function of p — no one-way flags.
+   · Pearl and interlude windows have zero overlap.
+   · Purpose card and interlude windows have zero overlap.
+   · Interlude fi > water pk; interlude end < water fo.
+   · Finish fi > interlude end + 0.03 (lerp-lag buffer).
 ═══════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
   /* ══════════════════════════════════════════════════
      CONTACT DETAILS — update BOTH values here only.
-     The phone number and WhatsApp link are set
-     automatically throughout the page from this object.
   ══════════════════════════════════════════════════ */
   var CONTACT = {
     display: '+971 58 881 2769',
@@ -47,43 +53,37 @@
   function lerp(a, b, t) { return a + (b - a) * t; }
 
   /* ── Background layers ──────────────────────────────────────────
-     1200vh canvas · maxScroll ≈ 12337px · 1 screen ≈ 0.058 p-units
-     Rule: plateau ≥ 2.6× fade-in; zones never overlap; gaps ≥ 0.04.
+     All opacities are pure functions of p (reversible).
+     Water zone widened so its plateau fully contains the interlude.
+     Finish delayed so it cannot overlap the interlude even with lerp lag.
   ── */
   var LAYERS = [
-    // Warm drift glow — present from start, held well into water zone
-    { id: 'lDrift',    fi:-0.01, pk:0.00, fo:0.63, end:0.74, maxOp:1.00, init:1.00 },
-    // Pearl image: fade-in 0.05 · plateau 0.14 · fade-out 0.06  (ratio 2.8×)
+    // Drift: present from start, holds through full atmosphere, releases as finish rises
+    { id: 'lDrift',    fi:-0.01, pk:0.00, fo:0.70, end:0.78, maxOp:1.00, init:1.00 },
+    // Pearl: fade-in 0.05 · plateau 0.14 · fade-out 0.06
     { id: 'lPearl',    fi: 0.18, pk:0.23, fo:0.37, end:0.43, maxOp:0.88, init:0 },
-    // Water image: fade-in 0.05 · plateau 0.13 · fade-out 0.06  (ratio 2.6×)
-    { id: 'lWater',    fi: 0.47, pk:0.52, fo:0.65, end:0.71, maxOp:0.82, init:0 },
-    // Caustics: tracks water, offset by +0.01
-    { id: 'lCaustics', fi: 0.48, pk:0.53, fo:0.66, end:0.72, maxOp:1.00, init:0 },
-    // Finish: calm white paper — rises after water, holds forever
-    { id: 'lFinish',   fi: 0.68, pk:0.78, fo:1.00, end:1.00, maxOp:1.00, init:0 },
+    // Water: starts as pearl ends; plateau (0.48–0.68) houses the interlude
+    { id: 'lWater',    fi: 0.43, pk:0.48, fo:0.68, end:0.74, maxOp:0.82, init:0 },
+    // Caustics: tracks water at +0.01 offset
+    { id: 'lCaustics', fi: 0.44, pk:0.49, fo:0.69, end:0.75, maxOp:1.00, init:0 },
+    // Finish: rises after interlude is fully gone (fi > interlude end + buffer)
+    { id: 'lFinish',   fi: 0.70, pk:0.80, fo:1.00, end:1.00, maxOp:1.00, init:0 },
   ];
 
-  /* ── Content cards (fixed overlays during scroll canvas) ──
-     Purpose card: fade-in 0.04 · plateau 0.12 · fade-out 0.04  (ratio 3×)
-     Arrives just as pearl settles; leaves just before pearl fades.
+  /* ── Content cards ──────────────────────────────────────────────
+     Purpose card: inside pearl zone (intentional coexistence).
+     Interlude:    STRICTLY inside water plateau — fi > water pk (0.48),
+                   end < water fo (0.68). Zero overlap with pearl or purpose card.
   ── */
   var CARDS = [
-    { id: 'cardPearl',   fi:0.20, pk:0.24, fo:0.36, end:0.40 },
-    // Interlude: mid-pearl zone, hold ≈ 3 screens, ends when Framework first enters viewport.
-    // Full-viewport z-index:12 overlay in CSS; gradient veil masks sections rising from below.
-    // p-values calibrated for maxScroll ≈ 16 000px (1200vh canvas + real sections).
-    { id: 'interlWater', fi:0.287, pk:0.307, fo:0.430, end:0.450 },
+    { id: 'cardPearl',   fi:0.20,  pk:0.24,  fo:0.36,  end:0.40  },
+    // Overlap audit: pearl ends 0.43, interlude fi 0.50 → gap 0.07 (>1.5 screens)
+    //               purpose card ends 0.40, interlude fi 0.50 → gap 0.10 (>2 screens)
+    //               interlude end 0.668, finish fi 0.70 → gap 0.032 (>0.5 screens)
+    { id: 'interlWater', fi:0.500, pk:0.515, fo:0.655, end:0.668 },
   ];
 
-  /* ── Hero lines
-     delay  = ms from page load before this line's letter stagger begins
-     stagger = ms between each successive letter
-  ── */
-  /* Reveal sequence (prefers-reduced-motion skips entirely via CSS):
-     0ms–720ms  logo mark fades in (CSS animation on .logo-mark)
-     820ms+     line 1 letters stagger in
-     ~1900ms+   line 2 letters stagger in
-     ~2950ms    last letter of line 2 begins fading — full sequence ≈ 3s  */
+  /* ── Hero lines ── */
   var LINES = [
     {
       elId: 'heroLine1', delay: 820, stagger: 52,
@@ -99,22 +99,21 @@
     },
   ];
 
-  var STAGE_FADE_S  = 0.06;   // hero starts fading at 0.79 screens of scroll
-  var STAGE_FADE_E  = 0.13;   // hero fully gone at 1.71 screens
+  var STAGE_FADE_S  = 0.06;
+  var STAGE_FADE_E  = 0.13;
   var HEADER_RISE_S = 0.06;
   var HEADER_RISE_E = 0.18;
+  var HEADER_LIFT_S = STAGE_FADE_E; /* 0.13 */
+  var HEADER_LIFT_E = 0.22;
 
-  /* ── Build letter spans ──────────────────────────
-     Spaces are always-visible text nodes; only non-space
-     characters become .hl spans (start at opacity:0 via CSS,
-     revealed by autoReveal() on a timer).              */
+  /* ── Build hero letter spans ── */
   var lineLetters = LINES.map(function (line) {
     var el = document.getElementById(line.elId);
     var spans = [];
     line.segments.forEach(function (seg) {
       seg.text.split('').forEach(function (char) {
         if (char === ' ') {
-          el.appendChild(document.createTextNode(' '));
+          el.appendChild(document.createTextNode(' '));
         } else {
           var span = document.createElement('span');
           span.className = seg.gold ? 'hl hl-gold' : 'hl';
@@ -127,10 +126,6 @@
     return { spans: spans, delay: line.delay, stagger: line.stagger };
   });
 
-  /* ── Auto-reveal hero letters on load ──
-     Clears both opacity AND blur (blur-to-sharp = engraving emerging from paper).
-     prefers-reduced-motion: CSS sets .hl { opacity:1; filter:none } instantly,
-     so these timeouts fire but have no visual effect.                            */
   function autoReveal() {
     lineLetters.forEach(function (line) {
       line.spans.forEach(function (span, i) {
@@ -165,21 +160,31 @@
   var curLift    = 0;
   var LERP       = 0.07;
 
-  /* Header lift: rises from STAGE_FADE_E (hero fully gone) to 0.22,
-     so the stationery "thickness" appears as the hero disappears. */
-  var HEADER_LIFT_S = STAGE_FADE_E; /* 0.13 */
-  var HEADER_LIFT_E = 0.22;
-
-  /* ── Fade sections — real layout below scroll canvas
-     body { overflow-x: hidden } breaks IntersectionObserver,
-     so we check directly in the tick loop instead.       */
+  /* ── Fade sections — bidirectional, pure function of scroll position ──
+     No "done" flag. is-visible is added OR removed on every tick based
+     solely on getBoundingClientRect().top. Scrolling back up reverses
+     every reveal, making every position look identical in both directions. */
   var fadeSections = Array.prototype.slice.call(
     document.querySelectorAll('.fade-section')
-  ).map(function (el) {
-    return { el: el, done: false };
-  });
+  );
 
-  /* ── Tick ── */
+  /* ── Debug overlay (activate with ?debug=1 in URL) ── */
+  var debugMode = /[?&]debug=1/.test(window.location.search);
+  var dbgEl = null;
+  if (debugMode) {
+    dbgEl = document.createElement('div');
+    dbgEl.id = 'dbgOverlay';
+    dbgEl.style.cssText = [
+      'position:fixed', 'bottom:16px', 'right:16px', 'z-index:9999',
+      'background:rgba(20,14,8,.82)', 'color:#e8dece',
+      'font:11px/1.7 monospace', 'padding:10px 14px',
+      'border-radius:6px', 'pointer-events:none',
+      'white-space:pre', 'border:1px solid rgba(184,144,74,.35)',
+    ].join(';');
+    document.body.appendChild(dbgEl);
+  }
+
+  /* ── Tick — all state is a pure function of scrollY / maxScroll ── */
   function tick() {
     var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     var p  = window.scrollY / maxScroll;
@@ -199,12 +204,12 @@
       if (cardEls[cfg.id]) cardEls[cfg.id].style.opacity = curCard[cfg.id].toFixed(4);
     });
 
-    /* Hero stage — fades out as user scrolls */
+    /* Hero stage */
     var stageTarget = fall(p, STAGE_FADE_S, STAGE_FADE_E);
     curStage = lerp(curStage, stageTarget, LERP);
     if (stageEl) stageEl.style.opacity = curStage.toFixed(4);
 
-    /* Header — fades in as hero fades out */
+    /* Header */
     var headerTarget = rise(p, HEADER_RISE_S, HEADER_RISE_E);
     curHeader = lerp(curHeader, headerTarget, LERP);
     if (headerEl) {
@@ -212,8 +217,7 @@
       headerEl.style.pointerEvents = curHeader > 0.05 ? 'auto' : 'none';
     }
 
-    /* Header lift — near-opaque paper + shadow + blur once hero is gone.
-       Reads as a fixed stationery sheet above the scrolling page.        */
+    /* Header lift */
     var liftTarget = rise(p, HEADER_LIFT_S, HEADER_LIFT_E);
     curLift = lerp(curLift, liftTarget, LERP);
     if (headerEl) {
@@ -232,22 +236,43 @@
       hairlineEl.style.opacity = curLift.toFixed(4);
     }
 
-    /* Fade sections — reveal when top edge enters bottom 85% of viewport */
-    fadeSections.forEach(function (item) {
-      if (item.done) return;
-      var top = item.el.getBoundingClientRect().top;
+    /* Fade sections — pure function: add or remove is-visible based on viewport position.
+       No done flag; scrolling back up reverses reveals identically. */
+    fadeSections.forEach(function (el) {
+      var top = el.getBoundingClientRect().top;
       if (top < vh * 0.85) {
-        item.el.classList.add('is-visible');
-        item.done = true;
+        el.classList.add('is-visible');
+      } else {
+        el.classList.remove('is-visible');
       }
     });
+
+    /* Debug overlay */
+    if (dbgEl) {
+      var lines = [
+        'p=' + p.toFixed(4) + '  y=' + Math.round(window.scrollY) + '/' + Math.round(maxScroll),
+        '─────────────────────',
+      ];
+      LAYERS.forEach(function (cfg) {
+        var tgt = (trapezoid(p, cfg.fi, cfg.pk, cfg.fo, cfg.end) * cfg.maxOp).toFixed(2);
+        var cur = curLayer[cfg.id].toFixed(2);
+        lines.push(cfg.id.padEnd(11) + ' cur=' + cur + ' tgt=' + tgt);
+      });
+      lines.push('─────────────────────');
+      CARDS.forEach(function (cfg) {
+        var tgt = trapezoid(p, cfg.fi, cfg.pk, cfg.fo, cfg.end).toFixed(2);
+        var cur = curCard[cfg.id].toFixed(2);
+        lines.push(cfg.id.padEnd(11) + ' cur=' + cur + ' tgt=' + tgt);
+      });
+      dbgEl.textContent = lines.join('\n');
+    }
 
     requestAnimationFrame(tick);
   }
 
   tick();
 
-  /* ── Contact wiring — driven entirely by the CONTACT constant above ── */
+  /* ── Contact wiring ── */
   (function () {
     var waLink    = document.querySelector('.wa-link');
     var waDisplay = document.querySelector('.wa-display');
@@ -255,7 +280,7 @@
     if (waDisplay) waDisplay.textContent = CONTACT.display;
   })();
 
-  /* ── Contact form — no backend yet ── */
+  /* ── Contact form ── */
   var contactForm = document.getElementById('contactForm');
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) { e.preventDefault(); });
