@@ -100,9 +100,9 @@ body {
 .l-pearl {
   z-index: 2;
   opacity: 0;
-  background-image: url('../images/pearl-water.jpg');
-  background-size: 130%;
-  background-position: 82% 30%;
+  background-image: url('../images/Background-base.png');
+  background-size: cover;
+  background-position: center 35%;
   background-attachment: fixed;
   mix-blend-mode: normal;
   filter: saturate(0.82) brightness(0.96) sepia(0.06);
