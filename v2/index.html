@@ -38,7 +38,7 @@
         </div>
       </div>
       <nav class="sh-right">
-        <a href="#" class="sh-connect">Let's Connect</a>
+        <a href="#sectionContact" class="sh-connect">Let's Connect</a>
       </nav>
     </div>
   </header>
@@ -145,14 +145,15 @@
     </div>
     <div class="contact-wa-col">
       <p class="wa-invite">Prefer to talk?</p>
-      <a class="wa-link" href="https://wa.me/" target="_blank" rel="noopener noreferrer">
+      <!-- href and display text set by CONTACT constant in script.js -->
+      <a class="wa-link" href="#" target="_blank" rel="noopener noreferrer">
         <svg class="wa-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7
                    8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8
                    8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
         </svg>
-        +971 XX XXX XXXX
+        <span class="wa-display"></span>
       </a>
     </div>
   </section>
@@ -165,9 +166,8 @@
       <img src="/assets/compass-star.png" alt="" class="footer-star" />
     </div>
     <nav class="footer-nav" aria-label="Footer navigation">
-      <a href="#" class="fn-link">About</a>
-      <a href="#" class="fn-link">Services</a>
-      <a href="#" class="fn-link">Contact</a>
+      <a href="#sectionAbout"   class="fn-link">About</a>
+      <a href="#sectionContact" class="fn-link">Contact</a>
       <a href="#" class="fn-link fn-icon" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

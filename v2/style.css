@@ -1,3 +1,6 @@
+/* ── Smooth anchor scrolling (Fix 6) ── */
+html { scroll-behavior: smooth; }
+
 /* ═══════════════════════════════════════════════════
    DESIGN TOKENS
 ═══════════════════════════════════════════════════ */
@@ -186,10 +189,11 @@ body {
 
 .hero-line-1 { color: var(--ink); }
 
+/* Fix 3 — tighter scaling so line never clips at viewport edge */
 .hero-line-2 {
   font-weight: 600;
-  font-size: clamp(13px, 1.6vw, 23px);
-  letter-spacing: 0.12em;
+  font-size: clamp(12px, 1.35vw, 22px);
+  letter-spacing: .10em;
   color: var(--ink);
 }
 
@@ -203,7 +207,9 @@ body {
   to   { color: var(--gold-hi); }
 }
 
-.hl { display: inline-block; opacity: 0; }
+/* Fix 1 — transition plays on auto-reveal; initial opacity set here so
+   no FOUC even if JS is slow */
+.hl { display: inline-block; opacity: 0; transition: opacity 0.45s ease; }
 
 
 /* ═══════════════════════════════════════════════════
@@ -218,15 +224,17 @@ body {
   will-change: opacity;
 }
 
+/* Fix 4 — strong paper-tone scrim so nav text stays legible over any content */
 .site-header::before {
   content: '';
   position: absolute;
   inset: 0;
-  height: 110px;
+  height: 120px;
   background: linear-gradient(
     to bottom,
-    rgba(247,243,238,.52) 0%,
-    rgba(247,243,238,.18) 55%,
+    rgba(247,243,238,.94) 0%,
+    rgba(247,243,238,.64) 38%,
+    rgba(247,243,238,.22) 70%,
     transparent 100%
   );
   pointer-events: none;
@@ -724,10 +732,11 @@ body {
 
 
 /* ═══════════════════════════════════════════════════
-   SCROLL CANVAS — 650vh
+   SCROLL CANVAS — 350vh (Fix 2: hero is time-revealed, canvas only
+   needs space for pearl + atmosphere, not letter-reveal distance)
 ═══════════════════════════════════════════════════ */
 .scroll-canvas {
-  height: 650vh;
+  height: 350vh;
   pointer-events: none;
 }
 
@@ -744,6 +753,12 @@ body {
 }
 .fade-section.is-visible { opacity: 1; }
 
+
+/* Fix 4 — give all anchor-targeted sections clearance below the fixed header */
+.section-framework,
+.section-perspectives,
+.section-about,
+.section-contact { scroll-margin-top: 76px; }
 
 /* ── About Ana ── */
 .section-about {
@@ -782,10 +797,11 @@ body {
   margin-bottom: clamp(6px,1vh,14px);
 }
 
+/* Fix 7 — tighter line-height so paragraphs hold together */
 .about-body {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 300; font-size: clamp(15px,1.4vw,20px);
-  line-height: 1.92; letter-spacing: .02em;
+  line-height: 1.62; letter-spacing: .02em;
   color: rgba(46,42,34,.76);
 }
 
@@ -913,6 +929,14 @@ body {
 .fn-icon { width: 20px; height: 20px; }
 .fn-icon svg { width: 20px; height: 20px; display: block; }
 
+
+/* ═══════════════════════════════════════════════════
+   INTERMEDIATE — 601px–900px  Fix 3: prevent hero line 2 overflow
+═══════════════════════════════════════════════════ */
+@media (min-width: 601px) and (max-width: 900px) {
+  .hero-line   { white-space: normal; overflow-wrap: break-word; }
+  .hero-line-2 { font-size: clamp(11px, 1.5vw, 17px); letter-spacing: .06em; }
+}
 
 /* ═══════════════════════════════════════════════════
    MOBILE — ≤ 600px

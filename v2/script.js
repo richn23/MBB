@@ -1,24 +1,30 @@
 /* ═══════════════════════════════════════════════════
    SCROLL-DRIVEN ENVIRONMENT — v2
-   650vh canvas, maxScroll ≈ 550vh
+   350vh canvas, estimated maxScroll ≈ 6200px (720px viewport + ~300vh real sections)
 
    Beat map (progress 0.0 → 1.0):
-   0.00–0.02  Logo alone on calm paper
-   0.02–0.09  Line 1 engraves in
-   0.07–0.16  Line 2 engraves in (overlaps line 1 end)
-   0.17–0.24  Stage fades out (logo + both lines as one)
-   0.24–0.28  Empty paper beat
-   0.28–0.72  Pearl image
-   0.40–0.64  Pearl stationery card
-   0.54–0.88  Water image
-   0.60–0.84  Framework placeholder
-   0.74–0.84  Drift fades out  ← calm prep
-   0.76–0.84  Caustics fade    ← calm prep
-   0.84–1.00  Still finish — real sections scroll in below
+   0.00–0.05  Hero visible, auto-reveal already playing
+   0.05–0.11  Hero stage fades out as user begins to scroll
+   0.14–0.42  Pearl image
+   0.16–0.38  Pearl stationery card (Our Purpose)
+   0.24–0.48  Water image
+   0.26–0.48  Caustics
+   0.28–1.00  Finish layer — holds white through real-section scroll
 ═══════════════════════════════════════════════════ */
 (function () {
   'use strict';
 
+  /* ══════════════════════════════════════════════════
+     CONTACT DETAILS — update BOTH values here only.
+     The phone number and WhatsApp link are set
+     automatically throughout the page from this object.
+  ══════════════════════════════════════════════════ */
+  var CONTACT = {
+    display: '+971 58 881 2769',
+    waUrl:   'https://wa.me/971588812769',
+  };
+
+  /* ── Math helpers ── */
   function smoothstep(t) {
     t = Math.max(0, Math.min(1, t));
     return t * t * (3 - 2 * t);
@@ -40,26 +46,29 @@
 
   /* ── Background layers ── */
   var LAYERS = [
-    { id: 'lDrift',    fi:-0.01, pk: 0.00, fo: 0.74, end: 0.84, maxOp: 1.00, init: 1.00 },
-    { id: 'lPearl',    fi: 0.28, pk: 0.40, fo: 0.60, end: 0.72, maxOp: 0.88, init: 0 },
-    { id: 'lWater',    fi: 0.54, pk: 0.64, fo: 0.80, end: 0.88, maxOp: 0.82, init: 0 },
-    { id: 'lCaustics', fi: 0.56, pk: 0.66, fo: 0.76, end: 0.84, maxOp: 1.00, init: 0 },
-    { id: 'lFinish',   fi: 0.84, pk: 0.92, fo: 1.00, end: 1.00, maxOp: 1.00, init: 0 },
+    { id: 'lDrift',    fi:-0.01, pk:0.00, fo:0.36, end:0.46, maxOp:1.00, init:1.00 },
+    { id: 'lPearl',    fi: 0.14, pk:0.22, fo:0.32, end:0.42, maxOp:0.88, init:0 },
+    { id: 'lWater',    fi: 0.24, pk:0.30, fo:0.40, end:0.48, maxOp:0.82, init:0 },
+    { id: 'lCaustics', fi: 0.26, pk:0.32, fo:0.42, end:0.48, maxOp:1.00, init:0 },
+    { id: 'lFinish',   fi: 0.28, pk:0.36, fo:1.00, end:1.00, maxOp:1.00, init:0 },
   ];
 
   /* ── Content cards (fixed overlays during scroll canvas) ── */
   var CARDS = [
-    { id: 'cardPearl', fi: 0.42, pk: 0.48, fo: 0.56, end: 0.64 },
+    { id: 'cardPearl', fi:0.16, pk:0.22, fo:0.28, end:0.38 },
   ];
 
-  /* ── Hero letter lines ── */
+  /* ── Hero lines
+     delay  = ms from page load before this line's letter stagger begins
+     stagger = ms between each successive letter
+  ── */
   var LINES = [
     {
-      elId: 'heroLine1', start: 0.02, end: 0.09,
+      elId: 'heroLine1', delay: 280, stagger: 48,
       segments: [{ text: 'Meaning beyond brands.', gold: false }],
     },
     {
-      elId: 'heroLine2', start: 0.07, end: 0.16,
+      elId: 'heroLine2', delay: 700, stagger: 42,
       segments: [
         { text: 'Create ',      gold: false },
         { text: 'Meaningful',   gold: true  },
@@ -68,38 +77,47 @@
     },
   ];
 
-  var STAGE_FADE_S = 0.17;
-  var STAGE_FADE_E = 0.24;
+  var STAGE_FADE_S = 0.05;
+  var STAGE_FADE_E = 0.11;
+  var HEADER_RISE_S = 0.05;
+  var HEADER_RISE_E = 0.16;
 
-  /* Build letter spans for each line (segment-aware) */
+  /* ── Build letter spans ──────────────────────────
+     Spaces are always-visible text nodes; only non-space
+     characters become .hl spans (start at opacity:0 via CSS,
+     revealed by autoReveal() on a timer).              */
   var lineLetters = LINES.map(function (line) {
-    var el    = document.getElementById(line.elId);
+    var el = document.getElementById(line.elId);
     var spans = [];
-    var total = line.segments.reduce(function (n, s) { return n + s.text.length; }, 0);
-    var range = line.end - line.start;
-    var win   = range / total * 3.2;
-    var idx   = 0;
-
     line.segments.forEach(function (seg) {
       seg.text.split('').forEach(function (char) {
         if (char === ' ') {
-          el.appendChild(document.createTextNode(' '));
+          el.appendChild(document.createTextNode(' '));
         } else {
           var span = document.createElement('span');
           span.className = seg.gold ? 'hl hl-gold' : 'hl';
           span.textContent = char;
-          span.style.opacity = '0';
           el.appendChild(span);
-          spans.push({ span: span, idx: idx });
+          spans.push(span);
         }
-        idx++;
       });
     });
-
-    return { spans: spans, total: total, start: line.start, end: line.end, window: win };
+    return { spans: spans, delay: line.delay, stagger: line.stagger };
   });
 
-  /* ── Init elements ── */
+  /* ── Auto-reveal hero letters on load ── */
+  function autoReveal() {
+    lineLetters.forEach(function (line) {
+      line.spans.forEach(function (span, i) {
+        setTimeout(function () {
+          span.style.opacity = '1';
+        }, line.delay + i * line.stagger);
+      });
+    });
+  }
+  autoReveal();
+
+  /* ── Init layer and card elements ── */
   var layerEls = {}, cardEls = {}, curLayer = {}, curCard = {};
 
   LAYERS.forEach(function (cfg) {
@@ -119,12 +137,9 @@
   var curHeader = 0;
   var LERP      = 0.07;
 
-  var HEADER_RISE_S = 0.17;
-  var HEADER_RISE_E = 0.30;
-
-  /* ── Fade sections — real layout below the scroll canvas ──
-     body { overflow-x: hidden } breaks IntersectionObserver's viewport root,
-     so we check directly in the tick loop instead.                          */
+  /* ── Fade sections — real layout below scroll canvas
+     body { overflow-x: hidden } breaks IntersectionObserver,
+     so we check directly in the tick loop instead.       */
   var fadeSections = Array.prototype.slice.call(
     document.querySelectorAll('.fade-section')
   ).map(function (el) {
@@ -134,7 +149,7 @@
   /* ── Tick ── */
   function tick() {
     var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-    var p = window.scrollY / maxScroll;
+    var p  = window.scrollY / maxScroll;
     var vh = window.innerHeight;
 
     /* Background layers */
@@ -151,27 +166,18 @@
       if (cardEls[cfg.id]) cardEls[cfg.id].style.opacity = curCard[cfg.id].toFixed(4);
     });
 
-    /* Logo stage */
+    /* Hero stage — fades out as user scrolls */
     var stageTarget = fall(p, STAGE_FADE_S, STAGE_FADE_E);
     curStage = lerp(curStage, stageTarget, LERP);
     if (stageEl) stageEl.style.opacity = curStage.toFixed(4);
 
-    /* Header */
+    /* Header — fades in as hero fades out */
     var headerTarget = rise(p, HEADER_RISE_S, HEADER_RISE_E);
     curHeader = lerp(curHeader, headerTarget, LERP);
     if (headerEl) {
       headerEl.style.opacity = curHeader.toFixed(4);
       headerEl.style.pointerEvents = curHeader > 0.05 ? 'auto' : 'none';
     }
-
-    /* Letter reveal — direct scroll, no lerp */
-    lineLetters.forEach(function (line) {
-      line.spans.forEach(function (item) {
-        var lStart = line.start + (item.idx / line.total) * (line.end - line.start);
-        var lEnd   = lStart + line.window;
-        item.span.style.opacity = rise(p, lStart, lEnd).toFixed(4);
-      });
-    });
 
     /* Fade sections — reveal when top edge enters bottom 85% of viewport */
     fadeSections.forEach(function (item) {
@@ -187,6 +193,14 @@
   }
 
   tick();
+
+  /* ── Contact wiring — driven entirely by the CONTACT constant above ── */
+  (function () {
+    var waLink    = document.querySelector('.wa-link');
+    var waDisplay = document.querySelector('.wa-display');
+    if (waLink)    waLink.href = CONTACT.waUrl;
+    if (waDisplay) waDisplay.textContent = CONTACT.display;
+  })();
 
   /* ── Contact form — no backend yet ── */
   var contactForm = document.getElementById('contactForm');
