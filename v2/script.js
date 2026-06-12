@@ -278,6 +278,24 @@
 
   tick();
 
+  /* ── Emblem decode guard ──────────────────────────────────────────────
+     Drop-shadow is deferred until the image is decoded. On iOS, applying
+     filter to an undecoded image in a fixed stacking context causes a
+     rectangular paint artifact. .img-ready is added after load or
+     immediately when img.complete is already true (cache hit). */
+  (function () {
+    function markReady(img) {
+      if (img) img.classList.add('img-ready');
+    }
+    document.querySelectorAll('.logo-emblem, .sh-emblem').forEach(function (img) {
+      if (img.complete) {
+        markReady(img);
+      } else {
+        img.addEventListener('load', function () { markReady(img); }, { once: true });
+      }
+    });
+  })();
+
   /* ── Contact wiring ── */
   (function () {
     var waLink = document.querySelector('.wa-link');
