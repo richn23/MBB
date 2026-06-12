@@ -372,12 +372,14 @@ body {
 
 
 /* ── Perspectives section ── */
-.card-perspectives {
-  left: 8vw; right: 8vw; top: 50%;
-  transform: translateY(-50%);
+.section-perspectives {
+  position: relative;
+  z-index: 10;
+  background: var(--pearl);
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: clamp(72px, 11vh, 140px) clamp(8vw, 12vw, 160px);
   gap: clamp(36px, 4.5vw, 72px);
 }
 
@@ -938,12 +940,10 @@ body {
   .sh-connect { font-size: 10px; }
 
   /* Perspectives — stack vertically on mobile */
-  .card-perspectives {
+  .section-perspectives {
     flex-direction: column;
-    left: 4vw; right: 4vw;
-    top: 6vh;
-    transform: none;
-    gap: clamp(16px,2.5vh,24px);
+    padding: clamp(56px, 8vh, 96px) clamp(28px, 7vw, 48px);
+    gap: clamp(24px, 3.5vh, 40px);
   }
 
   .persp-header { flex: none; width: 100%; text-align: center; }

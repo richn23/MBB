@@ -49,8 +49,7 @@
 
   /* ── Content cards (fixed overlays during scroll canvas) ── */
   var CARDS = [
-    { id: 'cardPearl',     fi: 0.42, pk: 0.48, fo: 0.56, end: 0.64 },
-    { id: 'cardPerspectives', fi: 0.60, pk: 0.67, fo: 0.76, end: 0.84 },
+    { id: 'cardPearl', fi: 0.42, pk: 0.48, fo: 0.56, end: 0.64 },
   ];
 
   /* ── Hero letter lines ── */
