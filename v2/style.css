@@ -495,23 +495,23 @@ body {
 /* ── Individual spheres ── */
 .pi {
   position: absolute;
-  border-radius: 50%;
-  overflow: hidden; /* clips pi-img, pi-sweep and pi-label to circle */
+  /* No border-radius, no overflow:hidden — the pearl PNG is already a sphere on
+     a transparent background; a circular clip would show the section background
+     colour as a visible disc. Without the clip the sphere floats on the surface. */
   cursor: pointer;
   pointer-events: auto;
   background: transparent;
 
-  /* box-shadow follows border-radius (circular) and is NOT clipped by overflow:hidden —
-     this is the only way to shadow the pearl without touching the image's colours.      */
-  box-shadow:
-    0 10px 32px rgba(74,58,32,.18),
-    0  3px  8px rgba(74,58,32,.10);
+  /* drop-shadow traces the PNG's actual alpha channel (sphere shape), not a box */
+  filter:
+    drop-shadow(0 10px 32px rgba(74,58,32,.18))
+    drop-shadow(0  3px  8px rgba(74,58,32,.10));
 
   transition:
-    box-shadow .85s ease,
-    transform  .95s cubic-bezier(.25, 0, .45, 1);
+    filter    .85s ease,
+    transform .95s cubic-bezier(.25, 0, .45, 1);
 
-  will-change: transform;
+  will-change: transform, filter;
 }
 
 /* Pearl photograph — no filter, no blend mode, no tint.
@@ -538,10 +538,13 @@ body {
 .pi[data-idx="2"] { width: 132px; height: 132px; bottom: 10px; left: 142px; }
 .pi[data-idx="3"] { width: 112px; height: 112px; bottom: 26px; right: 14px; }
 
-/* Hover sweep — diagonal light moving across sphere */
+/* Hover sweep — diagonal light moving across sphere.
+   border-radius clips this gradient to a circle so it stays within the
+   sphere boundary now that .pi itself no longer has overflow:hidden.   */
 .pi-sweep {
   position: absolute;
   inset: 0;
+  border-radius: 50%;
   background: linear-gradient(
     122deg,
     transparent           20%,
@@ -563,9 +566,9 @@ body {
 
 .pi:hover,
 .pi:focus-visible {
-  box-shadow:
-    0 14px 42px rgba(74,58,32,.22),
-    0  4px 10px rgba(74,58,32,.12);
+  filter:
+    drop-shadow(0 14px 42px rgba(74,58,32,.22))
+    drop-shadow(0  4px 10px rgba(74,58,32,.12));
   transform: scale(1.02);
   outline: none;
 }
@@ -1313,7 +1316,7 @@ body {
   .hl { opacity: 1; filter: none; transition: none; }
   .logo-mark { animation: none; opacity: 1; }
 
-  .pi { transition: none; }
+  .pi { transition: none; filter: drop-shadow(0 10px 32px rgba(74,58,32,.18)); }
   .pi-sweep { transition: none; }
 
   .persp-modal,
