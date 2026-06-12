@@ -514,16 +514,22 @@ body {
   will-change: transform;
 }
 
-/* Pearl photograph — no filter, no blend mode, no tint, no manipulation of any kind.
-   object-fit:cover centres and fills the circle; scaling is the only transform.      */
+/* Pearl photograph — no filter, no blend mode, no tint.
+   The sphere occupies ~60% of the source canvas with shadow below.
+   We scale up so the sphere fills the circle and shift the anchor to
+   the pearl body rather than the image midpoint (shadow drops out of frame).
+   overflow:hidden on .pi clips the scaled overflow cleanly.                  */
 .pi-img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 36%;
   display: block;
   pointer-events: none;
+  transform: scale(1.55);
+  transform-origin: 50% 36%;
 }
 
 /* Sizes — [0] newest & largest */
