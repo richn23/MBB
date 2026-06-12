@@ -66,7 +66,9 @@
      Arrives just as pearl settles; leaves just before pearl fades.
   ── */
   var CARDS = [
-    { id: 'cardPearl', fi:0.20, pk:0.24, fo:0.36, end:0.40 },
+    { id: 'cardPearl',   fi:0.20, pk:0.24, fo:0.36, end:0.40 },
+    // Water interlude: appears once water settles, fades before finish layer rises
+    { id: 'interlWater', fi:0.49, pk:0.54, fo:0.62, end:0.67 },
   ];
 
   /* ── Hero lines
