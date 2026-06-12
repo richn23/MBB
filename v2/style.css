@@ -97,12 +97,12 @@ body {
 .l-water {
   z-index: 3;
   opacity: 0;
-  background-image: url('../images/water-sparkle-clean.jpg');
+  background-image: url('../images/water-sparkle-wide.jpg');
   background-size: cover;
-  background-position: center 55%;
+  background-position: center;
   background-attachment: fixed;
   mix-blend-mode: multiply;
-  filter: saturate(0.55) brightness(1.10) sepia(0.12);
+  filter: saturate(0.70) brightness(0.92) sepia(0.10);
   -webkit-mask-image: radial-gradient(
     ellipse 94% 88% at 50% 52%,
     black 22%, rgba(0,0,0,.55) 50%, rgba(0,0,0,.18) 72%, transparent 90%

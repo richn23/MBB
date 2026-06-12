@@ -39,7 +39,7 @@
 
   const LAYERS = [
     { id: 'lPearl',    fi: 0.24, pk: 0.38, fo: 0.68, end: 0.82, maxOp: 0.88 },
-    { id: 'lWater',    fi: 0.52, pk: 0.66, fo: 0.86, end: 0.96, maxOp: 0.58 },
+    { id: 'lWater',    fi: 0.52, pk: 0.66, fo: 0.86, end: 0.96, maxOp: 0.82 },
     { id: 'lCaustics', fi: 0.55, pk: 0.68, fo: 0.86, end: 0.96, maxOp: 1.00 },
     { id: 'lFinish',   fi: 0.84, pk: 0.94, fo: 1.00, end: 1.00, maxOp: 1.00 },
   ];
