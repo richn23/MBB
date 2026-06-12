@@ -6,7 +6,7 @@
   <title>Meaning Beyond Brands</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
   <link rel="preload" as="image" href="../images/Background-base.png" />
   <link rel="preload" as="image" href="../images/water-sparkle-wide.jpg" />
   <link rel="stylesheet" href="style.css" />
@@ -14,27 +14,33 @@
 <body>
 
   <!-- ── Environment layers ── -->
-  <div class="l l-base"                         aria-hidden="true"></div>
-  <div class="l l-drift"    id="lDrift"         aria-hidden="true"></div>
-  <div class="l l-pearl"    id="lPearl"         aria-hidden="true"></div>
-  <div class="l l-water"    id="lWater"         aria-hidden="true"></div>
-  <div class="l l-caustics" id="lCaustics"      aria-hidden="true">
+  <div class="l l-base"                    aria-hidden="true"></div>
+  <div class="l l-drift"    id="lDrift"    aria-hidden="true"></div>
+  <div class="l l-pearl"    id="lPearl"    aria-hidden="true"></div>
+  <div class="l l-water"    id="lWater"    aria-hidden="true"></div>
+  <div class="l l-caustics" id="lCaustics" aria-hidden="true">
     <span class="cs cs--a"></span>
     <span class="cs cs--b"></span>
     <span class="cs cs--c"></span>
     <span class="cs cs--d"></span>
   </div>
-  <div class="l l-finish"   id="lFinish"        aria-hidden="true"></div>
+  <div class="l l-finish"   id="lFinish"   aria-hidden="true"></div>
 
-  <!-- ── Hero: logo + engraved text ── -->
+  <!-- ── Hero: logo + two-line engraved text ── -->
   <div class="logo-stage" id="logoStage">
+
     <div class="logo-mark">
       <img src="../Assets/emblem.jpeg" alt="" class="logo-emblem"
            width="300" height="300" aria-hidden="true" />
     </div>
+
     <div class="hero-copy">
-      <p class="hero-line" id="heroLine" aria-hidden="true"></p>
+      <!-- Line 1: centred in the top half of the logo's vertical span -->
+      <p class="hero-line hero-line-1" id="heroLine1" aria-hidden="true"></p>
+      <!-- Line 2: centred in the lower half — gold, semi-bold -->
+      <p class="hero-line hero-line-2" id="heroLine2" aria-hidden="true"></p>
     </div>
+
   </div>
 
   <!-- ── Pearl zone: stationery card ── -->
