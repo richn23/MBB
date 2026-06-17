@@ -86,7 +86,7 @@
     // Fade-out at fo=0.490 reveals the Framework section cleanly after 1 screen of hold.
     // (The "water plateau" constraint from the prior session assumed a transparent bg;
     //  with solid --pearl background the water layer is irrelevant behind the interlude.)
-    { id: 'interlWater', fi:0.400, pk:0.425, fo:0.490, end:0.560 },
+    { id: 'interlWater', fi:0.400, pk:0.425, fo:0.530, end:0.560 },
   ];
 
   /* ── Hero lines ── */
