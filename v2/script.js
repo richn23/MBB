@@ -190,11 +190,30 @@
     document.body.appendChild(dbgEl);
   }
 
+  /* PHASE 1: idle-check — state for pausing rAF when scroll is idle */
+  var lastScrollY   = -1;
+  var lastScrollTime = 0;
+  var rafPaused     = false;
+
+  window.addEventListener('scroll', function () {
+    lastScrollTime = Date.now();
+    if (rafPaused) { rafPaused = false; tick(); }
+  }, { passive: true });
+
   /* ── Tick — all state is a pure function of scrollY / maxScroll ── */
   function tick() {
     var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     var p  = window.scrollY / maxScroll;
     var vh = window.innerHeight;
+
+    /* PHASE 1+3: read all layout values FIRST, before any style writes.
+       getBoundingClientRect() after style writes forces a synchronous layout
+       flush on every frame — reading up-front avoids that. */
+    var fadeTops = fadeSections.map(function (el) {
+      return el.getBoundingClientRect().top;
+    });
+
+    /* ── All style WRITES below this line ── */
 
     /* Background layers */
     LAYERS.forEach(function (cfg) {
@@ -242,11 +261,9 @@
       hairlineEl.style.opacity = curLift.toFixed(4);
     }
 
-    /* Fade sections — pure function: add or remove is-visible based on viewport position.
-       No done flag; scrolling back up reverses reveals identically. */
-    fadeSections.forEach(function (el) {
-      var top = el.getBoundingClientRect().top;
-      if (top < vh * 0.85) {
+    /* PHASE 3: fade-section writes use pre-read fadeTops — no layout flush */
+    fadeSections.forEach(function (el, i) {
+      if (fadeTops[i] < vh * 0.85) {
         el.classList.add('is-visible');
       } else {
         el.classList.remove('is-visible');
@@ -273,7 +290,18 @@
       dbgEl.textContent = lines.join('\n');
     }
 
-    requestAnimationFrame(tick);
+    /* PHASE 1: idle-check — pause rAF when scroll has been idle >700ms.
+       The scroll listener restarts tick() if the user scrolls again.
+       700ms gives LERP=0.07 ~42 frames to settle (~95% convergence),
+       keeping any residual error below the perceptual threshold. */
+    var now = Date.now();
+    var scrollChanged = window.scrollY !== lastScrollY;
+    lastScrollY = window.scrollY;
+    if (scrollChanged || (now - lastScrollTime < 700)) {
+      requestAnimationFrame(tick);
+    } else {
+      rafPaused = true;
+    }
   }
 
   tick();

@@ -46,7 +46,8 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  will-change: opacity;
+  /* PHASE 1: removed will-change: opacity — permanently promoting 6 full-viewport
+     layers exhausts GPU texture memory on older iPhones */
 }
 
 .l-base {
