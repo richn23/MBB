@@ -9,8 +9,8 @@ html { scroll-behavior: smooth; }
   --pearl-2:     #F1EBE2;
   --calm-white:  #F5F2EF;
   --ink:         #2E2A22;
-  --ink-mid:     rgba(46, 42, 34, 0.65);
-  --ink-soft:    rgba(46, 42, 34, 0.42);
+  --ink-mid:     rgba(46, 42, 34, 0.75);
+  --ink-soft:    rgba(46, 42, 34, 0.58);
   --gold:        #B8904A;
   --gold-hi:     #D4A860;
   --gold-lo:     #A07030;
