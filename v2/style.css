@@ -1119,9 +1119,10 @@ body {
   background: var(--pearl);
 }
 
-/* Each beat fades in individually via the .fade-section tick-loop */
+/* Beat opacity is lerp-driven by tick() — no CSS transition */
 .fw-beat {
   padding: clamp(72px, 11vh, 140px) clamp(8vw, 12vw, 160px);
+  opacity: 0;
 }
 
 /* Gold caps label — shared by all beats */

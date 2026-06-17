@@ -88,7 +88,8 @@
 
   function beat(modifier) {
     var el = document.createElement('div');
-    el.className = 'fw-beat fade-section fw-beat--' + modifier;
+    /* fade-section removed — opacity now lerp-driven in script.js tick() */
+    el.className = 'fw-beat fw-beat--' + modifier;
     return el;
   }
 

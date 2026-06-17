@@ -174,6 +174,12 @@
     document.querySelectorAll('.fade-section')
   );
 
+  /* ── Framework beats — lerp-driven opacity, same LERP as background layers.
+     Beats no longer use .fade-section; opacity is a continuous function of
+     viewport position so they stay in sync with the background during scroll. */
+  var beatEls    = Array.prototype.slice.call(document.querySelectorAll('.fw-beat'));
+  var curBeatOp  = beatEls.map(function () { return 0; });
+
   /* ── Debug overlay (activate with ?debug=1 in URL) ── */
   var debugMode = /[?&]debug=1/.test(window.location.search);
   var dbgEl = null;
@@ -210,6 +216,9 @@
        getBoundingClientRect() after style writes forces a synchronous layout
        flush on every frame — reading up-front avoids that. */
     var fadeTops = fadeSections.map(function (el) {
+      return el.getBoundingClientRect().top;
+    });
+    var beatTops = beatEls.map(function (el) {
       return el.getBoundingClientRect().top;
     });
 
@@ -268,6 +277,14 @@
       } else {
         el.classList.remove('is-visible');
       }
+    });
+
+    /* Framework beats — lerp toward 1 when inside viewport, 0 when outside.
+       Same LERP constant as all other layers; stays in sync during scroll. */
+    beatEls.forEach(function (el, i) {
+      var target     = beatTops[i] < vh * 0.85 ? 1 : 0;
+      curBeatOp[i]   = lerp(curBeatOp[i], target, LERP);
+      el.style.opacity = curBeatOp[i].toFixed(4);
     });
 
     /* Debug overlay */
