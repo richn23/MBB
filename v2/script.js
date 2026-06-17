@@ -86,7 +86,7 @@
     // Fade-out at fo=0.490 reveals the Framework section cleanly after 1 screen of hold.
     // (The "water plateau" constraint from the prior session assumed a transparent bg;
     //  with solid --pearl background the water layer is irrelevant behind the interlude.)
-    { id: 'interlWater', fi:0.400, pk:0.425, fo:0.490, end:0.512 },
+    { id: 'interlWater', fi:0.400, pk:0.425, fo:0.490, end:0.560 },
   ];
 
   /* ── Hero lines ── */
@@ -280,9 +280,15 @@
     });
 
     /* Framework beats — lerp toward 1 when inside viewport, 0 when outside.
-       Same LERP constant as all other layers; stays in sync during scroll. */
+       Same LERP constant as all other layers; stays in sync during scroll.
+       p-gate (p >= 0.56) prevents Beat 1 from lerping while the interlude
+       is still visible (interlWater.end = 0.560), eliminating text bleed-through
+       on desktop where Beat 1 would otherwise reach 90%+ opacity behind the
+       transparent interlude before it finishes fading. All beats share the
+       gate — only Beat 1 is in viewport at p=0.56, so beats 2-6 are unaffected. */
     beatEls.forEach(function (el, i) {
-      var target     = beatTops[i] < vh * 0.85 ? 1 : 0;
+      var inView = beatTops[i] < vh * 0.85;
+      var target  = (inView && p >= 0.56) ? 1 : 0;
       curBeatOp[i]   = lerp(curBeatOp[i], target, LERP);
       el.style.opacity = curBeatOp[i].toFixed(4);
     });

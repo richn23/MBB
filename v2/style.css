@@ -408,16 +408,18 @@ body {
 /* ── Water interlude — editorial quote floating in the light ── */
 .interlude-water {
   /* Full-viewport fixed overlay, above real sections (z-index: 10).
-     Solid background: when the interlude appears (p ≥ 0.50) the canvas is
-     covered by the Framework section — water texture is not visible behind it,
-     so a transparent/gradient bg would expose section content. Solid pearl
-     covers it cleanly and matches the section paper colour. */
+     Transparent background lets the ocean (l-water, z-3) show through.
+     The radial scrim creates a soft pearl halo around the text to protect
+     contrast against the animated water texture and caustic sparkles.
+     Beat 1 bleed-through prevented by p-gate in script.js (p >= 0.56). */
   left: 0; top: 0;
   width: 100%; height: 100%;
   transform: none;
   z-index: 12;
   text-align: center;
-  background: var(--pearl);
+  background: radial-gradient(ellipse 70% 60% at 50% 50%,
+                              rgba(247, 243, 238, 0.52) 0%,
+                              transparent 80%);
   display: flex;
   align-items: center;
   justify-content: center;
