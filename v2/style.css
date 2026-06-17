@@ -1286,8 +1286,8 @@ body {
 /* ── Beat 6: Close — centred, book final page ── */
 .fw-beat--close {
   text-align: center;
-  padding-top: clamp(88px, 14vh, 172px);
-  padding-bottom: clamp(88px, 14vh, 172px);
+  padding-top: clamp(44px, 7vh, 86px);
+  padding-bottom: clamp(44px, 7vh, 86px);
 }
 
 .fw-close-line1 {
@@ -1313,7 +1313,7 @@ body {
 /* ── Framework mobile ≤ 600px ── */
 @media (max-width: 600px) {
   .fw-beat {
-    padding: clamp(56px, 8vh, 96px) clamp(28px, 7vw, 48px);
+    padding: clamp(28px, 4vh, 48px) clamp(28px, 7vw, 48px);
   }
 
   .fw-beat--question {
@@ -1331,8 +1331,8 @@ body {
   .fw-pillar-body { max-width: 100%; }
 
   .fw-beat--close {
-    padding-top: clamp(64px, 10vh, 100px);
-    padding-bottom: clamp(64px, 10vh, 100px);
+    padding-top: clamp(32px, 5vh, 50px);
+    padding-bottom: clamp(32px, 5vh, 50px);
   }
 }
 
