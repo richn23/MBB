@@ -75,7 +75,7 @@ body {
   z-index: 2;
   opacity: 0;
   background-image: url('/images/Background-base.png');
-  background-size: 85% auto;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center top;
   mix-blend-mode: normal;
@@ -377,7 +377,7 @@ body {
 .pc-divider, .persp-divider {
   display: flex; align-items: center; gap: 10px;
 }
-.pc-divider { margin-bottom: 22px; }
+.pc-divider { margin-bottom: 22px; max-width: 55%; margin-left: auto; margin-right: auto; }
 
 .pd-line {
   flex: 1; height: 1px;
