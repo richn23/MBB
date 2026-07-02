@@ -353,7 +353,6 @@ body {
   padding: clamp(56px,8vw,84px) clamp(48px,7vw,70px) clamp(76px,11vw,104px);
   text-align: center;
   filter:
-    brightness(1.08) saturate(0.88)
     drop-shadow(0 20px 40px rgba(50,32,10,.14))
     drop-shadow(0 4px 12px rgba(50,32,10,.10));
 }
