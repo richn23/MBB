@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meaning Beyond Brands</title>
+  <meta name="description" content="Luxury brand strategy and premium brand advisory. Strategy, storytelling, significance." />
+  <meta name="robots" content="noindex" /><!-- V2 is a private review build — remove this line when promoted -->
+
+  <!-- Open Graph -->
+  <meta property="og:title"       content="Meaning Beyond Brands" />
+  <meta property="og:description" content="Luxury brand strategy and premium brand advisory. Strategy, storytelling, significance." />
+  <meta property="og:image"       content="/assets/banner.jpeg" />
+  <meta property="og:type"        content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="/assets/emblem.png?v=4" />
+  <link rel="preload" as="image" href="/images/Background-base.png" />
+  <link rel="preload" as="image" href="/images/water-sparkle-wide.jpg" />
+  <link rel="stylesheet" href="/v2-home/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       SITE HEADER — persistent, reveals as the cinema
+       stage progresses (see main.js applyHeaderState)
+  ═══════════════════════════════════════════════════ -->
+  <header class="site-header" id="siteHeader">
+    <div class="sh-inner">
+      <div class="sh-left">
+        <img src="/assets/emblem.png?v=4" alt="" class="sh-emblem" aria-hidden="true"
+             width="32" height="32" decoding="async" />
+        <div class="sh-brand">
+          <span class="sh-name">Meaning Beyond Brands</span>
+          <span class="sh-tagline">Strategy · Storytelling · Significance</span>
+        </div>
+      </div>
+      <nav class="sh-right">
+        <a href="#contact" class="sh-connect">Let's Connect</a>
+      </nav>
+    </div>
+    <div class="sh-hairline" id="shHairline" aria-hidden="true"></div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       CINEMA — one sticky stage, four movements.
+       Hero → Purpose → Quote → Inspiration all live inside
+       the SAME pinned viewport and share the SAME
+       environment layers, so nothing gets "cut off" between
+       them — see README-V2.md for why this replaced V1's
+       position:fixed + 1200vh-spacer approach.
+  ═══════════════════════════════════════════════════ -->
+  <div class="cinema" id="cinema">
+    <div class="cinema-stage" id="cinemaStage">
+
+      <!-- Environment — reuses V1's exact imagery + masking language -->
+      <div class="env env-base"                 aria-hidden="true"></div>
+      <div class="env env-drift" id="envDrift"   aria-hidden="true"></div>
+      <div class="env env-pearl" id="envPearl"   aria-hidden="true"></div>
+      <div class="env env-water" id="envWater"   aria-hidden="true"></div>
+      <div class="env env-caustics" id="envCaustics" aria-hidden="true">
+        <span class="cs cs--a"></span>
+        <span class="cs cs--b"></span>
+        <span class="cs cs--c"></span>
+        <span class="cs cs--d"></span>
+      </div>
+
+      <!-- Running head / ghost rule — ONE persistent motif, not
+           redrawn per scene. Opacity + weight are a function of
+           cinema progress; it gathers quietly through Quote and
+           resolves to full strength by the time Question opens
+           the next chapter. This is the page's single "folio". -->
+      <div class="motif" id="motif" aria-hidden="true">
+        <span class="motif-line"></span>
+        <img src="/assets/compass-star.png?v=2" alt="" class="motif-star" width="22" height="22" />
+        <span class="motif-line"></span>
+      </div>
+
+      <!-- Scene 1 — Hero -->
+      <div class="scene scene--hero" id="sceneHero">
+        <div class="logo-mark" id="logoMark">
+          <img src="/assets/emblem.png?v=4" alt="" class="logo-emblem"
+               width="280" height="280" decoding="async" aria-hidden="true" />
+        </div>
+        <div class="hero-copy">
+          <p class="hero-line hero-line-1" id="heroLine1" aria-hidden="true"></p>
+          <p class="hero-line hero-line-2" id="heroLine2" aria-hidden="true"></p>
+        </div>
+      </div>
+
+      <!-- Scene 2 — Purpose -->
+      <div class="scene scene--purpose" id="scenePurpose">
+        <div class="pearl-card">
+          <p class="pc-label">Our Purpose</p>
+          <p class="pc-body">We help luxury and premium brands create meaningful
+            growth through strategy, storytelling, and human connection.</p>
+        </div>
+      </div>
+
+      <!-- Scene 3 — Quote -->
+      <div class="scene scene--quote" id="sceneQuote">
+        <p class="quote-text">Meaning is not what a brand says.<br>It is what people remember.</p>
+      </div>
+
+      <!-- Scene 4 — Inspiration (the bridge into the next chapter —
+           still inside the cinema stage on purpose, so the environment
+           never has to be painted over by an opaque section). -->
+      <div class="scene scene--inspiration" id="sceneInspiration">
+        <p class="scene-label">The Inspiration</p>
+        <p class="inspiration-body">The Mercedes&#8209;Benz Formula 1 experience in Abu Dhabi felt
+          exclusive, yet welcoming. It wasn&rsquo;t about cars. It was about belonging,
+          aspiration, culture, access, and identity.</p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       CHAPTER TWO — Question through Close.
+       Real document flow from here on; released naturally
+       by the cinema stage un-sticking, not by a manual gate.
+       Still carries the motif's resolved styling (same label
+       treatment, same measure for Question) so it reads as
+       the next page, not a new document.
+  ═══════════════════════════════════════════════════ -->
+  <section class="chapter" id="chapter">
+
+    <div class="beat beat--question reveal" id="beatQuestion">
+      <p class="beat-label">The Question</p>
+      <p class="pullquote">What are brands doing beyond the products and services they offer?</p>
+    </div>
+
+    <div class="beat beat--insight reveal" id="beatInsight">
+      <p class="beat-label">The Insight</p>
+      <p class="statement">The strongest brands create value beyond what they sell by
+        building experiences, communities, and connections that keep people engaged over time.</p>
+    </div>
+
+    <div class="beat beat--foundation reveal" id="beatFoundation">
+      <p class="beat-label">The Foundation <span class="beat-sublabel">· Business Longevity</span></p>
+      <p class="lead">Longevity isn&rsquo;t created through transactions alone. It&rsquo;s created through connection.</p>
+      <div class="menu">
+        <p class="menu-item">Engage new audiences early</p>
+        <div class="menu-rule" aria-hidden="true"></div>
+        <p class="menu-item">Build meaningful relationships</p>
+        <div class="menu-rule" aria-hidden="true"></div>
+        <p class="menu-item">Create evolving communities</p>
+        <div class="menu-rule" aria-hidden="true"></div>
+        <p class="menu-item">Achieve lasting relevance and growth</p>
+      </div>
+    </div>
+
+    <div class="beat beat--pillars reveal" id="beatPillars">
+      <p class="pillars-intro">We help brands grow through four pillars.</p>
+      <div class="pillars-grid">
+        <div class="pillar">
+          <span class="pillar-num" aria-hidden="true">01</span>
+          <h3 class="pillar-name">Clarify</h3>
+          <p class="pillar-body">Define what your brand truly stands for — its values, its voice, and the specific people it exists to serve.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num" aria-hidden="true">02</span>
+          <h3 class="pillar-name">Connect</h3>
+          <p class="pillar-body">Build the relationships and communities that turn one-time customers into a loyal, long-term audience.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num" aria-hidden="true">03</span>
+          <h3 class="pillar-name">Inspire</h3>
+          <p class="pillar-body">Create experiences and stories that resonate deeply, and elevate how your brand is felt as well as seen.</p>
+        </div>
+        <div class="pillar">
+          <span class="pillar-num" aria-hidden="true">04</span>
+          <h3 class="pillar-name">Elevate</h3>
+          <p class="pillar-body">Position your brand for lasting relevance — growing in meaning, not just in market share.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="beat beat--close reveal" id="beatClose">
+      <p class="close-line1">Because the brands that last are rarely the loudest.</p>
+      <p class="close-line2">They&rsquo;re the brands that create <span class="close-gold">meaning beyond what they sell.</span></p>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       PERSPECTIVES — pearls carry no text; a single shared
+       caption beneath the cluster reveals title + date on
+       hover/focus. Same organic, hand-placed arrangement as V1.
+  ═══════════════════════════════════════════════════ -->
+  <section class="perspectives reveal" id="perspectives">
+    <div class="persp-header">
+      <h2 class="persp-heading">Perspectives</h2>
+      <div class="motif motif--static" aria-hidden="true">
+        <span class="motif-line"></span>
+        <img src="/assets/compass-star.png?v=2" alt="" class="motif-star" width="18" height="18" />
+        <span class="motif-line"></span>
+      </div>
+      <p class="persp-sub">Thoughts on branding, meaning,<br>storytelling, and long-term value.</p>
+    </div>
+
+    <div class="pearl-column">
+      <div class="pearl-stage" id="pearlStage" aria-label="Perspectives collection">
+        <!-- Populated by perspectives.js -->
+      </div>
+      <p class="pearl-caption" id="pearlCaption" aria-live="polite">
+        <span class="pc-title">Select a pearl to preview an article</span>
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       ABOUT — a short hinge line carries the reader from
+       "her ideas" to "her, in person" before the portrait.
+  ═══════════════════════════════════════════════════ -->
+  <section class="about reveal" id="about">
+    <p class="about-hinge"><!-- new connective line — flagged for review -->
+      Behind these ideas is one person. Here&rsquo;s a little about her.
+    </p>
+    <div class="about-body">
+      <div class="about-portrait">
+        <img src="/assets/founder.jpeg" alt="Ana, founder of Meaning Beyond Brands" class="about-img" />
+      </div>
+      <div class="about-text">
+        <h2 class="about-heading">Ana</h2>
+        <p class="about-p">With a background in English Literature and over four years of professional experience in Dubai, Ana has always been drawn to the stories, ideas, and connections that bring people together.</p>
+        <p class="about-p">Through Meaning Beyond Brands, she helps businesses create value beyond what they sell by engaging new audiences, crafting meaningful experiences, and building relationships that endure.</p>
+        <p class="about-p">Her vision is to contribute to the UAE&rsquo;s business landscape by helping brands remain relevant, connected, and meaningful in an ever-evolving world.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       CONTACT — a short closing line before the form, so
+       the visitor arrives already wanting to write.
+  ═══════════════════════════════════════════════════ -->
+  <section class="contact reveal" id="contact">
+    <p class="contact-close"><!-- new connective line — flagged for review -->
+      If any of this resonates, the next step is simply a conversation.
+    </p>
+    <div class="contact-body">
+      <div class="contact-form-col">
+        <p class="contact-heading">Get in Touch</p>
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="cf-field">
+            <label class="cf-label" for="cfName">Name</label>
+            <input class="cf-input" type="text" id="cfName" name="name" autocomplete="name" />
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="cfEmail">Email</label>
+            <input class="cf-input" type="email" id="cfEmail" name="email" autocomplete="email" />
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="cfMessage">Message</label>
+            <textarea class="cf-input cf-textarea" id="cfMessage" name="message" rows="4"></textarea>
+          </div>
+          <button class="cf-submit" type="submit">Send</button>
+        </form>
+      </div>
+      <div class="contact-wa-col">
+        <p class="wa-invite">Prefer to chat?</p>
+        <a class="wa-link" href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="44" height="44">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ── Footer ── -->
+  <footer class="site-footer reveal">
+    <div class="footer-rule" aria-hidden="true"></div>
+    <img src="/assets/compass-star.png?v=2" alt="" class="footer-star" aria-hidden="true" />
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="#about" class="fn-link">About</a>
+      <a href="#contact" class="fn-link">Contact</a>
+      <a href="https://www.instagram.com/meaningbeyondbrands?igsh=MWs0cXdvdGk5dm9yaQ==" class="fn-link fn-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="https://www.linkedin.com/company/meaning-beyond-brands/" class="fn-link fn-icon" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <rect x="2" y="2" width="20" height="20" rx="4"/><line x1="8" y1="11" x2="8" y2="17"/><line x1="8" y1="7.5" x2="8" y2="8.5"/><polyline points="12,11 12,17"/><path d="M12 14a2.5 2.5 0 0 1 5 0v3"/>
+        </svg>
+      </a>
+    </nav>
+  </footer>
+
+
+  <!-- ── Perspectives modal (reused pattern from V1) ── -->
+  <div class="persp-backdrop" id="perspBackdrop" aria-hidden="true"></div>
+  <div class="persp-modal" id="perspModal" role="dialog" aria-modal="true" aria-labelledby="perspModalTitle">
+    <button class="pm-close" id="perspClose" aria-label="Close">✕</button>
+    <img src="/assets/compass-star.png?v=2" alt="" class="pm-star" width="24" height="24" />
+    <p class="pm-byline"></p>
+    <h2 class="pm-title" id="perspModalTitle"></h2>
+    <div class="pm-divider" aria-hidden="true"><span class="pd-line"></span><span class="pd-gem">✦</span><span class="pd-line"></span></div>
+    <div class="pm-lines"></div>
+    <p class="pm-ellipsis" aria-hidden="true">…</p>
+    <div class="pm-foot-rule" aria-hidden="true"></div>
+    <div class="pm-footer">
+      <a class="pm-continue" href="#" target="_blank" rel="noopener noreferrer">Continue reading on LinkedIn ↗</a>
+    </div>
+  </div>
+
+
+  <script src="/v2-home/main.js"></script>
+  <script src="/v2-home/perspectives.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Article 1",
+    "date": "Jun 2026",
+    "lines": [
+      "Placeholder opening line for article one — sets the scene and draws the reader in.",
+      "Second line continues the thought, building on the idea introduced above.",
+      "Third line deepens the argument with a nuance or example worth considering.",
+      "Fourth line begins to resolve the tension, leaving the reader wanting the rest."
+    ],
+    "url": "#"
+  },
+  {
+    "title": "Article 2",
+    "date": "May 2026",
+    "lines": [
+      "Placeholder opening line for article two — a different angle on the same territory.",
+      "Second line grounds the piece in a specific observation or moment.",
+      "Third line introduces the broader implication — why this matters beyond the obvious.",
+      "Fourth line signals the depth of what follows, without giving it away entirely."
+    ],
+    "url": "#"
+  },
+  {
+    "title": "Article 3",
+    "date": "Apr 2026",
+    "lines": [
+      "Placeholder opening line for article three — quieter in tone, more reflective.",
+      "Second line draws a distinction that most writing on this subject tends to miss.",
+      "Third line opens up the space between what brands say and what they actually mean.",
+      "Fourth line invites the reader to sit with the question rather than reach for an answer."
+    ],
+    "url": "#"
+  },
+  {
+    "title": "Article 4",
+    "date": "Mar 2026",
+    "lines": [
+      "Placeholder opening line for article four — the earliest piece, still holding its ground.",
+      "Second line names something that was true then and has only become more so since.",
+      "Third line builds the case methodically, trusting the reader to follow the logic.",
+      "Fourth line lands on a conviction — not a recommendation, a position."
+    ],
+    "url": "#"
+  }
+]
