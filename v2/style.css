@@ -75,7 +75,8 @@ body {
   z-index: 2;
   opacity: 0;
   background-image: url('/images/Background-base.png');
-  background-size: cover;
+  background-size: 65% auto;
+  background-repeat: no-repeat;
   background-position: left top;
   mix-blend-mode: normal;
   filter: saturate(0.84) brightness(0.95) sepia(0.05);
@@ -345,19 +346,17 @@ body {
 }
 
 .pearl-card {
-  position: relative; overflow: hidden;
-  background-image: url('/images/our-purpose-paper-blank.png?v=2');
-  background-size: cover; background-position: center;
-  background-color: #F6F1E8;
-  border-radius: 3px;
-  padding: clamp(36px,4.5vw,58px) clamp(36px,4.2vw,56px);
+  position: relative;
+  background-image: url('/images/our-purpose-bubble.png?v=2');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  aspect-ratio: 901 / 1057;
+  padding: clamp(56px,8vw,84px) clamp(48px,7vw,70px) clamp(76px,11vw,104px);
   text-align: center;
-  box-shadow:
-    0  1px  2px  rgba(50,32,10,.06),
-    0  4px  10px rgba(50,32,10,.07),
-    0 12px  28px rgba(50,32,10,.06),
-    0 30px  60px rgba(50,32,10,.05),
-    4px 6px 24px rgba(50,32,10,.04);
+  filter:
+    drop-shadow(0 20px 40px rgba(50,32,10,.14))
+    drop-shadow(0 4px 12px rgba(50,32,10,.10));
 }
 
 .pc-star-wrap { display: flex; justify-content: center; margin-bottom: 14px; }
@@ -1357,3 +1356,4 @@ body {
   .persp-backdrop,
   .fade-section { transition: none; }
 }
+                                                 
