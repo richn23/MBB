@@ -107,10 +107,15 @@ img { max-width: 100%; display: block; }
 .env-pearl {
   z-index: 2;
   background-image: url('/images/Background-base.png');
-  background-size: 82% auto; background-repeat: no-repeat; background-position: center top;
+  /* cover — not a fixed %, so the photo always bleeds edge-to-edge and can
+     never expose a hard rectangular boundary, regardless of viewport shape */
+  background-size: cover; background-repeat: no-repeat; background-position: center top;
   filter: saturate(0.84) brightness(0.95) sepia(0.05);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,.6) 78%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, black 55%, rgba(0,0,0,.6) 78%, transparent 100%);
+  /* Radial mask fades on ALL sides (not just the bottom), so the visible
+     window dissolves into the page before it ever reaches an edge. Centred
+     roughly where the shell/pearl subject sits in the source photo. */
+  -webkit-mask-image: radial-gradient(ellipse 76% 60% at 30% 28%, black 30%, rgba(0,0,0,.5) 60%, transparent 90%);
+  mask-image: radial-gradient(ellipse 76% 60% at 30% 28%, black 30%, rgba(0,0,0,.5) 60%, transparent 90%);
 }
 .env-water {
   z-index: 3;
