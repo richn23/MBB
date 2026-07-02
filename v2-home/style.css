@@ -177,7 +177,7 @@ img { max-width: 100%; display: block; }
   background-size: contain; background-repeat: no-repeat; background-position: center;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 14px; padding: 14% 12% 20%;
-  filter: drop-shadow(0 20px 40px rgba(50,32,10,.14)) drop-shadow(0 4px 12px rgba(50,32,10,.1));
+  /* filter: drop-shadow(0 8px 18px rgba(50,32,10,.08)); — add back if too flat */
 }
 .pc-label {
   font-family: var(--serif); font-weight: 400; font-size: clamp(9px,.9vw,12px);
