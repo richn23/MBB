@@ -75,7 +75,7 @@ body {
   z-index: 2;
   opacity: 0;
   background-image: url('/images/Background-base.png');
-  background-size: cover;
+  background-size: 85% auto;
   background-repeat: no-repeat;
   background-position: center top;
   mix-blend-mode: normal;
@@ -332,14 +332,14 @@ body {
 .card-pearl {
   right: 8vw; top: 50%;
   transform: translateY(-50%);
-  width: clamp(280px, 30vw, 420px);
+  width: clamp(320px, 35vw, 480px);
 }
 
 @media (max-width: 800px) {
   .card-pearl {
     right: auto; left: 50%; top: auto; bottom: 8vh;
     transform: translateX(-50%);
-    width: clamp(280px, 80vw, 420px);
+    width: clamp(300px, 85vw, 460px);
   }
 }
 
@@ -353,6 +353,7 @@ body {
   padding: clamp(56px,8vw,84px) clamp(48px,7vw,70px) clamp(76px,11vw,104px);
   text-align: center;
   filter:
+    brightness(1.08) saturate(0.88)
     drop-shadow(0 20px 40px rgba(50,32,10,.14))
     drop-shadow(0 4px 12px rgba(50,32,10,.10));
 }
