@@ -345,12 +345,12 @@ body {
 
 .pearl-card {
   position: relative;
-  background-image: url('/images/our-purpose-bubble.png?v=2');
+  background-image: url('/images/our-purpose-bubble.png?v=3');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  aspect-ratio: 901 / 1057;
-  padding: clamp(56px,8vw,84px) clamp(48px,7vw,70px) clamp(76px,11vw,104px);
+  aspect-ratio: 1024 / 1289;
+  padding: clamp(60px,9vw,92px) clamp(50px,7.5vw,74px) clamp(90px,13vw,130px);
   text-align: center;
   filter:
     drop-shadow(0 20px 40px rgba(50,32,10,.14))
