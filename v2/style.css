@@ -79,7 +79,7 @@ body {
   background-repeat: no-repeat;
   background-position: left top;
   mix-blend-mode: normal;
-  filter: saturate(0.84) brightness(0.95) sepia(0.05);
+  filter: saturate(1.05) brightness(0.98);
   -webkit-mask-image: linear-gradient(to bottom,
     black 0%, black 60%, rgba(0,0,0,.65) 80%, transparent 100%);
   mask-image: linear-gradient(to bottom,
