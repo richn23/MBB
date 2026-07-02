@@ -75,17 +75,15 @@ body {
   z-index: 2;
   opacity: 0;
   background-image: url('/images/Background-base.png');
-  background-size: 65% auto;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: left top;
+  background-position: center top;
   mix-blend-mode: normal;
   filter: saturate(0.84) brightness(0.95) sepia(0.05);
-  -webkit-mask-image: linear-gradient(145deg,
-    black 0%, black 30%, rgba(0,0,0,.80) 50%,
-    rgba(0,0,0,.42) 68%, rgba(0,0,0,.12) 82%, transparent 95%);
-  mask-image: linear-gradient(145deg,
-    black 0%, black 30%, rgba(0,0,0,.80) 50%,
-    rgba(0,0,0,.42) 68%, rgba(0,0,0,.12) 82%, transparent 95%);
+  -webkit-mask-image: linear-gradient(to bottom,
+    black 0%, black 60%, rgba(0,0,0,.65) 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom,
+    black 0%, black 60%, rgba(0,0,0,.65) 80%, transparent 100%);
 }
 
 .l-water {
@@ -1356,4 +1354,3 @@ body {
   .persp-backdrop,
   .fade-section { transition: none; }
 }
-                                                 
