@@ -74,12 +74,12 @@ body {
 .l-pearl {
   z-index: 2;
   opacity: 0;
-  background-image: url('/images/Background-base-2.png');
+  background-image: url('/images/Background-base.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left top;
   mix-blend-mode: normal;
-  filter: saturate(1.05) brightness(0.98);
+  filter: saturate(0.84) brightness(0.95) sepia(0.05);
   -webkit-mask-image: linear-gradient(to bottom,
     black 0%, black 60%, rgba(0,0,0,.65) 80%, transparent 100%);
   mask-image: linear-gradient(to bottom,
