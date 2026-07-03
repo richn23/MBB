@@ -348,16 +348,17 @@ body {
 .pearl-card {
   position: absolute;
   z-index: 1;
-  left: 56.5%; top: 56.5%;
-  transform: translate(-50%, -50%);
-  width: min(360px, 40%);
+  right: 8vw; top: 50%;
+  transform: translateY(-50%);
+  width: clamp(340px, 42vw, 560px);
   text-align: center;
 }
 
 @media (max-width: 800px) {
   .pearl-card {
-    left: 56%; top: 58%;
-    width: min(300px, 62%);
+    right: auto; left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(300px, 84vw, 420px);
   }
 }
 
@@ -394,10 +395,10 @@ body {
 
 .pc-body {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 400; font-size: clamp(15px,1.35vw,19px);
-  letter-spacing: .025em; line-height: 1.72;
-  color: rgba(46,42,34,.80);
-  text-shadow: 0 1px 0 rgba(255,255,255,.38);
+  font-weight: 300; font-style: italic; font-size: clamp(22px,2.2vw,34px);
+  letter-spacing: .02em; line-height: 1.5;
+  color: rgba(46,42,34,.82);
+  text-shadow: 0 1px 0 rgba(255,255,255,.45);
   max-width: 82%; margin-left: auto; margin-right: auto;
 }
 
