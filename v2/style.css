@@ -350,7 +350,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
   aspect-ratio: 1024 / 1289;
-  padding: clamp(90px,13vw,130px) clamp(50px,7.5vw,74px) clamp(60px,9vw,92px);
+  padding: clamp(55px,8vw,82px) clamp(70px,10vw,100px) clamp(85px,12vw,120px);
   text-align: center;
   filter: drop-shadow(0 6px 12px rgba(0,0,0,.06));
 }
