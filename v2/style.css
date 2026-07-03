@@ -330,9 +330,9 @@ body {
 
 /* ── Our Purpose card ── */
 .card-pearl {
-  right: 8vw; top: 50%;
+  right: 4vw; top: calc(50% + 2.5vh);
   transform: translateY(-50%);
-  width: clamp(320px, 35vw, 480px);
+  width: clamp(360px, 40vw, 540px);
 }
 
 @media (max-width: 800px) {
