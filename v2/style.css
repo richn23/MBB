@@ -328,37 +328,37 @@ body {
   z-index: 8;
 }
 
-/* ── Our Purpose card ── */
+/* ── Our Purpose — full-section art-directed photo ──
+   .card-pearl is now the full-bleed frame (was a small right-aligned
+   card). .pc-art holds the photo; .pearl-card is repositioned to sit
+   as plain text over the blank bubble baked into that photo — no
+   background-image, no shape, no filter here anymore. */
 .card-pearl {
-  right: calc(4vw - 50px); top: calc(50% + 2.5vh + 25px);
-  transform: translateY(-50%);
-  width: clamp(360px, 40vw, 540px);
+  inset: 0;
+  width: 100%; height: 100%;
 }
 
-@media (max-width: 800px) {
-  .card-pearl {
-    right: auto; left: 50%; top: auto; bottom: 8vh;
-    transform: translateX(-50%);
-    width: clamp(300px, 85vw, 460px);
-  }
+.pc-art { position: absolute; inset: 0; z-index: 0; }
+.pc-art-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  display: block;
 }
 
 .pearl-card {
-  position: relative;
-  background-image: url('/images/our-purpose-bubble-raw.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: min(380px, 76vw);
-  aspect-ratio: 1024 / 1289;
-  padding: 22% 17% 18%;
+  position: absolute;
+  z-index: 1;
+  left: 56.5%; top: 56.5%;
+  transform: translate(-50%, -50%);
+  width: min(360px, 40%);
   text-align: center;
-  filter:
-    sepia(.08)
-    saturate(.88)
-    brightness(.82)
-    drop-shadow(0 6px 14px rgba(50,32,10,.06))
-    drop-shadow(0 14px 10px rgba(50,32,10,.07));
+}
+
+@media (max-width: 800px) {
+  .pearl-card {
+    left: 56%; top: 58%;
+    width: min(300px, 62%);
+  }
 }
 
 .pc-star-wrap { display: flex; justify-content: center; margin-bottom: 14px; }
