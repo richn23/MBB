@@ -30,7 +30,7 @@
       item.setAttribute('data-idx', String(idx));
       item.setAttribute('role', 'button');
       item.setAttribute('tabindex', '0');
-      item.setAttribute('aria-label', article.title + ', ' + article.date);
+      item.setAttribute('aria-label', article.title);
 
       var img = document.createElement('img');
       img.src = '/assets/pearl.png';
@@ -51,11 +51,7 @@
       var title = document.createElement('span');
       title.className = 'pc-title';
       title.textContent = a.title;
-      var date = document.createElement('span');
-      date.className = 'pc-date';
-      date.textContent = a.date;
       caption.appendChild(title);
-      caption.appendChild(date);
     }
 
     /* Works for mouse hover AND touch (a tap focuses a
@@ -97,7 +93,7 @@
     var backdrop = document.getElementById('perspBackdrop');
     if (!modal || !backdrop) return;
 
-    modal.querySelector('.pm-byline').textContent = 'Published on LinkedIn · ' + article.date;
+    modal.querySelector('.pm-byline').textContent = 'Published on LinkedIn';
     modal.querySelector('.pm-title').textContent = article.title;
     var linesEl = modal.querySelector('.pm-lines');
     linesEl.innerHTML = '';

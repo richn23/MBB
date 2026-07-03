@@ -27,7 +27,7 @@
       item.setAttribute('data-idx', String(idx));
       item.setAttribute('role', 'button');
       item.setAttribute('tabindex', '0');
-      item.setAttribute('aria-label', article.title + ', ' + article.date);
+      item.setAttribute('aria-label', article.title);
 
       /* Pearl photograph — rendered as-is, no filter, no tint, no blend mode.
          The image's natural warm tone IS the correct colour.                  */
@@ -51,12 +51,7 @@
       titleEl.className = 'pi-title';
       titleEl.textContent = article.title;
 
-      var dateEl = document.createElement('span');
-      dateEl.className = 'pi-date';
-      dateEl.textContent = article.date;
-
       label.appendChild(titleEl);
-      label.appendChild(dateEl);
       item.appendChild(label);
 
       stage.appendChild(item);
@@ -107,8 +102,7 @@
     if (!modal || !backdrop) return;
 
     /* Populate */
-    modal.querySelector('.pm-byline').textContent =
-      'Published on LinkedIn · ' + article.date;
+    modal.querySelector('.pm-byline').textContent = 'Published on LinkedIn';
 
     var titleEl = modal.querySelector('.pm-title');
     titleEl.textContent = article.title;
