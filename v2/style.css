@@ -345,16 +345,14 @@ body {
 
 .pearl-card {
   position: relative;
-  background-image: url('/images/our-purpose-bubble.png?v=3');
+  background-image: url('/images/our-purpose-bubble-raw.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   aspect-ratio: 1024 / 1289;
   padding: clamp(60px,9vw,92px) clamp(50px,7.5vw,74px) clamp(90px,13vw,130px);
   text-align: center;
-  filter:
-    drop-shadow(0 20px 40px rgba(50,32,10,.14))
-    drop-shadow(0 4px 12px rgba(50,32,10,.10));
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.06));
 }
 
 .pc-star-wrap { display: flex; justify-content: center; margin-bottom: 14px; }
