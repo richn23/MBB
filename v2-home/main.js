@@ -48,9 +48,8 @@
      "does this feel like one experience" lever in this file. ── */
   var ENV = [
     { id: 'envDrift',    fi:-0.02, pk:0.02, fo:0.85, end:0.97, maxOp:1.00 },
-    { id: 'envPearl',    fi: 0.08, pk:0.12, fo:0.15, end:0.17, maxOp:0.85 }, /* short peak (0.12-0.15) so the lerp
-       smoothing has room to actually reach maxOp before fading; ends exactly as scenePurpose.fi begins so its
-       own dedicated photo takes over with no double-exposure */
+    { id: 'envPearl',    fi: 0.08, pk:0.15, fo:0.34, end:0.40, maxOp:0.85 }, /* sole background art behind
+       Hero + Purpose text now (no dedicated Purpose photo); hands off cleanly to envWater at 0.34 */
     { id: 'envWater',    fi: 0.34, pk:0.42, fo:0.80, end:0.95, maxOp:0.78 },
     { id: 'envCaustics', fi: 0.35, pk:0.43, fo:0.81, end:0.96, maxOp:1.00 },
   ];

@@ -170,31 +170,20 @@ img { max-width: 100%; display: block; }
 .hl { display: inline-block; opacity: 0; filter: blur(1.5px); transition: opacity .55s ease, filter .55s ease; }
 .hl-gold { color: var(--gold); }
 
-/* Purpose — full-section art-directed photo, same technique as V1:
-   .pc-art is the full-bleed photo, .pearl-card is plain text sitting
-   over the blank bubble already baked into that photo. */
-.pc-art { position: absolute; inset: 0; z-index: 0; }
-.pc-art-img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
-
+/* Purpose — plain text over the persistent ambient background (env-pearl).
+   No photo, no bubble — same simple centred layout as Quote/Inspiration. */
 .pearl-card {
-  position: absolute; z-index: 1;
-  left: 56.5%; top: 56.5%; transform: translate(-50%, -50%);
-  width: min(340px, 40%);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 14px; text-align: center;
-}
-@media (max-width: 800px) {
-  .pearl-card { left: 56%; top: 58%; width: min(280px, 62%); }
 }
 .pc-label {
   font-family: var(--serif); font-weight: 400; font-size: clamp(9px,.9vw,12px);
   letter-spacing: .34em; text-transform: uppercase; color: var(--gold);
-  max-width: 82%; margin-left: auto; margin-right: auto;
 }
 .pc-body {
   font-family: var(--serif); font-weight: 400; font-size: clamp(15px,1.35vw,19px);
   line-height: 1.72; letter-spacing: .02em; color: rgba(46,42,34,.82);
-  max-width: 82%; margin-left: auto; margin-right: auto;
+  max-width: var(--measure);
 }
 
 /* Quote + Inspiration share one visual register — same measure,
