@@ -330,7 +330,7 @@ body {
 
 /* ── Our Purpose card ── */
 .card-pearl {
-  right: 4vw; top: calc(50% + 2.5vh);
+  right: calc(4vw - 50px); top: calc(50% + 2.5vh + 25px);
   transform: translateY(-50%);
   width: clamp(360px, 40vw, 540px);
 }
@@ -356,8 +356,9 @@ body {
   filter:
     sepia(.08)
     saturate(.88)
-    brightness(.94)
-    drop-shadow(0 6px 14px rgba(50,32,10,.06));
+    brightness(.82)
+    drop-shadow(0 6px 14px rgba(50,32,10,.06))
+    drop-shadow(0 14px 10px rgba(50,32,10,.07));
 }
 
 .pc-star-wrap { display: flex; justify-content: center; margin-bottom: 14px; }
@@ -393,8 +394,8 @@ body {
 
 .pc-body {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 400; font-size: clamp(14px,1.35vw,18px);
-  letter-spacing: .025em; line-height: 1.65;
+  font-weight: 400; font-size: clamp(15px,1.35vw,19px);
+  letter-spacing: .025em; line-height: 1.72;
   color: rgba(46,42,34,.80);
   text-shadow: 0 1px 0 rgba(255,255,255,.38);
   max-width: 82%; margin-left: auto; margin-right: auto;

@@ -180,8 +180,9 @@ img { max-width: 100%; display: block; }
   filter:
     sepia(.08)
     saturate(.88)
-    brightness(.94)
-    drop-shadow(0 6px 14px rgba(50,32,10,.06));
+    brightness(.82)
+    drop-shadow(0 6px 14px rgba(50,32,10,.06))
+    drop-shadow(0 14px 10px rgba(50,32,10,.07));
 }
 .pc-label {
   font-family: var(--serif); font-weight: 400; font-size: clamp(9px,.9vw,12px);
@@ -189,8 +190,8 @@ img { max-width: 100%; display: block; }
   max-width: 82%; margin-left: auto; margin-right: auto;
 }
 .pc-body {
-  font-family: var(--serif); font-weight: 400; font-size: clamp(14px,1.35vw,18px);
-  line-height: 1.65; letter-spacing: .02em; color: rgba(46,42,34,.82);
+  font-family: var(--serif); font-weight: 400; font-size: clamp(15px,1.35vw,19px);
+  line-height: 1.72; letter-spacing: .02em; color: rgba(46,42,34,.82);
   max-width: 82%; margin-left: auto; margin-right: auto;
 }
 
@@ -463,7 +464,7 @@ img { max-width: 100%; display: block; }
 ═══════════════════════════════════════════════════ */
 @media (min-width: 801px) {
   .scene--hero    { align-items: flex-start; text-align: left; padding-left: 8vw; }
-  .scene--purpose { align-items: flex-end;   padding-right: 4vw; padding-top: 2.5vh; }
+  .scene--purpose { align-items: flex-end;   padding-right: calc(4vw - 50px); padding-top: calc(2.5vh + 25px); }
 
   .pearl-stage { width: 480px; height: 380px; }
   .pi[data-idx="0"] { width: 200px; height: 200px; top:  18px; left:  18px; }
